@@ -1,8 +1,5 @@
 package towerDefense;
 
-import towerDefense.entity.tiles.Mountain;
-import towerDefense.entity.tiles.Road;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -27,18 +24,18 @@ public class GameStage {
                 final int height = scanner.nextInt();
                 final int totalTiles = scanner.nextInt();
                 final List<towerDefense.entity.GameEntity> entities = new ArrayList<>(width * height + totalTiles);
-                for (int y = 0; y < height; y++) {
-                    for (int x = 0; x < width; x++) {
-                        final int value = scanner.nextInt();
-                        if (value == 0) {
-                            entities.add(new Road(0, x, y));
-                        } else if (value == 1) {
-                            entities.add(new Mountain(0, x, y));
-                        } else {
-                            throw new InputMismatchException("Unexpected value! Input value: " + value);
-                        }
-                    }
-                }
+                // for (int y = 0; y < height; y++) {
+                //     for (int x = 0; x < width; x++) {
+                //         final int value = scanner.nextInt();
+                //         if (value == 0) {
+                //             entities.add(new Road(0, x, y));
+                //         } else if (value == 1) {
+                //             entities.add(new Mountain(0, x, y));
+                //         } else {
+                //             throw new InputMismatchException("Unexpected value! Input value: " + value);
+                //         }
+                //     }
+                // }
 
             } catch (NoSuchElementException e) {
                 throw new IOException("Resource invalid! Resource name: " + name, e);

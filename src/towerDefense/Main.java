@@ -34,16 +34,12 @@ public class Main extends Application {
         scene = new Scene(root, (double)Config.SCREEN_WIDTH, (double)Config.SCREEN_HEIGHT);
         
 
-        primaryStage.setResizable(true);
+        primaryStage.setResizable(false);
         primaryStage.setTitle(Config.GAME_NAME);
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Image object = new Image("./Sprites/terminal-app.png");
-        ImageView view = new ImageView(object);
-        Sprite test = new Sprite(layer, object, 200, 200);
-        sprites.add(test);
-        layer.getChildren().add(view);
+        loadMap();
 
         AnimationTimer loop = new AnimationTimer(){
         
@@ -53,6 +49,13 @@ public class Main extends Application {
             }
         };
         loop.start();
+    }
+
+    public void loadMap()
+    {
+        Image map = new Image("./res/images/TowerDefense.png");
+        ImageView mapBG = new ImageView(map);
+        layer.getChildren().addAll(mapBG);
     }
 
     public static void main(String[] args) {

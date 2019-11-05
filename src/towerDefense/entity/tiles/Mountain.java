@@ -1,9 +1,10 @@
-package towerDefense.entity.tiles;
+// package towerDefense.entity.tiles;
 
-import towerDefense.EntityClass;
+// import towerDefense.EntityClass;
 
-public final class Mountain extends EntityClass {
-    public Mountain(long tick, long posX, long posY) {
-        super(tick, posX, posY, 1L, 1L);
-    }
-}
+// public final class Mountain extends EntityClass {
+//     public Mountain(long tick, long posX, long posY) {
+//         Image mountainImg = new Image()
+//         super(tick, posX, posY, 1L, 1L);
+//     }
+// }
