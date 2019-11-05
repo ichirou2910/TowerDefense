@@ -1,18 +1,36 @@
 package towerDefense;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+
 public abstract class EntityClass implements towerDefense.entity.GameEntity {
+    
+    private Image image;
+    private ImageView imageView;
+    private Pane layer;
+
     private final long tick;
     private double posX;
     private double posY;
+    private double rotation;
     private double width;
     private double height;
 
-    protected EntityClass(long tick, double posX, double posY, double width, double height) {
+    protected EntityClass(Pane layer, Image image, long tick, double posX, double posY, double rotation, double width, double height) {
+        
+        this.layer = layer;
+        this.image = image;
         this.tick = tick;
         this.posX = posX;
         this.posY = posY;
+        this.rotation = rotation;
         this.width = width;
         this.height = height;
+
+        imageView = new ImageView();
+        this.imageView.relocate(posX, posY);
+        this.imageView.setRotate(rotation);
     }
     // Getters & Setters
     //#region
@@ -39,6 +57,14 @@ public abstract class EntityClass implements towerDefense.entity.GameEntity {
         this.posY = posY;
     }
 
+    public double getRotation() {
+        return this.rotation;
+    }
+
+    public void setRotation(double rotation) {
+        this.rotation = rotation;
+    }
+
     @Override
     public final double getWidth() {
         return width;
@@ -56,7 +82,38 @@ public abstract class EntityClass implements towerDefense.entity.GameEntity {
     protected final void setHeight(double height) {
         this.height = height;
     }
+
+    public Image getImage()
+    {
+        return this.image;
+    }
+
+    public ImageView getImageView()
+    {
+        return this.imageView;
+    }
+
+    public Pane getLayer()
+    {
+        return this.layer;
+    }
     //#endregion
+
+    public void addToLayer() {
+
+        this.layer.getChildren().add(this.imageView);
+    }
+
+    public void removeFromLayer() {
+
+        this.layer.getChildren().remove(this.imageView);
+    }
+
+    public void update()
+    {
+        imageView.relocate(posX, posY);
+        imageView.setRotate(rotation);
+    }
 
     @Override
     public final boolean overlapped(double posX, double posY, double width, double height) {

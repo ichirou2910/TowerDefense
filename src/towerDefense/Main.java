@@ -4,18 +4,11 @@ import java.util.*;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-// import javafx.scene.layout.StackPane;
-import javafx.scene.text.FontSmoothingType;
 import javafx.stage.Stage;
 import towerDefense.entity.Sprite;
 
@@ -43,7 +36,6 @@ public class Main extends Application {
 
         primaryStage.setResizable(true);
         primaryStage.setTitle(Config.GAME_NAME);
-        // primaryStage.setScene(new Scene(new StackPane(canvas)));
         primaryStage.setScene(scene);
         primaryStage.show();
 
