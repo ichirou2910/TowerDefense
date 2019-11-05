@@ -1,7 +1,7 @@
-module TowerDefense {
-    requires javafx.fxml;
-    requires javafx.controls;
+// module TowerDefense {
+//     requires javafx.fxml;
+//     requires javafx.controls;
 
-    exports towerDefense;
-    opens towerDefense to javafx.graphics;
-}
+//     exports towerDefense;
+//     opens towerDefense to javafx.graphics;
+// }

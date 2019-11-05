@@ -1,4 +1,5 @@
-/.settings
-/.vscode
-/.idea
+.settings
+.vscode
+.idea
 .classpath
+/src/module-info.java

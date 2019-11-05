@@ -1,4 +1,4 @@
-package towerDefense;
+package towerDefense.entity;
 
 public interface GameEntity {
     double getPosX();

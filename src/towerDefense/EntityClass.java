@@ -1,6 +1,6 @@
 package towerDefense;
 
-public abstract class EntityClass implements towerDefense.GameEntity {
+public abstract class EntityClass implements towerDefense.entity.GameEntity {
     private final long tick;
     private double posX;
     private double posY;
@@ -14,7 +14,8 @@ public abstract class EntityClass implements towerDefense.GameEntity {
         this.width = width;
         this.height = height;
     }
-
+    // Getters & Setters
+    //#region
     @Override
     public final long getTick() {
         return tick;
@@ -55,6 +56,7 @@ public abstract class EntityClass implements towerDefense.GameEntity {
     protected final void setHeight(double height) {
         this.height = height;
     }
+    //#endregion
 
     @Override
     public final boolean overlapped(double posX, double posY, double width, double height) {
@@ -63,4 +65,5 @@ public abstract class EntityClass implements towerDefense.GameEntity {
                 && posX + width > this.posX
                 && posY + height > this.posY;
     }
+    
 }

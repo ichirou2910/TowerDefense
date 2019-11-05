@@ -1,12 +1,13 @@
 package towerDefense;
 
 import java.util.*;
+import towerDefense.entity.*;
 
 public class GameField {
     private final double width;
     private final double height;
     private long tick;
-    private final List<towerDefense.GameEntity> entities = new ArrayList<>(Config.TILES_TOTAL);
+    private final List<GameEntity> entities = new ArrayList<>(Config.TILES_TOTAL);
 
     public GameField(GameStage gameStage) {
         this.width = gameStage.getWidth();

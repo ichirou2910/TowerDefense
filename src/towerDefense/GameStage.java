@@ -10,9 +10,9 @@ import java.util.*;
 public class GameStage {
     private final long width;
     private final long height;
-    private final List<towerDefense.GameEntity> entities;
+    private final List<towerDefense.entity.GameEntity> entities;
 
-    public GameStage(long width, long height, List<towerDefense.GameEntity> entities) {
+    public GameStage(long width, long height, List<towerDefense.entity.GameEntity> entities) {
         this.width = width;
         this.height = height;
         this.entities = List.copyOf(entities);
@@ -26,7 +26,7 @@ public class GameStage {
                 final int width = scanner.nextInt();
                 final int height = scanner.nextInt();
                 final int totalTiles = scanner.nextInt();
-                final List<towerDefense.GameEntity> entities = new ArrayList<>(width * height + totalTiles);
+                final List<towerDefense.entity.GameEntity> entities = new ArrayList<>(width * height + totalTiles);
                 for (int y = 0; y < height; y++) {
                     for (int x = 0; x < width; x++) {
                         final int value = scanner.nextInt();
@@ -43,6 +43,9 @@ public class GameStage {
             } catch (NoSuchElementException e) {
                 throw new IOException("Resource invalid! Resource name: " + name, e);
             }
+            finally {
+                scanner.close();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,7 +61,7 @@ public class GameStage {
         return height;
     }
 
-    public final List<towerDefense.GameEntity> getEntities() {
+    public final List<towerDefense.entity.GameEntity> getEntities() {
         return entities;
     }
 }
