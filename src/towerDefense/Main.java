@@ -20,12 +20,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // final Canvas canvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-        // final GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-        // // final Controller gameController = new Controller(graphicsContext);
-
-        // canvas.setFocusTraversable(true);
-        // graphicsContext.setFontSmoothingType(FontSmoothingType.LCD);
 
         Group root = new Group();
         layer = new Pane();
@@ -53,7 +47,7 @@ public class Main extends Application {
 
     public void loadMap()
     {
-        Image map = new Image("./res/images/TowerDefense.png");
+        Image map = new Image(getClass().getResource("TowerDefense.png").toExternalForm());
         ImageView mapBG = new ImageView(map);
         layer.getChildren().addAll(mapBG);
     }
