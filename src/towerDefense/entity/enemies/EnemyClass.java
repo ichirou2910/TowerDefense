@@ -15,9 +15,9 @@ public abstract class EnemyClass extends EntityClass {
 
     private HealthBar healthBar = new HealthBar(this.getLayer());
 
-    protected EnemyClass(Pane layer, Image image, long tick, double posX, double posY, double dx, double dy, double rotation, double width, double height
+    protected EnemyClass(Pane layer, Image image, long tick, double posX, double posY, double rotation, double width, double height
                         , int health, int armor, double speed, int reward){
-        super(layer, image, tick, posX, posY, dx, dy, rotation, width, height);
+        super(layer, image, tick, posX, posY, rotation, width, height);
         this.health = health;
         this.armor = armor;
         this.speed = speed;

@@ -38,39 +38,40 @@ public class Main extends Application {
         primaryStage.show();
 
         load();
+        gf.spawnEnemies(layer, n_Enemy);
         //Get a single enemy for Testing
-        NormalEnemy e = gf.spawnEnemies(layer, n_Enemy);
-        ImageView t = e.getImageView();
+//        NormalEnemy e = gf.spawnEnemies(layer, n_Enemy);
+//        ImageView t = e.getImageView();
 
 
         //Path Test
-        Path path = new Path();
-        path.getElements().add(new MoveTo(46 - 23, 0));
-        path.getElements().add(new LineTo(46 - 23, 4*46));
-        path.getElements().add(new LineTo(12*46 - 23, 4*46));
-        path.getElements().add(new LineTo(12*46 - 23, 10*46));
-        path.getElements().add(new LineTo(-46*2 - 23, 10*46));
-        path.getElements().add(new LineTo(-46*2 - 23, 14*46));
-        path.getElements().add(new LineTo(14*46 - 23, 14*46));
-        path.getElements().add(new LineTo(14*46 - 23, 18*46));
-
-        PathTransition pt = new PathTransition();
-        pt.setDuration(Duration.millis(20000));
-        pt.setPath(path);
-        pt.setNode(t);
-        pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pt.play();
+//        Path path = new Path();
+//        path.getElements().add(new MoveTo(46 - 23, 0));
+//        path.getElements().add(new LineTo(46 - 23, 4*46));
+//        path.getElements().add(new LineTo(12*46 - 23, 4*46));
+//        path.getElements().add(new LineTo(12*46 - 23, 10*46));
+//        path.getElements().add(new LineTo(-46*2 - 23, 10*46));
+//        path.getElements().add(new LineTo(-46*2 - 23, 14*46));
+//        path.getElements().add(new LineTo(14*46 - 23, 14*46));
+//        path.getElements().add(new LineTo(14*46 - 23, 18*46));
+//
+//        PathTransition pt = new PathTransition();
+//        pt.setDuration(Duration.millis(20000));
+//        pt.setPath(path);
+//        pt.setNode(t);
+//        pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+//        pt.play();
         //End Test
 
-//        AnimationTimer loop = new AnimationTimer(){
-//
-//            @Override
-//            public void handle(long now) {
-//                gf.update();
-//                // gf.removeSprites();
-//            }
-//        };
-//        loop.start();
+        AnimationTimer loop = new AnimationTimer(){
+
+            @Override
+            public void handle(long now) {
+                gf.update();
+                // gf.removeSprites();
+            }
+        };
+        loop.start();
     }
 
     public void load()

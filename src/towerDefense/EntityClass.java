@@ -1,10 +1,11 @@
 package towerDefense;
 
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public abstract class EntityClass implements towerDefense.entity.GameEntity {
+public abstract class EntityClass extends Node implements towerDefense.entity.GameEntity {
     
     private Image image;
     private ImageView imageView;
@@ -13,21 +14,18 @@ public abstract class EntityClass implements towerDefense.entity.GameEntity {
     private final long tick;
     private double posX;
     private double posY;
-    private double dx;
-    private double dy;
     private double rotation;
     private double width;
     private double height;
+    private int moveSet = 1;
 
-    protected EntityClass(Pane layer, Image image, long tick, double posX, double posY, double dx, double dy, double rotation, double width, double height) {
+    protected EntityClass(Pane layer, Image image, long tick, double posX, double posY, double rotation, double width, double height) {
         
         this.layer = layer;
         this.image = image;
         this.tick = tick;
         this.posX = posX;
         this.posY = posY;
-        this.dx = dx;
-        this.dy = dy;
         this.rotation = rotation;
         this.width = width;
         this.height = height;
@@ -123,8 +121,40 @@ public abstract class EntityClass implements towerDefense.entity.GameEntity {
 
     public void move()
     {
-        posX += dx;
-        posY += dy;
+        //Change rotation
+        if(posX == 5*46 - 23 && posY == 5*46 - 23) {
+            rotation = 0;
+            moveSet = 2;
+        }
+        if(posX == 16*46 - 23 && posY == 5*46 - 23) {
+            rotation = 90;
+            moveSet = 1;
+        }
+        if(posX == 16*46 - 23 && posY == 11*46 - 23) {
+            rotation = 180;
+            moveSet = 3;
+        }
+        if(posX == 2*46 - 23 && posY == 11*46 - 23) {
+            rotation = 90;
+            moveSet = 1;
+        }
+        if(posX == 2*46 - 23 && posY == 15*46 - 23) {
+            rotation = 0;
+            moveSet = 2;
+        }
+        if(posX == 18*46 - 23 && posY == 15*46 - 23) {
+            rotation = 90;
+            moveSet = 1;
+        }
+        if(moveSet == 1) {
+            posY += Config.NORMAL_SPEED;
+        }
+        if(moveSet == 2) {
+            posX += Config.NORMAL_SPEED;
+        }
+        if(moveSet == 3) {
+            posX -= Config.NORMAL_SPEED;
+        }
     }
 
     @Override
@@ -134,5 +164,9 @@ public abstract class EntityClass implements towerDefense.entity.GameEntity {
                 && posX + width > this.posX
                 && posY + height > this.posY;
     }
-    
+
+    @Override
+    public Node getStyleableNode() {
+        return null;
+    }
 }
