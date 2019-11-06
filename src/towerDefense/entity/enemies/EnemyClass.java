@@ -19,14 +19,17 @@ public abstract class EnemyClass extends EntityClass {
         this.speed = speed;
         this.reward = reward;
     }
-    //Setter
+    
+    // Getters & Setters
+    //#region
     public void setHealth(int health) {this.health = health;}
     public void setArmor(int armor) {this.armor = armor;}
     public void setSpeed(double speed) {this.speed = speed;}
     public void setReward (int reward) {this.reward = reward;}
-    //Getter
+    
     public int getHealth() {return this.health;}
     public int getArmor() {return this.armor;}
     public double getSpeed() {return this.speed;}
     public int getReward() {return this.reward;}
+    //#endregion
 }
