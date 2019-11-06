@@ -117,7 +117,7 @@ public abstract class EntityClass implements towerDefense.entity.GameEntity {
 
     public void update()
     {
-        imageView.relocate(posX + 1, posY + 1);
+        imageView.relocate(posX, posY);
         imageView.setRotate(rotation);
     }
 

@@ -4,14 +4,13 @@ import java.util.*;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import towerDefense.entity.*;
-import towerDefense.entity.enemies.NormalEnemy;
+import towerDefense.entity.enemies.*;
 
 public class GameField {
     private final double width;
     private final double height;
     private long tick;
-    private final List<GameEntity> entities = new ArrayList<>(Config.TILES_TOTAL);
+    private final List<EntityClass> entities = new ArrayList<>(Config.TILES_TOTAL);
 
     public GameField(GameStage gameStage) {
         this.width = gameStage.getWidth();
@@ -35,10 +34,28 @@ public class GameField {
     }
     //#endregion
 
-    public void spawnEnemies(Pane layer)
+    public void spawnEnemies(Pane layer, Image image)
     {
-        Image n_Enemy = new Image("/res/images/enemies/Normal.png");
-        NormalEnemy e1 = new NormalEnemy(layer, n_Enemy, 0, 5*46 - 23, 0, -1, -1, 90, 46, 46, 100, 100, 1, 100);
+        NormalEnemy e1 = new NormalEnemy(layer, image, 0, 5*46 - 23, 0, 0, 1, 90, 46, 46, 100, 100, 1, 100);
         entities.add(e1);
+        System.out.println("Enemy created");
+    }
+
+    public void update()
+    {
+        entities.forEach(e -> e.move());
+        entities.forEach(e -> e.update());
+    }
+
+    // only needed for enemies removal
+    // TODO: 
+    public void removeSprites()
+    {
+        Iterator<EntityClass> iter = entities.iterator();
+        while( iter.hasNext()) {
+            EntityClass en = iter.next();
+            en.removeFromLayer();
+            iter.remove();
+        }
     }
 }

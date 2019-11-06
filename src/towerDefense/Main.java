@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import towerDefense.entity.enemies.*;
 
 public class Main extends Application {
     
@@ -19,6 +18,7 @@ public class Main extends Application {
     List<EntityClass> entities = new ArrayList<>();
     GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities);
     GameField gf = new GameField(gs);
+    Image map, n_Enemy;
 
     @Override
     public void start(Stage primaryStage) {
@@ -33,37 +33,27 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        loadMap();
-        gf.spawnEnemies(layer);
+        load();
+        gf.spawnEnemies(layer, n_Enemy);
 
         AnimationTimer loop = new AnimationTimer(){
         
             @Override
             public void handle(long now) {
-                entities.forEach(e -> e.move());
-                entities.forEach(e -> e.update());
-                removeSprites(entities);
-                System.out.println(entities.get(0).getPosX());
+                gf.update();
+                // gf.removeSprites();
             }
         };
         loop.start();
     }
 
-    public void loadMap()
+    public void load()
     {
-        Image map = new Image("/res/images/TowerDefense.png");
+        map = new Image("/res/images/TowerDefense.png");
         ImageView mapBG = new ImageView(map);
         layer.getChildren().addAll(mapBG);
-    }
 
-    public void removeSprites(List<EntityClass> e)
-    {
-        Iterator<EntityClass> iter = e.iterator();
-        while( iter.hasNext()) {
-            EntityClass en = iter.next();
-            en.removeFromLayer();
-            iter.remove();
-        }
+        n_Enemy = new Image("/res/images/enemies/Normal.png");
     }
 
     public static void main(String[] args) {

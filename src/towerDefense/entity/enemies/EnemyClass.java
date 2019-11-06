@@ -3,6 +3,7 @@ package towerDefense.entity.enemies;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import towerDefense.EntityClass;
+import towerDefense.ui.*;
 
 public abstract class EnemyClass extends EntityClass {
 
@@ -11,6 +12,8 @@ public abstract class EnemyClass extends EntityClass {
     private double speed;
     
     private int reward;
+
+    private HealthBar healthBar = new HealthBar(this.getLayer());
 
     protected EnemyClass(Pane layer, Image image, long tick, double posX, double posY, double dx, double dy, double rotation, double width, double height
                         , int health, int armor, double speed, int reward){
