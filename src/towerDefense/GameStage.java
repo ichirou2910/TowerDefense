@@ -5,11 +5,11 @@ package towerDefense;
 import java.util.*;
 
 public class GameStage {
-    private final long width;
-    private final long height;
-    private final List<towerDefense.entity.GameEntity> entities;
+    private final int width;
+    private final int height;
+    private final List<towerDefense.EntityClass> entities;
 
-    public GameStage(long width, long height, List<towerDefense.entity.GameEntity> entities) {
+    public GameStage(int width, int height, List<towerDefense.EntityClass> entities) {
         this.width = width;
         this.height = height;
         this.entities = List.copyOf(entities);
@@ -50,15 +50,15 @@ public class GameStage {
     //     return null;
     // }
 
-    public final long getWidth() {
+    public final int getWidth() {
         return width;
     }
 
-    public final long getHeight() {
+    public final int getHeight() {
         return height;
     }
 
-    public final List<towerDefense.entity.GameEntity> getEntities() {
+    public final List<towerDefense.EntityClass> getEntities() {
         return entities;
     }
 }

@@ -13,24 +13,30 @@ public abstract class EntityClass implements towerDefense.entity.GameEntity {
     private final long tick;
     private double posX;
     private double posY;
+    private double dx;
+    private double dy;
     private double rotation;
     private double width;
     private double height;
 
-    protected EntityClass(Pane layer, Image image, long tick, double posX, double posY, double rotation, double width, double height) {
+    protected EntityClass(Pane layer, Image image, long tick, double posX, double posY, double dx, double dy, double rotation, double width, double height) {
         
         this.layer = layer;
         this.image = image;
         this.tick = tick;
         this.posX = posX;
         this.posY = posY;
+        this.dx = dx;
+        this.dy = dy;
         this.rotation = rotation;
         this.width = width;
         this.height = height;
 
-        imageView = new ImageView();
+        this.imageView = new ImageView(image);
         this.imageView.relocate(posX, posY);
         this.imageView.setRotate(rotation);
+
+        addToLayer();
     }
     // Getters & Setters
     //#region
@@ -111,8 +117,14 @@ public abstract class EntityClass implements towerDefense.entity.GameEntity {
 
     public void update()
     {
-        imageView.relocate(posX, posY);
+        imageView.relocate(posX + 1, posY + 1);
         imageView.setRotate(rotation);
+    }
+
+    public void move()
+    {
+        posX += dx;
+        posY += dy;
     }
 
     @Override
