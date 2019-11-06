@@ -36,7 +36,7 @@ public class GameField {
 
     public NormalEnemy spawnEnemies(Pane layer, Image image)
     {
-        NormalEnemy e1 = new NormalEnemy(layer, image, 0, 5*46 - 23, 46, 90, 46, 46, 100, 100, 1, 100);
+        NormalEnemy e1 = new NormalEnemy(layer, image, 10, 5*46 - 23, 46, 90, 46, 46, 100, 100, 1, 100);
         entities.add(e1);
         System.out.println("Enemy created");
         return e1;

@@ -9,23 +9,41 @@ import javafx.scene.shape.Rectangle;
  */
 public class HealthBar {
 
-    Rectangle current = new Rectangle();
-    Rectangle lost = new Rectangle();
+    private Rectangle current = new Rectangle();
+    private Rectangle lost;
     
     public HealthBar() {}
 
-    public HealthBar(Pane layer)
+    public HealthBar(Pane layer, double posX, double posY)
     {
         double height = 10;
         double width = 40;
 
-        double x = 0.0;
-        double y = 0.0;
-
-        current = new Rectangle(x, y, width, height);
+        current = new Rectangle(posX, posY, width, height);
         current.setFill(Color.GREEN);
-        lost = new Rectangle(x, y, width, height);
+        lost = new Rectangle(posX, posY, width, height);
+        lost.setFill(Color.RED);
 
-        layer.getChildren().add(current);
+        layer.getChildren().addAll(lost, current);
+    }
+
+    public void updateCurrent(double posX, double posY)
+    {
+        current.setX(posX);
+        current.setY(posY);
+    }
+
+    public void updateLost(double posX, double posY)
+    {
+        lost.setX(posX);
+        lost.setY(posY);
+    }
+
+    public void update(double curHP, double maxHP, double posX, double posY)
+    {
+        double percentage = curHP / maxHP;
+        current.setWidth(40 * percentage);
+        updateCurrent(posX - 20, posY - 20);
+        updateLost(posX - 20, posY - 20);
     }
 }

@@ -14,6 +14,8 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     private final long tick;
     private double posX;
     private double posY;
+    private double midX;
+    private double midY;
     private double rotation;
     private double width;
     private double height;
@@ -25,7 +27,9 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
         this.image = image;
         this.tick = tick;
         this.posX = posX;
+        this.midX = posX + image.getWidth() / 2;
         this.posY = posY;
+        this.midY = posY + image.getHeight() / 2;
         this.rotation = rotation;
         this.width = width;
         this.height = height;
@@ -56,6 +60,8 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     public final double getPosY() {
         return posY;
     }
+    public double getMidX() { return this.midX; }
+    public double getMidY() { return this.midY; }
 
     protected final void setPosY(double posY) {
         this.posY = posY;
@@ -155,6 +161,8 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
         if(moveSet == 3) {
             posX -= Config.NORMAL_SPEED;
         }
+        midX = posX + image.getWidth() / 2;
+        midY = posY + image.getHeight() / 2;
     }
 
     @Override
