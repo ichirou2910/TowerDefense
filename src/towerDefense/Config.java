@@ -16,6 +16,10 @@ public class Config {
     public static final int SCREEN_HEIGHT = VERTICAL_TILES * TILE_SIZE;
 
     //Enemies
+    //Number of waves
+    public final static int WAVE = 3;
+    //Enemies per wave
+    public final static int WAVE_NUM = 20;
     //Normal Enemies
     public final static int NORMAL_HEALTH = 100;
     public final static int NORMAL_ARMOR = 75;

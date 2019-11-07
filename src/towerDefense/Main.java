@@ -12,13 +12,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    
+
+
     Pane layer;
     Scene scene;
     List<EntityClass> entities = new ArrayList<>();
-    GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities);
+    GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities, 3, 20);
     GameField gf = new GameField(gs);
-    Image map, n_Enemy;
+    Image map, n_Enemy, s_Enemy, t_Enemy, b_Enemy;
 
     @Override
     public void start(Stage primaryStage) {
@@ -33,7 +34,7 @@ public class Main extends Application {
         primaryStage.show();
 
         load();
-        gf.spawnEnemies(layer, n_Enemy);
+
         //Get a single enemy for Testing
 //        NormalEnemy e = gf.spawnEnemies(layer, n_Enemy);
 //        ImageView t = e.getImageView();
@@ -62,6 +63,7 @@ public class Main extends Application {
 
             @Override
             public void handle(long now) {
+                gf.spawnNormalEnemies(layer, n_Enemy);
                 gf.update();
                 // gf.removeSprites();
             }
@@ -76,6 +78,10 @@ public class Main extends Application {
         layer.getChildren().addAll(mapBG);
 
         n_Enemy = new Image("file:src/res/images/enemies/Normal.png");
+        s_Enemy = new Image("file:src/res/images/enemies/Smaller.png");
+        t_Enemy = new Image("file:src/res/images/enemies/Tanker.png");
+        b_Enemy = new Image("file:src/res/images/enemies/Boss.png");
+
     }
 
     public static void main(String[] args) {
