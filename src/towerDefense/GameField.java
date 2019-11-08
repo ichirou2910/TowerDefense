@@ -1,18 +1,21 @@
 package towerDefense;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.*;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import towerDefense.entity.enemies.*;
+import javafx.util.Pair;
+import towerDefense.entity.tiles.spawner.*;
 
 public class GameField {
     private final double width;
     private final double height;
     private long tick;
     private final List<EntityClass> entities = new ArrayList<>(Config.TILES_TOTAL);
-    //Timer for spawning, will be imported to class Spawner SoonTM
-    private int timer = 0;
+    private Queue<Pair<String, Double>> enemiesQueue = new LinkedList<>();
+    private double timer = 0;
 
     public GameField(GameStage gameStage) {
         this.width = gameStage.getWidth();
@@ -36,49 +39,60 @@ public class GameField {
     }
     //#endregion
 
-    public void spawnNormalEnemies(Pane layer, Image image)
+    // load enemies info from file to queue
+    public void loadQueue(Pane layer, int levelIndex)
     {
-        if(timer == 0)
+        try (FileInputStream str = new FileInputStream("src/res/stages/Level" + levelIndex + ".txt")) {
+            
+            final Scanner in = new Scanner(str);
+            try
+            {
+                for (int i = 0; i < 7; i++)
+                    in.nextLine();
+                final int count = in.nextInt();
+                timer = in.nextDouble();
+                for (int i = 0; i < count; i++)
+                {
+                    final String name = in.next();
+                    final double time = in.nextDouble();
+                    Pair<String, Double> p = new Pair<String,Double>(name, time);
+                    enemiesQueue.add(p);
+                }
+            }
+            finally
+            {
+                in.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // actually create enemies and spawn on the screen
+    public void update(Pane layer)
+    {
+        if (timer == 0)
         {
-            EnemyClass e = new NormalEnemy(layer, image, 10, 5 * 46 - 23, 46, 90, 46, 46, Config.NORMAL_HEALTH, Config.NORMAL_ARMOR, Config.NORMAL_SPEED, Config.NORMAL_REWARD);
-            entities.add(e);
-            timer = 100;
-        }
-        timer--;
-    }
+            final Pair<String, Double> p = enemiesQueue.poll();
+            final String name = p.getKey();
+            final double time = p.getValue();
 
-    public void spawnSmallerEnemies(Pane layer, Image image)
-    {
-        if(timer == 0) {
-            EnemyClass e = new SmallerEnemy(layer, image, 10, 5 * 46 - 23, 46, 90, 46, 46, Config.SMALLER_HEALTH, Config.SMALLER_ARMOR, Config.SMALLER_SPEED, Config.SMALLER_REWARD);
-            entities.add(e);
-            timer = 100;
+            if ("Normal".equals(name))
+            {
+                entities.add(new NormalSpawner(layer, new Image(Config.NORMAL_IMAGE), tick, time));
+            } else if ("Smaller".equals(name))
+            {
+                entities.add(new SmallerSpawner(layer, new Image(Config.SMALLER_IMAGE), tick, time));
+            } else if ("Tanker".equals(name))
+            {
+                entities.add(new NormalSpawner(layer, new Image(Config.TANKER_IMAGE), tick, time));
+            } else if ("Boss".equals(name))
+            {
+                entities.add(new NormalSpawner(layer, new Image(Config.BOSS_IMAGE), tick, time));
+            }
+            timer = time;
         }
-        timer--;
-    }
-
-    public void spawnTankerEnemies(Pane layer, Image image)
-    {
-        if(timer == 0) {
-            EnemyClass e = new SmallerEnemy(layer, image, 10, 5 * 46 - 23, 46, 90, 46, 46, Config.TANKER_HEALTH, Config.TANKER_ARMOR, Config.TANKER_SPEED, Config.TANKER_REWARD);
-            entities.add(e);
-            timer = 100;
-        }
-        timer--;
-    }
-
-    public void spawnBoss(Pane layer, Image image)
-    {
-        if(timer == 0) {
-            EnemyClass e = new BossEnemy(layer, image, 10, 5 * 46 - 23, 46, 90, 46, 46, Config.BOSS_HEALTH, Config.BOSS_ARMOR, Config.BOSS_SPEED, Config.BOSS_ARMOR);
-            entities.add(e);
-            timer = 100;
-        }
-        timer--;
-    }
-
-    public void update()
-    {
+        else timer--;
         entities.forEach(e -> e.move());
         entities.forEach(e -> e.update());
     }

@@ -9,9 +9,9 @@ public abstract class TowerClass extends EntityClass {
     private final double range;
     private final double speed;
 
-    protected TowerClass(Pane layer, Image image, long tick, double posX, double posY, double rotation, double width, double height
+    protected TowerClass(Pane layer, Image image, long tick, double posX, double posY, double rotation
                         , double range, double speed) {
-        super(layer, image, tick, posX, posY, rotation, width, height);
+        super(layer, image, tick, posX, posY, rotation);
         this.range = range;
         this.speed = speed;
     }

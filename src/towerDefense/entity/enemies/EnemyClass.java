@@ -1,7 +1,11 @@
+/** Abstract class for enemies
+ */
+
 package towerDefense.entity.enemies;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import towerDefense.Config;
 import towerDefense.EntityClass;
 import towerDefense.ui.*;
 
@@ -16,9 +20,8 @@ public abstract class EnemyClass extends EntityClass {
 
     private HealthBar healthBar = new HealthBar(this.getLayer(), this.getPosX(), this.getPosY() - 5);
 
-    protected EnemyClass(Pane layer, Image image, long tick, double posX, double posY, double rotation, double width, double height
-                        , int health, int armor, double speed, int reward){
-        super(layer, image, tick, posX, posY, rotation, width, height);
+    protected EnemyClass(Pane layer, Image image, long tick, int health, int armor, double speed, int reward){
+        super(layer, image, tick, Config.SPAWN_POS_X, Config.SPAWN_POS_Y, Config.SPAWN_ROTATION);
         this.health = health;
         this.maxHealth = health;
         this.armor = armor;
@@ -44,6 +47,6 @@ public abstract class EnemyClass extends EntityClass {
     public void update()
     {
         super.update();
-        healthBar.update(10, this.maxHealth, this.getMidX(), this.getPosY());
+        healthBar.update(this.health, this.maxHealth, this.getMidX(), this.getPosY());
     }
 }

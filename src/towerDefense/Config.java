@@ -15,6 +15,15 @@ public class Config {
 
     public static final int SCREEN_HEIGHT = VERTICAL_TILES * TILE_SIZE;
 
+    //Spawner
+    public final static double SPAWN_POS_X = 207; //5 * 46 - 23
+    public final static double SPAWN_POS_Y = 46;
+    public final static double SPAWN_ROTATION = 90;
+    public final static String NORMAL_IMAGE = "file:src/res/images/enemies/Normal.png";
+    public final static String SMALLER_IMAGE = "file:src/res/images/enemies/Smaller.png";
+    public final static String TANKER_IMAGE = "file:src/res/images/enemies/Tanker.png";
+    public final static String BOSS_IMAGE = "file:src/res/images/enemies/Boss.png";
+
     //Enemies
     //Number of waves
     public final static int WAVE = 3;

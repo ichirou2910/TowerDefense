@@ -16,13 +16,14 @@ public class Main extends Application {
 
     Pane layer;
     Scene scene;
-    List<EntityClass> entities = new ArrayList<>();
-    GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities, 3, 20);
+    List<EntityClass> entities = new ArrayList<>();     // manages game entities
+    GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities, 1, 1);
     GameField gf = new GameField(gs);
-    Image map, n_Enemy, s_Enemy, t_Enemy, b_Enemy;
+    Image map;
 
     @Override
     public void start(Stage primaryStage) {
+        // configure the game window
         Group root = new Group();
         layer = new Pane();
 
@@ -34,54 +35,25 @@ public class Main extends Application {
         primaryStage.show();
 
         load();
+        gf.loadQueue(layer, 1);
 
-        //Get a single enemy for Testing
-//        NormalEnemy e = gf.spawnEnemies(layer, n_Enemy);
-//        ImageView t = e.getImageView();
-
-
-        //Path Test
-//        Path path = new Path();
-//        path.getElements().add(new MoveTo(46 - 23, 0));
-//        path.getElements().add(new LineTo(46 - 23, 4*46));
-//        path.getElements().add(new LineTo(12*46 - 23, 4*46));
-//        path.getElements().add(new LineTo(12*46 - 23, 10*46));
-//        path.getElements().add(new LineTo(-46*2 - 23, 10*46));
-//        path.getElements().add(new LineTo(-46*2 - 23, 14*46));
-//        path.getElements().add(new LineTo(14*46 - 23, 14*46));
-//        path.getElements().add(new LineTo(14*46 - 23, 18*46));
-//
-//        PathTransition pt = new PathTransition();
-//        pt.setDuration(Duration.millis(20000));
-//        pt.setPath(path);
-//        pt.setNode(t);
-//        pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-//        pt.play();
-        //End Test
-
+        // handle game loop
         AnimationTimer loop = new AnimationTimer(){
 
             @Override
             public void handle(long now) {
-                gf.spawnNormalEnemies(layer, n_Enemy);
-                gf.update();
-                // gf.removeSprites();
+                gf.update(layer);
             }
         };
         loop.start();
     }
 
+    // Load resources
     public void load()
     {
         map = new Image("file:src/res/images/TowerDefense.png");
         ImageView mapBG = new ImageView(map);
         layer.getChildren().addAll(mapBG);
-
-        n_Enemy = new Image("file:src/res/images/enemies/Normal.png");
-        s_Enemy = new Image("file:src/res/images/enemies/Smaller.png");
-        t_Enemy = new Image("file:src/res/images/enemies/Tanker.png");
-        b_Enemy = new Image("file:src/res/images/enemies/Boss.png");
-
     }
 
     public static void main(String[] args) {

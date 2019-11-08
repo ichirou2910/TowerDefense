@@ -2,10 +2,11 @@ package towerDefense.entity.enemies;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import towerDefense.Config;
 
 public class NormalEnemy extends EnemyClass {
-    public NormalEnemy(Pane layer, Image image, long tick, double posX, double posY, double rotation, double width, double height
-            , int health, int armor, double speed, int reward) {
-        super(layer, image, tick, posX, posY, rotation, width, height, health, armor, speed, reward);
+    public NormalEnemy(Pane layer, Image image, long tick) {
+        super(layer, image, tick, Config.NORMAL_HEALTH, Config.NORMAL_ARMOR, Config.NORMAL_SPEED, Config.NORMAL_REWARD);
+
     }
 }

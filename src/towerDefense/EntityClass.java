@@ -1,3 +1,7 @@
+/** This class is the base class of every objects in the game
+ *  It contains the sprite image, basic geometric info
+ */
+
 package towerDefense;
 
 import javafx.scene.Node;
@@ -17,11 +21,9 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     private double midX;
     private double midY;
     private double rotation;
-    private double width;
-    private double height;
     private int moveSet = 1;
 
-    protected EntityClass(Pane layer, Image image, long tick, double posX, double posY, double rotation, double width, double height) {
+    protected EntityClass(Pane layer, Image image, long tick, double posX, double posY, double rotation) {
         
         this.layer = layer;
         this.image = image;
@@ -31,8 +33,6 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
         this.posY = posY;
         this.midY = posY + image.getHeight() / 2;
         this.rotation = rotation;
-        this.width = width;
-        this.height = height;
 
         this.imageView = new ImageView(image);
         this.imageView.relocate(posX, posY);
@@ -60,8 +60,13 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     public final double getPosY() {
         return posY;
     }
-    public double getMidX() { return this.midX; }
-    public double getMidY() { return this.midY; }
+    public double getMidX() {
+        return this.midX;
+    }
+    
+    public double getMidY() { 
+        return this.midY; 
+    }
 
     protected final void setPosY(double posY) {
         this.posY = posY;
@@ -73,24 +78,6 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
 
     public void setRotation(double rotation) {
         this.rotation = rotation;
-    }
-
-    @Override
-    public final double getWidth() {
-        return width;
-    }
-
-    protected final void setWidth(double width) {
-        this.width = width;
-    }
-
-    @Override
-    public final double getHeight() {
-        return height;
-    }
-
-    protected final void setHeight(double height) {
-        this.height = height;
     }
 
     public Image getImage()
@@ -167,8 +154,8 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
 
     @Override
     public final boolean overlapped(double posX, double posY, double width, double height) {
-        return posX < this.posX + this.width
-                && posY < this.posY + this.height
+        return posX < this.posX + this.image.getWidth()
+                && posY < this.posY + this.image.getHeight()
                 && posX + width > this.posX
                 && posY + height > this.posY;
     }
