@@ -71,7 +71,7 @@ public class GameField {
     // actually create enemies and spawn on the screen
     public void update(Pane layer)
     {
-        if (timer == 0)
+        if (timer == 0 && !enemiesQueue.isEmpty())
         {
             final Pair<String, Double> p = enemiesQueue.poll();
             final String name = p.getKey();

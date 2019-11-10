@@ -5,9 +5,13 @@
 * --------------------------------------------------*
 * Type - Next enemy's spawn time (seconds * 100)    *
 *****************************************************
-4
+8
 100
 Normal 100
 Smaller 100
-Tanker 500
+Smaller 100
+Tanker 200
+Smaller 100
+Smaller 100
+Normal 500
 Boss 500
