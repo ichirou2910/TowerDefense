@@ -37,10 +37,11 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        List<EnemyClass> e = gf.getEnemies();
 
         load();
         gf.loadQueue(layer, 1);
-        TowerClass t = new NormalTower(layer, new Image(Config.NORMAL_TOWER_IMAGE), 1, 92, 1);
+        TowerClass t = new NormalTower(layer, new Image(Config.NORMAL_TOWER_IMAGE), 1, 136, 1);
 
         // handle game loop
         AnimationTimer loop = new AnimationTimer(){
@@ -49,6 +50,7 @@ public class Main extends Application {
             public void handle(long now) {
                 t.update();
                 t.checkTarget();
+                t.findTarget(e);
                 t.move();
                 gf.update(layer);
             }

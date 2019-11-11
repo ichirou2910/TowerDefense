@@ -7,14 +7,18 @@ import java.util.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
+import towerDefense.entity.enemies.*;
 import towerDefense.entity.tiles.spawner.*;
+import towerDefense.entity.towers.NormalTower;
+import towerDefense.entity.towers.TowerClass;
 
 public class GameField {
     private final double width;
     private final double height;
     private long tick;
-    private final List<EntityClass> entities = new ArrayList<>(Config.TILES_TOTAL);
+    private final List<EntityClass> entities = new ArrayList<>();
     private Queue<Pair<String, Double>> enemiesQueue = new LinkedList<>();
+    private List<EnemyClass> enemies = new ArrayList<>();
     private double timer = 0;
 
     public GameField(GameStage gameStage) {
@@ -43,7 +47,7 @@ public class GameField {
     public void loadQueue(Pane layer, int levelIndex)
     {
         try (FileInputStream str = new FileInputStream("src/res/stages/Level" + levelIndex + ".txt")) {
-            
+
             final Scanner in = new Scanner(str);
             try
             {
@@ -71,34 +75,38 @@ public class GameField {
     // actually create enemies and spawn on the screen
     public void update(Pane layer)
     {
-        if (timer == 0 && !enemiesQueue.isEmpty())
-        {
-            final Pair<String, Double> p = enemiesQueue.poll();
-            final String name = p.getKey();
-            final double time = p.getValue();
+        if(!enemiesQueue.isEmpty()) {
+            if (timer == 0) {
+                final Pair<String, Double> p = enemiesQueue.poll();
+                final String name = p.getKey();
+                final double time = p.getValue();
 
-            if ("Normal".equals(name))
-            {
-                entities.add(new NormalSpawner(layer, new Image(Config.NORMAL_IMAGE), tick, time));
-            } else if ("Smaller".equals(name))
-            {
-                entities.add(new SmallerSpawner(layer, new Image(Config.SMALLER_IMAGE), tick, time));
-            } else if ("Tanker".equals(name))
-            {
-                entities.add(new NormalSpawner(layer, new Image(Config.TANKER_IMAGE), tick, time));
-            } else if ("Boss".equals(name))
-            {
-                entities.add(new NormalSpawner(layer, new Image(Config.BOSS_IMAGE), tick, time));
-            }
-            timer = time;
+                if ("Normal".equals(name)) {
+                    EnemyClass e = new NormalEnemy(layer, new Image(Config.NORMAL_IMAGE), tick);
+                    entities.add(e);
+                    enemies.add(e);
+                } else if ("Smaller".equals(name)) {
+                    EnemyClass e = new SmallerEnemy(layer, new Image(Config.SMALLER_IMAGE), tick);
+                    entities.add(e);
+                    enemies.add(e);
+                } else if ("Tanker".equals(name)) {
+                    EnemyClass e = new TankerEnemy(layer, new Image(Config.TANKER_IMAGE), tick);
+                    entities.add(e);
+                    enemies.add(e);
+                } else if ("Boss".equals(name)) {
+                    EnemyClass e = new BossEnemy(layer, new Image(Config.BOSS_IMAGE), tick);
+                    entities.add(e);
+                    enemies.add(e);
+                }
+                timer = time;
+            } else timer--;
         }
-        else timer--;
         entities.forEach(e -> e.move());
         entities.forEach(e -> e.update());
     }
 
     // only needed for enemies removal
-    // TODO: 
+    // TODO:
     public void removeSprites()
     {
         Iterator<EntityClass> iter = entities.iterator();
@@ -108,5 +116,7 @@ public class GameField {
             iter.remove();
         }
     }
+
+    public List<EnemyClass> getEnemies() {return enemies;}
 
 }
