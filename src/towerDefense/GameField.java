@@ -112,6 +112,18 @@ public class GameField {
         }
         entities.forEach(e -> e.move());
         entities.forEach(e -> e.update());
+
+        final List<EntityClass> destroyedEntities = new ArrayList<>();
+        for (EntityClass e : entities)
+        {
+            if (e.getDestroyed())
+            {
+                e.removeFromLayer();
+                destroyedEntities.add(e);
+            }
+        }
+
+        entities.removeAll(destroyedEntities);
     }
 
     // only needed for enemies removal
@@ -130,7 +142,8 @@ public class GameField {
     public void shoot(Pane layer, double posX, double posY, double rotation, EnemyClass e) {
         if(e != null) {
             if (bTimer == 0) {
-                BulletClass b = new NormalBullet(layer, new Image(Config.NORMAL_BULLET_IMAGE), 1, 0, 0, rotation, 90);
+                BulletClass b = new NormalBullet(layer, new Image(Config.NORMAL_BULLET_IMAGE), 1, 0, 0, rotation);
+                entities.add(b);
                 Path p = new Path();
                 MoveTo start = new MoveTo(posX, posY);
                 LineTo ln = new LineTo(e.getMidX(), e.getMidY());
@@ -142,6 +155,8 @@ public class GameField {
                 pT.setNode(b.getImageView());
                 pT.setPath(p);
                 pT.play();
+                e.setHealth(e.getHealth() - b.getDamage());
+                b.setDestroyed(true);
                 bTimer = 30;
             }
             bTimer--;

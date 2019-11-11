@@ -22,6 +22,7 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     private double midY;
     private double rotation;
     private int moveSet = 1;
+    private boolean destroyed = false;
 
     protected EntityClass(Pane layer, Image image, long tick, double posX, double posY, double rotation) {
         
@@ -79,6 +80,14 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
 
     public void setRotation(double rotation) {
         this.rotation = rotation;
+    }
+
+    public boolean getDestroyed() {
+        return this.destroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
     }
 
     public Image getImage()

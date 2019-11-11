@@ -47,4 +47,9 @@ public class HealthBar {
         updateCurrent(posX - 20, posY - 20);
         updateLost(posX - 20, posY - 20);
     }
+
+    public void destroy(Pane layer)
+    {
+        layer.getChildren().removeAll(lost, current);
+    }
 }
