@@ -61,7 +61,7 @@ public class Main extends Application {
     // Load resources
     public void load()
     {
-        map = new Image("file:src/res/images/TowerDefense.png");
+        map = new Image("file:res/images/TowerDefense.png");
         ImageView mapBG = new ImageView(map);
         layer.getChildren().addAll(mapBG);
     }

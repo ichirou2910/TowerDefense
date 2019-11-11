@@ -46,7 +46,7 @@ public class GameField {
     // load enemies info from file to queue
     public void loadQueue(Pane layer, int levelIndex)
     {
-        try (FileInputStream str = new FileInputStream("src/res/stages/Level" + levelIndex + ".txt")) {
+        try (FileInputStream str = new FileInputStream("res/stages/Level" + levelIndex + ".txt")) {
 
             final Scanner in = new Scanner(str);
             try

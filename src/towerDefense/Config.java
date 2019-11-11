@@ -19,13 +19,13 @@ public class Config {
     public final static double SPAWN_POS_X = 207; //5 * 46 - 23
     public final static double SPAWN_POS_Y = 46;
     public final static double SPAWN_ROTATION = 90;
-    public final static String NORMAL_IMAGE = "file:src/res/images/enemies/Normal.png";
-    public final static String SMALLER_IMAGE = "file:src/res/images/enemies/Smaller.png";
-    public final static String TANKER_IMAGE = "file:src/res/images/enemies/Tanker.png";
-    public final static String BOSS_IMAGE = "file:src/res/images/enemies/Boss.png";
+    public final static String NORMAL_IMAGE = "file:res/images/enemies/Normal.png";
+    public final static String SMALLER_IMAGE = "file:res/images/enemies/Smaller.png";
+    public final static String TANKER_IMAGE = "file:res/images/enemies/Tanker.png";
+    public final static String BOSS_IMAGE = "file:res/images/enemies/Boss.png";
 
     //Towers
-    public final static String NORMAL_TOWER_IMAGE = "file:src/res/images/towers/Normal.png";
+    public final static String NORMAL_TOWER_IMAGE = "file:res/images/towers/Normal.png";
 
     //Enemies
     //Number of waves
