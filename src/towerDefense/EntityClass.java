@@ -60,6 +60,7 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     public final double getPosY() {
         return posY;
     }
+
     public double getMidX() {
         return this.midX;
     }

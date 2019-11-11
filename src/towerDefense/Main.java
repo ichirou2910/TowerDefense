@@ -10,6 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import towerDefense.entity.enemies.EnemyClass;
+import towerDefense.entity.towers.NormalTower;
+import towerDefense.entity.towers.TowerClass;
 
 public class Main extends Application {
 
@@ -19,7 +22,7 @@ public class Main extends Application {
     List<EntityClass> entities = new ArrayList<>();     // manages game entities
     GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities, 1, 1);
     GameField gf = new GameField(gs);
-    Image map;
+    Image map, n_tower;
 
     @Override
     public void start(Stage primaryStage) {
@@ -34,14 +37,21 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        List<EnemyClass> e = gf.getEnemies();
+
         load();
         gf.loadQueue(layer, 1);
+        TowerClass t = new NormalTower(layer, new Image(Config.NORMAL_TOWER_IMAGE), 1, 92, 1);
 
         // handle game loop
         AnimationTimer loop = new AnimationTimer(){
 
             @Override
             public void handle(long now) {
+                t.update();
+                t.checkTarget();
+                t.findTarget(e);
+                t.move();
                 gf.update(layer);
             }
         };

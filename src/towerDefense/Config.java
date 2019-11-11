@@ -24,6 +24,9 @@ public class Config {
     public final static String TANKER_IMAGE = "file:src/res/images/enemies/Tanker.png";
     public final static String BOSS_IMAGE = "file:src/res/images/enemies/Boss.png";
 
+    //Towers
+    public final static String NORMAL_TOWER_IMAGE = "file:src/res/images/towers/Normal.png";
+
     //Enemies
     //Number of waves
     public final static int WAVE = 3;

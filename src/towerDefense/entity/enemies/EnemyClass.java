@@ -49,4 +49,6 @@ public abstract class EnemyClass extends EntityClass {
         super.update();
         healthBar.update(this.health, this.maxHealth, this.getMidX(), this.getPosY());
     }
+
+    public boolean isAlive() { return Double.compare(this.health, 0) > 0; }
 }
