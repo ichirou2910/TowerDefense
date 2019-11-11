@@ -26,6 +26,11 @@ public class Config {
 
     //Towers
     public final static String NORMAL_TOWER_IMAGE = "file:res/images/towers/Normal.png";
+    public final static String SNIPER_TOWER_IMAGE = "file:res/images/towers/Sniper.png";
+    public final static String MACHINE_TOWER_IMAGE = "file:res/images/towers/MachineGun.png";
+
+    //Bullets
+
 
     //Enemies
     //Number of waves
