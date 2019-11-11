@@ -1,6 +1,6 @@
-package game.towerdefense.utils;
+package towerDefense.ui;
 
-public class MathUtils {
+public class AngleNormalize {
 
 	  private final static double PI = Math.PI;
 	  private final static double TWO_PI = 2 * PI;

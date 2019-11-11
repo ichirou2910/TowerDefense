@@ -37,7 +37,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        List<EnemyClass> e = gf.getEnemies();
 
         load();
         gf.loadQueue(layer, 1);
@@ -50,7 +49,6 @@ public class Main extends Application {
             public void handle(long now) {
                 t.update();
                 t.checkTarget();
-                t.findTarget(e);
                 t.move();
                 gf.update(layer);
             }
