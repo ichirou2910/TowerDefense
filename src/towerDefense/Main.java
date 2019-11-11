@@ -52,6 +52,8 @@ public class Main extends Application {
                 t.checkTarget();
                 t.findTarget(e);
                 t.move();
+                //Right now the arguments for shoot are used to bypass this pasta code
+                gf.shoot(layer, t.getMidX(), t.getMidY(), t.getRotation(), t.getTarget());
                 gf.update(layer);
             }
         };

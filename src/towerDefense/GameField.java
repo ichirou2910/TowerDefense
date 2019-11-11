@@ -2,11 +2,19 @@ package towerDefense;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.animation.PathTransition;
 import java.util.*;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import javafx.util.Pair;
+import towerDefense.entity.bullets.BulletClass;
+import towerDefense.entity.bullets.NormalBullet;
 import towerDefense.entity.enemies.*;
 import towerDefense.entity.tiles.spawner.*;
 import towerDefense.entity.towers.NormalTower;
@@ -20,6 +28,7 @@ public class GameField {
     private Queue<Pair<String, Double>> enemiesQueue = new LinkedList<>();
     private List<EnemyClass> enemies = new ArrayList<>();
     private double timer = 0;
+    private double bTimer = 0;
 
     public GameField(GameStage gameStage) {
         this.width = gameStage.getWidth();
@@ -114,6 +123,28 @@ public class GameField {
             EntityClass en = iter.next();
             en.removeFromLayer();
             iter.remove();
+        }
+    }
+
+    //Spawn and shoot, right now doesn't have delete object funtion tho
+    public void shoot(Pane layer, double posX, double posY, double rotation, EnemyClass e) {
+        if(e != null) {
+            if (bTimer == 0) {
+                BulletClass b = new NormalBullet(layer, new Image(Config.NORMAL_BULLET_IMAGE), 1, 0, 0, rotation, 90);
+                Path p = new Path();
+                MoveTo start = new MoveTo(posX, posY);
+                LineTo ln = new LineTo(e.getMidX(), e.getMidY());
+                p.getElements().add(start);
+                p.getElements().add(ln);
+
+                PathTransition pT = new PathTransition();
+                pT.setDuration(Duration.millis(50));
+                pT.setNode(b.getImageView());
+                pT.setPath(p);
+                pT.play();
+                bTimer = 30;
+            }
+            bTimer--;
         }
     }
 

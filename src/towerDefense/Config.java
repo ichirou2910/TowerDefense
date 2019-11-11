@@ -30,7 +30,10 @@ public class Config {
     public final static String MACHINE_TOWER_IMAGE = "file:res/images/towers/MachineGun.png";
 
     //Bullets
-
+    public final static String NORMAL_BULLET_IMAGE = "file:res/images/bullets/Normal.png";
+    public final static String SNIPER_BULLET_IMAGE = "file:res/images/bullets/Sniper.png";
+    public final static String MACHINE_BULLET_IMAGE = "file:res/images/bullets/MachineGun.png";
+    public final static String IMPACT_BULLET_IMAGE = "file:res/images/bullets/BulletImpact.png";
 
     //Enemies
     //Number of waves
