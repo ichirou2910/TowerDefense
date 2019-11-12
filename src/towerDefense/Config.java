@@ -38,6 +38,11 @@ public class Config {
     public final static String MACHINE_BULLET_IMAGE = "file:res/images/bullets/MachineGun.png";
     public final static String IMPACT_BULLET_IMAGE = "file:res/images/bullets/BulletImpact.png";
 
+    //Explosion
+    public final static String EXPLOSION1 = "file:res/images/explosions/Exp1.png";
+    public final static String EXPLOSION2 = "file:res/images/explosions/Exp2.png";
+    public final static String EXPLOSION3 = "file:res/images/explosions/Exp3.png";
+
     //Enemies
     //Number of waves
     public final static int WAVE = 3;

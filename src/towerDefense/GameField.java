@@ -3,12 +3,11 @@ package towerDefense;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import javafx.animation.FadeTransition;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.animation.PathTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 import java.util.*;
 
@@ -16,25 +15,24 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import javafx.util.Pair;
+import towerDefense.entity.EffectClass;
 import towerDefense.entity.bullets.BulletClass;
-import towerDefense.entity.bullets.NormalBullet;
 import towerDefense.entity.bullets.SpawnBullet;
 import towerDefense.entity.enemies.*;
 
 public class GameField {
     private final double width;
     private final double height;
-    private long tick;
     private final List<EntityClass> entities = new ArrayList<>();
     private Queue<Pair<String, Double>> enemiesQueue = new LinkedList<>();
     private List<EnemyClass> enemies = new ArrayList<>();
     private double timer = 0;
     private double bTimer = 0;
+    private double eTimer = 5;
 
     public GameField(GameStage gameStage) {
         this.width = gameStage.getWidth();
         this.height = gameStage.getWidth();
-        this.tick = 0;
         entities.addAll(gameStage.getEntities());
     }
 
@@ -46,10 +44,6 @@ public class GameField {
 
     public final double getHeight() {
         return height;
-    }
-
-    public final long getTick() {
-        return tick;
     }
     //#endregion
 
@@ -153,13 +147,30 @@ public class GameField {
                 pT.setAutoReverse(false);
                 pT.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
                 pT.setOnFinished(ev -> {
+                    //Bullet impact
+                    EntityClass ex = new EffectClass(layer, new Image(Config.IMPACT_BULLET_IMAGE), e.getPosX(), e.getPosY(), rotation + 180);
+                    FadeTransition ft = new FadeTransition(Duration.millis(200), ex.getImageView());
+                    ft.setFromValue(1.0);
+                    ft.setToValue(0.0);
+                    ft.setAutoReverse(false);
+                    ft.play();
+
+                    //Bullet set to destroy, also reduce enemy's HP
                     b.setDestroyed(true);
                     e.setHealth(e.getHealth() - b.getDamage());
                     bTimer = b.getRateOfFire();
+
+                    //Explosion
+                    if(!e.isAlive()) {
+                        ex = new EffectClass(layer, new Image(Config.EXPLOSION3), e.getPosX() - 5, e.getPosY() - 5, 0);
+                        ft = new FadeTransition(Duration.millis(500), ex.getImageView());
+                        ft.setFromValue(1.0);
+                        ft.setToValue(0.0);
+                        ft.setAutoReverse(false);
+                        ft.play();
+                    }
                 });
                 pT.play();
-
-                System.out.println("x = " + e.getMidX() + ", y = " + e.getMidY());
             }
             bTimer--;
         }

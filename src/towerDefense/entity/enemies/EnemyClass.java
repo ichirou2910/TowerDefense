@@ -3,10 +3,13 @@
 
 package towerDefense.entity.enemies;
 
+import javafx.animation.FadeTransition;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import towerDefense.Config;
 import towerDefense.EntityClass;
+import towerDefense.entity.EffectClass;
 import towerDefense.ui.*;
 
 public abstract class EnemyClass extends EntityClass {
