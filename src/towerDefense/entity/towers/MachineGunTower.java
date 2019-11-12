@@ -7,8 +7,8 @@ import towerDefense.Config;
 public class MachineGunTower extends TowerClass {
     private String type = "MachineGun";
 
-    public MachineGunTower(Pane layer, Image image, double range, double speed) {
-        super(layer, image, range, speed, Config.MACHINE_TOWER_DAMAGE);
+    public MachineGunTower(Pane layer, Image image, double posX, double posY, double range) {
+        super(layer, image, posX, posY, range, Config.MACHINE_TOWER_DAMAGE);
     }
     public String getType() {return this.type;}
 }

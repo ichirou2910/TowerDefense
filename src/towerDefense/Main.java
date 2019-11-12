@@ -43,7 +43,7 @@ public class Main extends Application {
 
         load();
         gf.loadQueue(layer, 1);
-        TowerClass t = new MachineGunTower(layer, new Image(Config.MACHINE_TOWER_IMAGE), 136, 1);
+        TowerClass t = new MachineGunTower(layer, new Image(Config.MACHINE_TOWER_IMAGE), 3*46, 5*46, 136);
 
         // handle game loop
         AnimationTimer loop = new AnimationTimer(){
