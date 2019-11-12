@@ -4,15 +4,10 @@ public class Config {
     public static final String GAME_NAME = "Tower Defense in space";
 
     public static final int TILE_SIZE = 46;
-
     public static final int HORIZONTAL_TILES = 20;
-
     public static final int VERTICAL_TILES = 20;
-
     public static final int TILES_TOTAL = (HORIZONTAL_TILES * VERTICAL_TILES);
-
     public static final int SCREEN_WIDTH = HORIZONTAL_TILES * TILE_SIZE;
-
     public static final int SCREEN_HEIGHT = VERTICAL_TILES * TILE_SIZE;
 
     //Spawner
@@ -28,7 +23,7 @@ public class Config {
     public final static String NORMAL_TOWER_IMAGE = "file:res/images/towers/Normal.png";
     public final static String SNIPER_TOWER_IMAGE = "file:res/images/towers/Sniper.png";
     public final static String MACHINE_TOWER_IMAGE = "file:res/images/towers/MachineGun.png";
-    public final static int NORMAL_TOWER_DAMAGE = 50;
+    public final static int NORMAL_TOWER_DAMAGE = 25;
     public final static int SNIPER_TOWER_DAMAGE = 15;
     public final static int MACHINE_TOWER_DAMAGE = 5;
 

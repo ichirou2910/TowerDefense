@@ -7,8 +7,6 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.animation.PathTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 import java.util.*;
 
@@ -44,6 +42,10 @@ public class GameField {
     public final double getHeight() {
         return height;
     }
+    
+    public List<EnemyClass> getEnemies() {
+        return enemies;
+    }
     //#endregion
 
     // load enemies info from file to queue
@@ -75,7 +77,7 @@ public class GameField {
         }
     }
 
-    // actually create enemies and spawn on the screen
+    // handle game update each frame
     public void update(Pane layer)
     {
         if(!enemiesQueue.isEmpty()) {
@@ -112,15 +114,15 @@ public class GameField {
         {
             if (e.getDestroyed())
             {
-                System.out.println(e.getClass() + " destroyed");
+                if (e instanceof EnemyClass)
+                    enemies.remove(e);
+                // add to be destroyed objects to a list so we can remove all at once
                 destroyedEntities.add(e);
-                System.out.println(destroyedEntities.size());
                 e.removeFromLayer();
             }
         }
-
-        if(entities.removeAll(destroyedEntities))
-            System.out.println("destroyed list");
+        // remove
+        entities.removeAll(destroyedEntities);
         destroyedEntities.clear();
     }
 
@@ -140,8 +142,9 @@ public class GameField {
                 pT.setDuration(Duration.millis(100));
                 pT.setNode(b.getImageView());
                 pT.setPath(p);
+
+                // handle things when the bullet hit
                 pT.setOnFinished(ev -> {
-                    System.out.println("end path");
                     b.setDestroyed(true);
                     e.setHealth(e.getHealth() - b.getDamage());
                     bTimer = 30;
@@ -152,6 +155,6 @@ public class GameField {
         }
     }
 
-    public List<EnemyClass> getEnemies() {return enemies;}
+    
 
 }

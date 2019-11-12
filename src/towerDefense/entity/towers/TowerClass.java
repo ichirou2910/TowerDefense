@@ -17,25 +17,27 @@ public abstract class TowerClass extends EntityClass {
     private final double rotationEasing = 10; //higher value rotate slower
     private final double firingRangeLimitDeg = 20;
 
-    private boolean withinFiringRange = false;
+    private boolean withinFiringRange;
 
     protected TowerClass(Pane layer, Image image, double range, double speed, int damage) {
         super(layer, image, 3*46, 5*46, 90);
         this.range = range;
         this.speed = speed;
         this.damage = damage;
+        this.withinFiringRange = false;
     }
 
     //Getter
     public double getRange() {return this.range;}
     public double getSpeed() {return this.speed;}
     public int getDamage() {return this.damage;}
+    public boolean getWithinFiringRange() {return this.withinFiringRange;}
 
     public void move() {
         TowerClass track = this;
 
         //reset within firing range
-        withinFiringRange = false;
+        this.withinFiringRange = false;
 
         //rotate towards target
         if(target != null) {
@@ -90,7 +92,8 @@ public abstract class TowerClass extends EntityClass {
         double closetDistance = 0.0;
 
         for(EnemyClass cTarget: e) {
-            if(cTarget.getDestroyed()) continue;
+            if(cTarget.getDestroyed())
+                continue;
 
             // get distance between tower and target
             double disX = cTarget.getMidX() - this.getMidX();

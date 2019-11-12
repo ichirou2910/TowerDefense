@@ -4,12 +4,12 @@
 
 package towerDefense;
 
-import javafx.scene.Node;
+import towerDefense.entity.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public abstract class EntityClass extends Node implements towerDefense.entity.GameEntity {
+public abstract class EntityClass implements GameEntity {
     
     private Image image;
     private ImageView imageView;
@@ -100,16 +100,17 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     }
     //#endregion
 
+    // add object sprite to layer for display
     public void addToLayer() {
 
         this.layer.getChildren().add(this.imageView);
     }
-
+    // remove sprite on destroy
     public void removeFromLayer() {
 
         this.layer.getChildren().remove(this.imageView);
     }
-
+    // update sprite info
     public void update()
     {
         imageView.relocate(posX, posY);
@@ -162,10 +163,5 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
                 && posY < this.posY + this.image.getHeight()
                 && posX + width > this.posX
                 && posY + height > this.posY;
-    }
-
-    @Override
-    public Node getStyleableNode() {
-        return null;
     }
 }
