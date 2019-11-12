@@ -3,4 +3,4 @@
 /.idea
 src/module-info.java
 .classpath
-bin/
+/bin

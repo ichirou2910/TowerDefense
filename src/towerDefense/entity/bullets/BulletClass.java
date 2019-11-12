@@ -7,9 +7,9 @@ import towerDefense.EntityClass;
 public abstract class BulletClass extends EntityClass {
     private int damage;
 
-    protected BulletClass(Pane layer, Image image, long tick, double posX, double posY, double rotation, int damage)
+    protected BulletClass(Pane layer, Image image, double posX, double posY, double rotation, int damage)
     {
-        super(layer, image, tick, posX, posY, rotation);
+        super(layer, image, posX, posY, rotation);
         this.damage = damage;
     }
 

@@ -1,6 +1,5 @@
 package towerDefense.entity.towers;
 
-import towerDefense.Config;
 import towerDefense.EntityClass;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -20,8 +19,8 @@ public abstract class TowerClass extends EntityClass {
 
     private boolean withinFiringRange = false;
 
-    protected TowerClass(Pane layer, Image image, long tick, double range, double speed, int damage) {
-        super(layer, image, tick, 3*46, 5*46, 90);
+    protected TowerClass(Pane layer, Image image, double range, double speed, int damage) {
+        super(layer, image, 3*46, 5*46, 90);
         this.range = range;
         this.speed = speed;
         this.damage = damage;
@@ -60,7 +59,7 @@ public abstract class TowerClass extends EntityClass {
             setRotation(currentAngle);
 
             //determines if the target is within firing range
-            withinFiringRange = Math.abs(dif) < firingRangeLimitDeg;
+            this.withinFiringRange = Math.abs(dif) < firingRangeLimitDeg;
         }
     }
 
@@ -91,7 +90,7 @@ public abstract class TowerClass extends EntityClass {
         double closetDistance = 0.0;
 
         for(EnemyClass cTarget: e) {
-            if(!cTarget.isAlive()) continue;
+            if(cTarget.getDestroyed()) continue;
 
             // get distance between tower and target
             double disX = cTarget.getMidX() - this.getMidX();

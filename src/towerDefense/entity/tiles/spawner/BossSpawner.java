@@ -10,13 +10,13 @@ import towerDefense.entity.enemies.BossEnemy;
  */
 public class BossSpawner extends SpawnerClass<BossEnemy> {;
 
-    public BossSpawner(Pane layer, Image image, long tick, double spawnTime)
+    public BossSpawner(Pane layer, Image image, double spawnTime)
     {
-        super(layer, image, tick, spawnTime, Config.SPAWN_POS_X, Config.SPAWN_POS_Y, Config.SPAWN_ROTATION);
+        super(layer, image, spawnTime, Config.SPAWN_POS_X, Config.SPAWN_POS_Y, Config.SPAWN_ROTATION);
     }
 
-    protected BossEnemy spawn(Pane layer, Image image, long tick)
+    protected BossEnemy spawn(Pane layer, Image image)
     {
-        return new BossEnemy(layer, image, tick);
+        return new BossEnemy(layer, image);
     }
 }

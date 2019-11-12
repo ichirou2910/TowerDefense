@@ -41,7 +41,7 @@ public class Main extends Application {
 
         load();
         gf.loadQueue(layer, 1);
-        TowerClass t = new NormalTower(layer, new Image(Config.NORMAL_TOWER_IMAGE), 1, 136, 1);
+        TowerClass t = new NormalTower(layer, new Image(Config.NORMAL_TOWER_IMAGE), 136, 1);
 
         // handle game loop
         AnimationTimer loop = new AnimationTimer(){

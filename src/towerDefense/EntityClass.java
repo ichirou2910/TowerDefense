@@ -15,7 +15,6 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     private ImageView imageView;
     private Pane layer;
 
-    private final long tick;
     private double posX;
     private double posY;
     private double midX;
@@ -24,11 +23,10 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     private int moveSet = 1;
     private boolean destroyed = false;
 
-    protected EntityClass(Pane layer, Image image, long tick, double posX, double posY, double rotation) {
+    protected EntityClass(Pane layer, Image image, double posX, double posY, double rotation) {
         
         this.layer = layer;
         this.image = image;
-        this.tick = tick;
         this.posX = posX;
         this.midX = posX + image.getWidth() / 2;
         this.posY = posY;
@@ -43,11 +41,6 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     }
     // Getters & Setters
     //#region
-    @Override
-    public final long getTick() {
-        return tick;
-    }
-
     @Override
     public final double getPosX() {
         return posX;

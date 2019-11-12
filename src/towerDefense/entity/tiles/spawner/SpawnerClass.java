@@ -12,11 +12,11 @@ public abstract class SpawnerClass<T extends EnemyClass> extends EntityClass {
 
     public double spawnTime;
 
-    protected SpawnerClass(Pane layer, Image image, long tick, double spawnTime, double posX, double posY, double rotation)
+    protected SpawnerClass(Pane layer, Image image, double spawnTime, double posX, double posY, double rotation)
     {
-        super(layer, image, tick, posX, posY, rotation);
+        super(layer, image, posX, posY, rotation);
         this.spawnTime = spawnTime;
     }
 
-    protected abstract T spawn(Pane layer, Image image, long tick);
+    protected abstract T spawn(Pane layer, Image image);
 }

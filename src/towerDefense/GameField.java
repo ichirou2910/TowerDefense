@@ -23,7 +23,6 @@ import towerDefense.entity.enemies.*;
 public class GameField {
     private final double width;
     private final double height;
-    private long tick;
     private final List<EntityClass> entities = new ArrayList<>();
     private Queue<Pair<String, Double>> enemiesQueue = new LinkedList<>();
     private List<EnemyClass> enemies = new ArrayList<>();
@@ -33,7 +32,6 @@ public class GameField {
     public GameField(GameStage gameStage) {
         this.width = gameStage.getWidth();
         this.height = gameStage.getWidth();
-        this.tick = 0;
         entities.addAll(gameStage.getEntities());
     }
 
@@ -45,10 +43,6 @@ public class GameField {
 
     public final double getHeight() {
         return height;
-    }
-
-    public final long getTick() {
-        return tick;
     }
     //#endregion
 
@@ -91,19 +85,19 @@ public class GameField {
                 final double time = p.getValue();
 
                 if ("Normal".equals(name)) {
-                    EnemyClass e = new NormalEnemy(layer, new Image(Config.NORMAL_IMAGE), tick);
+                    EnemyClass e = new NormalEnemy(layer, new Image(Config.NORMAL_IMAGE));
                     entities.add(e);
                     enemies.add(e);
                 } else if ("Smaller".equals(name)) {
-                    EnemyClass e = new SmallerEnemy(layer, new Image(Config.SMALLER_IMAGE), tick);
+                    EnemyClass e = new SmallerEnemy(layer, new Image(Config.SMALLER_IMAGE));
                     entities.add(e);
                     enemies.add(e);
                 } else if ("Tanker".equals(name)) {
-                    EnemyClass e = new TankerEnemy(layer, new Image(Config.TANKER_IMAGE), tick);
+                    EnemyClass e = new TankerEnemy(layer, new Image(Config.TANKER_IMAGE));
                     entities.add(e);
                     enemies.add(e);
                 } else if ("Boss".equals(name)) {
-                    EnemyClass e = new BossEnemy(layer, new Image(Config.BOSS_IMAGE), tick);
+                    EnemyClass e = new BossEnemy(layer, new Image(Config.BOSS_IMAGE));
                     entities.add(e);
                     enemies.add(e);
                 }
@@ -134,7 +128,7 @@ public class GameField {
     public void shoot(Pane layer, double posX, double posY, double rotation, EnemyClass e) {
         if(e != null) {
             if (bTimer == 0) {
-                BulletClass b = new NormalBullet(layer, new Image(Config.NORMAL_BULLET_IMAGE), 1, 0, 0, rotation);
+                BulletClass b = new NormalBullet(layer, new Image(Config.NORMAL_BULLET_IMAGE), 0, 0, rotation);
                 entities.add(b);
                 Path p = new Path();
                 MoveTo start = new MoveTo(posX, posY);
