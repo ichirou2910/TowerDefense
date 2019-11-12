@@ -97,6 +97,8 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     {
         return this.layer;
     }
+
+    public abstract double getSpeed();
     //#endregion
 
     public void addToLayer() {
@@ -143,13 +145,13 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
             moveSet = 1;
         }
         if(moveSet == 1) {
-            posY += Config.NORMAL_SPEED;
+            posY += getSpeed();
         }
         if(moveSet == 2) {
-            posX += Config.NORMAL_SPEED;
+            posX += getSpeed();
         }
         if(moveSet == 3) {
-            posX -= Config.NORMAL_SPEED;
+            posX -= getSpeed();
         }
         midX = posX + image.getWidth() / 2;
         midY = posY + image.getHeight() / 2;

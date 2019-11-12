@@ -5,8 +5,8 @@ import javafx.scene.layout.Pane;
 import towerDefense.Config;
 
 public class SniperBullet extends BulletClass {
-    private final double speed = 30;
-    private final int rateOfFire = 50;
+    private final double speed = 80;
+    private final int rateOfFire = 70;
 
     public SniperBullet(Pane layer, Image image, double posX, double posY, double rotation)
     {

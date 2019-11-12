@@ -46,12 +46,12 @@ public class Config {
     //Normal Enemies
     public final static int NORMAL_HEALTH = 100;
     public final static int NORMAL_ARMOR = 75;
-    public final static double NORMAL_SPEED = 1;
+    public final static double NORMAL_SPEED = 0.5;
     public final static int NORMAL_REWARD = 25;
     //Smaller Enemies
     public final static int SMALLER_HEALTH = 75;
     public final static int SMALLER_ARMOR = 50;
-    public final static double SMALLER_SPEED = 2;
+    public final static double SMALLER_SPEED = 1;
     public final static int SMALLER_REWARD = 15;
     //Tanker Enemies
     public final static int TANKER_HEALTH = 150;
@@ -61,7 +61,7 @@ public class Config {
     //Boss
     public final static int BOSS_HEALTH = 200;
     public final static int BOSS_ARMOR = 200;
-    public final static double BOSS_SPEED = 1;
+    public final static double BOSS_SPEED = 0.25;
     public final static int BOSS_REWARD = 100;
 
 }

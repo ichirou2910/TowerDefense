@@ -19,4 +19,9 @@ public class SmallerSpawner extends SpawnerClass<SmallerEnemy> {;
     {
         return new SmallerEnemy(layer, image);
     }
+
+    @Override
+    public double getSpeed() {
+        return 0;
+    }
 }

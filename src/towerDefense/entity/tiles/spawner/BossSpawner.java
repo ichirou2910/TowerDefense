@@ -19,4 +19,9 @@ public class BossSpawner extends SpawnerClass<BossEnemy> {;
     {
         return new BossEnemy(layer, image);
     }
+
+    @Override
+    public double getSpeed() {
+        return 0;
+    }
 }

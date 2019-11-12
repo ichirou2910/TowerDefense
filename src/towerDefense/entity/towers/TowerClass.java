@@ -21,7 +21,7 @@ public abstract class TowerClass extends EntityClass {
     private boolean withinFiringRange = false;
 
     protected TowerClass(Pane layer, Image image, double range, double speed, int damage) {
-        super(layer, image, 3*46, 5*46, 90);
+        super(layer, image, 3*46, 5*46, 0);
         this.range = range;
         this.speed = speed;
         this.damage = damage;

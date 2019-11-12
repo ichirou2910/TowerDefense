@@ -19,4 +19,9 @@ public class NormalSpawner extends SpawnerClass<NormalEnemy> {;
     {
         return new NormalEnemy(layer, image);
     }
+
+    @Override
+    public double getSpeed() {
+        return 0;
+    }
 }

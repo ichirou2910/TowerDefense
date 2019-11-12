@@ -19,4 +19,9 @@ public class TankerSpawner extends SpawnerClass<TankerEnemy> {;
     {
         return new TankerEnemy(layer, image);
     }
+
+    @Override
+    public double getSpeed() {
+        return 0;
+    }
 }

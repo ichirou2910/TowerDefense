@@ -85,7 +85,7 @@ public class GameField {
     // actually create enemies and spawn on the screen
     public void update(Pane layer)
     {
-        entities.forEach(e -> e.move());
+        enemies.forEach(e -> e.move());
         entities.forEach(e -> e.update());
 
         final List<EntityClass> destroyedEntities = new ArrayList<>();
@@ -150,6 +150,7 @@ public class GameField {
                 pT.setDuration(Duration.millis(b.getSpeed()));
                 pT.setNode(b.getImageView());
                 pT.setPath(p);
+                pT.setAutoReverse(false);
                 pT.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
                 pT.setOnFinished(ev -> {
                     b.setDestroyed(true);
@@ -157,6 +158,8 @@ public class GameField {
                     bTimer = b.getRateOfFire();
                 });
                 pT.play();
+
+                System.out.println("x = " + e.getMidX() + ", y = " + e.getMidY());
             }
             bTimer--;
         }
