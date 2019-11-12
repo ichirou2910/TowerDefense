@@ -7,6 +7,9 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.animation.PathTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
 import java.util.*;
 
 import javafx.scene.image.Image;
@@ -16,9 +19,6 @@ import javafx.util.Pair;
 import towerDefense.entity.bullets.BulletClass;
 import towerDefense.entity.bullets.NormalBullet;
 import towerDefense.entity.enemies.*;
-import towerDefense.entity.tiles.spawner.*;
-import towerDefense.entity.towers.NormalTower;
-import towerDefense.entity.towers.TowerClass;
 
 public class GameField {
     private final double width;
@@ -118,24 +118,16 @@ public class GameField {
         {
             if (e.getDestroyed())
             {
-                e.removeFromLayer();
+                System.out.println(e.getClass() + " destroyed");
                 destroyedEntities.add(e);
+                System.out.println(destroyedEntities.size());
+                e.removeFromLayer();
             }
         }
 
-        entities.removeAll(destroyedEntities);
-    }
-
-    // only needed for enemies removal
-    // TODO:
-    public void removeSprites()
-    {
-        Iterator<EntityClass> iter = entities.iterator();
-        while( iter.hasNext()) {
-            EntityClass en = iter.next();
-            en.removeFromLayer();
-            iter.remove();
-        }
+        if(entities.removeAll(destroyedEntities))
+            System.out.println("destroyed list");
+        destroyedEntities.clear();
     }
 
     //Spawn and shoot, right now doesn't have delete object funtion tho
@@ -151,13 +143,16 @@ public class GameField {
                 p.getElements().add(ln);
 
                 PathTransition pT = new PathTransition();
-                pT.setDuration(Duration.millis(50));
+                pT.setDuration(Duration.millis(100));
                 pT.setNode(b.getImageView());
                 pT.setPath(p);
+                pT.setOnFinished(ev -> {
+                    System.out.println("end path");
+                    b.setDestroyed(true);
+                    e.setHealth(e.getHealth() - b.getDamage());
+                    bTimer = 30;
+                });
                 pT.play();
-                e.setHealth(e.getHealth() - b.getDamage());
-                b.setDestroyed(true);
-                bTimer = 30;
             }
             bTimer--;
         }

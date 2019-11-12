@@ -87,6 +87,7 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     }
 
     public void setDestroyed(boolean destroyed) {
+        System.out.println(this.getClass() + " to be destroyed");
         this.destroyed = destroyed;
     }
 

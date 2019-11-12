@@ -70,7 +70,7 @@ public abstract class TowerClass extends EntityClass {
             return;
         }
 
-        if(!target.isAlive()) {
+        if(target.getDestroyed()) {
             setTarget(null);
             return;
         }
