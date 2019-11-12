@@ -11,7 +11,7 @@ public class Config {
 
     public static final int TILES_TOTAL = (HORIZONTAL_TILES * VERTICAL_TILES);
 
-    public static final int SCREEN_WIDTH = HORIZONTAL_TILES * TILE_SIZE;
+    public static final int SCREEN_WIDTH = 1050;
 
     public static final int SCREEN_HEIGHT = VERTICAL_TILES * TILE_SIZE;
 

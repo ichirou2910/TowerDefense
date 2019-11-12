@@ -7,15 +7,14 @@ import towerDefense.Config;
 public class SpawnBullet {
     public BulletClass createBullet(Pane layer, double rotation, String type) {
         BulletClass b = null;
-        if(type == "Normal") {
+        if(type.equals("Normal")) {
             b = new NormalBullet(layer, new Image(Config.NORMAL_BULLET_IMAGE), 0, 0, rotation);
         }
-        if(type == "Sniper") {
+        if(type.equals("Sniper")) {
             b = new SniperBullet(layer, new Image(Config.SNIPER_BULLET_IMAGE), 0, 0, rotation);
         }
-        if(type == "MachineGun") {
+        if(type.equals("MachineGun")) {
             b = new MachineBullet(layer, new Image(Config.MACHINE_BULLET_IMAGE), 0, 0, rotation);
-            System.out.println(b.getRotation());
         }
         return b;
     }
