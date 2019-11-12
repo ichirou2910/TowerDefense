@@ -28,8 +28,8 @@ public class Config {
     public final static String NORMAL_TOWER_IMAGE = "file:res/images/towers/Normal.png";
     public final static String SNIPER_TOWER_IMAGE = "file:res/images/towers/Sniper.png";
     public final static String MACHINE_TOWER_IMAGE = "file:res/images/towers/MachineGun.png";
-    public final static int NORMAL_TOWER_DAMAGE = 50;
-    public final static int SNIPER_TOWER_DAMAGE = 15;
+    public final static int NORMAL_TOWER_DAMAGE = 20;
+    public final static int SNIPER_TOWER_DAMAGE = 50;
     public final static int MACHINE_TOWER_DAMAGE = 5;
 
     //Bullets

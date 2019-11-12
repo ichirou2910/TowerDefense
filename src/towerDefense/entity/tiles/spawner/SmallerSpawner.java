@@ -12,11 +12,11 @@ public class SmallerSpawner extends SpawnerClass<SmallerEnemy> {;
 
     public SmallerSpawner(Pane layer, Image image, long tick, double spawnTime)
     {
-        super(layer, image, tick, spawnTime, Config.SPAWN_POS_X, Config.SPAWN_POS_Y, Config.SPAWN_ROTATION);
+        super(layer, image, spawnTime, Config.SPAWN_POS_X, Config.SPAWN_POS_Y, Config.SPAWN_ROTATION);
     }
 
-    protected SmallerEnemy spawn(Pane layer, Image image, long tick)
+    protected SmallerEnemy spawn(Pane layer, Image image)
     {
-        return new SmallerEnemy(layer, image, tick);
+        return new SmallerEnemy(layer, image);
     }
 }

@@ -18,6 +18,7 @@ import javafx.util.Duration;
 import javafx.util.Pair;
 import towerDefense.entity.bullets.BulletClass;
 import towerDefense.entity.bullets.NormalBullet;
+import towerDefense.entity.bullets.SpawnBullet;
 import towerDefense.entity.enemies.*;
 
 public class GameField {
@@ -84,32 +85,6 @@ public class GameField {
     // actually create enemies and spawn on the screen
     public void update(Pane layer)
     {
-        if(!enemiesQueue.isEmpty()) {
-            if (timer == 0) {
-                final Pair<String, Double> p = enemiesQueue.poll();
-                final String name = p.getKey();
-                final double time = p.getValue();
-
-                if ("Normal".equals(name)) {
-                    EnemyClass e = new NormalEnemy(layer, new Image(Config.NORMAL_IMAGE), tick);
-                    entities.add(e);
-                    enemies.add(e);
-                } else if ("Smaller".equals(name)) {
-                    EnemyClass e = new SmallerEnemy(layer, new Image(Config.SMALLER_IMAGE), tick);
-                    entities.add(e);
-                    enemies.add(e);
-                } else if ("Tanker".equals(name)) {
-                    EnemyClass e = new TankerEnemy(layer, new Image(Config.TANKER_IMAGE), tick);
-                    entities.add(e);
-                    enemies.add(e);
-                } else if ("Boss".equals(name)) {
-                    EnemyClass e = new BossEnemy(layer, new Image(Config.BOSS_IMAGE), tick);
-                    entities.add(e);
-                    enemies.add(e);
-                }
-                timer = time;
-            } else timer--;
-        }
         entities.forEach(e -> e.move());
         entities.forEach(e -> e.update());
 
@@ -118,23 +93,52 @@ public class GameField {
         {
             if (e.getDestroyed())
             {
-                System.out.println(e.getClass() + " destroyed");
                 destroyedEntities.add(e);
-                System.out.println(destroyedEntities.size());
                 e.removeFromLayer();
             }
         }
 
-        if(entities.removeAll(destroyedEntities))
-            System.out.println("destroyed list");
         destroyedEntities.clear();
     }
 
-    //Spawn and shoot, right now doesn't have delete object funtion tho
-    public void shoot(Pane layer, double posX, double posY, double rotation, EnemyClass e) {
+    public void spawnEnemies(Pane layer) {
+        if(!enemiesQueue.isEmpty()) {
+            if (timer == 0) {
+                final Pair<String, Double> p = enemiesQueue.poll();
+                final String name = p.getKey();
+                final double time = p.getValue();
+
+                if ("Normal".equals(name)) {
+                    EnemyClass e = new NormalEnemy(layer, new Image(Config.NORMAL_IMAGE));
+                    entities.add(e);
+                    enemies.add(e);
+                } else if ("Smaller".equals(name)) {
+                    EnemyClass e = new SmallerEnemy(layer, new Image(Config.SMALLER_IMAGE));
+                    entities.add(e);
+                    enemies.add(e);
+                } else if ("Tanker".equals(name)) {
+                    EnemyClass e = new TankerEnemy(layer, new Image(Config.TANKER_IMAGE));
+                    entities.add(e);
+                    enemies.add(e);
+                } else if ("Boss".equals(name)) {
+                    EnemyClass e = new BossEnemy(layer, new Image(Config.BOSS_IMAGE));
+                    entities.add(e);
+                    enemies.add(e);
+                }
+                timer = time;
+            } else timer--;
+        }
+    }
+
+    //Spawn and shoot
+    public void shoot(Pane layer, double posX, double posY, double rotation, EnemyClass e, String type) {
         if(e != null) {
             if (bTimer == 0) {
-                BulletClass b = new NormalBullet(layer, new Image(Config.NORMAL_BULLET_IMAGE), 1, 0, 0, rotation);
+                //spawn bullet here
+                SpawnBullet s = new SpawnBullet();
+                BulletClass b = s.createBullet(layer, rotation, type);
+
+                //Bullet trace
                 entities.add(b);
                 Path p = new Path();
                 MoveTo start = new MoveTo(posX, posY);
@@ -143,14 +147,14 @@ public class GameField {
                 p.getElements().add(ln);
 
                 PathTransition pT = new PathTransition();
-                pT.setDuration(Duration.millis(100));
+                pT.setDuration(Duration.millis(b.getSpeed()));
                 pT.setNode(b.getImageView());
                 pT.setPath(p);
+                pT.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
                 pT.setOnFinished(ev -> {
-                    System.out.println("end path");
                     b.setDestroyed(true);
                     e.setHealth(e.getHealth() - b.getDamage());
-                    bTimer = 30;
+                    bTimer = b.getRateOfFire();
                 });
                 pT.play();
             }

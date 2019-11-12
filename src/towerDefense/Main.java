@@ -11,7 +11,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import towerDefense.entity.enemies.EnemyClass;
+import towerDefense.entity.towers.MachineGunTower;
 import towerDefense.entity.towers.NormalTower;
+import towerDefense.entity.towers.SniperTower;
 import towerDefense.entity.towers.TowerClass;
 
 public class Main extends Application {
@@ -41,19 +43,20 @@ public class Main extends Application {
 
         load();
         gf.loadQueue(layer, 1);
-        TowerClass t = new NormalTower(layer, new Image(Config.NORMAL_TOWER_IMAGE), 1, 136, 1);
+        TowerClass t = new MachineGunTower(layer, new Image(Config.MACHINE_TOWER_IMAGE), 136, 1);
 
         // handle game loop
         AnimationTimer loop = new AnimationTimer(){
 
             @Override
             public void handle(long now) {
+                gf.spawnEnemies(layer);
                 t.update();
                 t.checkTarget();
                 t.findTarget(e);
                 t.move();
                 //Right now the arguments for shoot are used to bypass this pasta code
-                gf.shoot(layer, t.getMidX(), t.getMidY(), t.getRotation(), t.getTarget());
+                gf.shoot(layer, t.getMidX(), t.getMidY(), t.getRotation(), t.getTarget(), t.getType());
                 gf.update(layer);
             }
         };

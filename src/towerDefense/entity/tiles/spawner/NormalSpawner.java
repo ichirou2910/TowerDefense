@@ -10,13 +10,13 @@ import towerDefense.entity.enemies.NormalEnemy;
  */
 public class NormalSpawner extends SpawnerClass<NormalEnemy> {;
 
-    public NormalSpawner(Pane layer, Image image, long tick, double spawnTime)
+    public NormalSpawner(Pane layer, Image image, double spawnTime)
     {
-        super(layer, image, tick, spawnTime, Config.SPAWN_POS_X, Config.SPAWN_POS_Y, Config.SPAWN_ROTATION);
+        super(layer, image, spawnTime, Config.SPAWN_POS_X, Config.SPAWN_POS_Y, Config.SPAWN_ROTATION);
     }
 
-    protected NormalEnemy spawn(Pane layer, Image image, long tick)
+    protected NormalEnemy spawn(Pane layer, Image image)
     {
-        return new NormalEnemy(layer, image, tick);
+        return new NormalEnemy(layer, image);
     }
 }
