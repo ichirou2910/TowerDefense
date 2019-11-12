@@ -15,6 +15,7 @@ public class SpawnBullet {
         }
         if(type == "MachineGun") {
             b = new MachineBullet(layer, new Image(Config.MACHINE_BULLET_IMAGE), 0, 0, rotation);
+            System.out.println(b.getRotation());
         }
         return b;
     }

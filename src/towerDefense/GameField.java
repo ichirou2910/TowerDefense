@@ -2,17 +2,19 @@ package towerDefense;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Scanner;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.PathTransition;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.animation.PathTransition;
-
-import java.util.*;
-
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import javafx.util.Pair;
 import towerDefense.entity.EffectClass;
@@ -28,7 +30,6 @@ public class GameField {
     private List<EnemyClass> enemies = new ArrayList<>();
     private double timer = 0;
     private double bTimer = 0;
-    private double eTimer = 5;
 
     public GameField(GameStage gameStage) {
         this.width = gameStage.getWidth();
@@ -45,6 +46,8 @@ public class GameField {
     public final double getHeight() {
         return height;
     }
+
+    public List<EnemyClass> getEnemies() {return enemies;}
     //#endregion
 
     // load enemies info from file to queue
@@ -55,10 +58,12 @@ public class GameField {
             final Scanner in = new Scanner(str);
             try
             {
+                // skip few first lines, which basically contains trivial things
                 for (int i = 0; i < 7; i++)
                     in.nextLine();
+                    
                 final int count = in.nextInt();
-                timer = in.nextDouble();
+                timer = in.nextDouble();    // initial spawn time
                 for (int i = 0; i < count; i++)
                 {
                     final String name = in.next();
@@ -76,12 +81,13 @@ public class GameField {
         }
     }
 
-    // actually create enemies and spawn on the screen
+    // update state of entities list
     public void update(Pane layer)
     {
         enemies.forEach(e -> e.move());
         entities.forEach(e -> e.update());
 
+        // a list of to be destroyed entities so we can remove all of them at once
         final List<EntityClass> destroyedEntities = new ArrayList<>();
         for (EntityClass e : entities)
         {
@@ -92,11 +98,15 @@ public class GameField {
             }
         }
 
+        entities.removeAll(destroyedEntities);
         destroyedEntities.clear();
     }
 
+    // actually spawn enemies
     public void spawnEnemies(Pane layer) {
-        if(!enemiesQueue.isEmpty()) {
+
+        if (!enemiesQueue.isEmpty()) {
+
             if (timer == 0) {
                 final Pair<String, Double> p = enemiesQueue.poll();
                 final String name = p.getKey();
@@ -120,7 +130,10 @@ public class GameField {
                     enemies.add(e);
                 }
                 timer = time;
-            } else timer--;
+
+            } else
+                timer--;
+
         }
     }
 
@@ -128,6 +141,7 @@ public class GameField {
     public void shoot(Pane layer, double posX, double posY, double rotation, EnemyClass e, String type) {
         if(e != null) {
             if (bTimer == 0) {
+
                 //spawn bullet here
                 SpawnBullet s = new SpawnBullet();
                 BulletClass b = s.createBullet(layer, rotation, type);
@@ -155,12 +169,12 @@ public class GameField {
                     ft.setAutoReverse(false);
                     ft.play();
 
-                    //Bullet set to destroy, also reduce enemy's HP
+                    //Bullet set to destroyed, also reduce enemy's HP
                     b.setDestroyed(true);
                     e.setHealth(e.getHealth() - b.getDamage());
                     bTimer = b.getRateOfFire();
 
-                    //Explosion
+                    //Explosion when enemy dies
                     if(!e.isAlive()) {
                         ex = new EffectClass(layer, new Image(Config.EXPLOSION3), e.getPosX() - 5, e.getPosY() - 5, 0);
                         ft = new FadeTransition(Duration.millis(500), ex.getImageView());
@@ -175,7 +189,4 @@ public class GameField {
             bTimer--;
         }
     }
-
-    public List<EnemyClass> getEnemies() {return enemies;}
-
 }

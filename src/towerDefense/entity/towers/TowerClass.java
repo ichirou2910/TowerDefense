@@ -1,23 +1,17 @@
 package towerDefense.entity.towers;
 
-import towerDefense.Config;
-import towerDefense.EntityClass;
+import java.util.List;
+
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import towerDefense.EntityClass;
 import towerDefense.entity.enemies.EnemyClass;
-import towerDefense.ui.AngleNormalize;
-
-import java.util.List;
 
 public abstract class TowerClass extends EntityClass {
     private EnemyClass target;
 
     private final double range;
     private final int damage;
-    private final double rotationEasing = 10; //higher value rotate slower
-    private final double firingRangeLimitDeg = 20;
-
-    private boolean withinFiringRange = false;
 
     protected TowerClass(Pane layer, Image image, double posX, double posY, double range, int damage) {
         super(layer, image, posX, posY, 0);
@@ -33,9 +27,6 @@ public abstract class TowerClass extends EntityClass {
     public void move() {
         TowerClass track = this;
 
-        //reset within firing range
-        withinFiringRange = false;
-
         //rotate towards target
         if(target != null) {
             //get target angle
@@ -48,17 +39,15 @@ public abstract class TowerClass extends EntityClass {
             double currentAngle = track.getRotation();
             //calculate difference between target and tower
             double dif = targetAngle - currentAngle;
+
             //normalize
-            dif = AngleNormalize.normalRelativeAngleDeg(dif);
+            // dif = AngleNormalize.normalRelativeAngleDeg(dif);
 
             //add the dif to the current angle, while easing the rotation when target comes closer
-            currentAngle = currentAngle + dif/rotationEasing;
+            currentAngle = currentAngle + dif;
 
             //apply rotation
             setRotation(currentAngle);
-
-            //determines if the target is within firing range
-            withinFiringRange = Math.abs(dif) < firingRangeLimitDeg;
         }
     }
 

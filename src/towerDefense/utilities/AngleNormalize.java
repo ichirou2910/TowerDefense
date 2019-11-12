@@ -1,4 +1,4 @@
-package towerDefense.ui;
+package towerDefense.utilities;
 
 public class AngleNormalize {
 
