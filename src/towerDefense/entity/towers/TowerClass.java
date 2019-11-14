@@ -78,7 +78,7 @@ public abstract class TowerClass extends EntityClass {
         double closetDistance = 0.0;
 
         for(EnemyClass cTarget: e) {
-            if(!cTarget.isAlive()) continue;
+            if(cTarget.getDestroyed()) continue;
 
             // get distance between tower and target
             double disX = cTarget.getMidX() - this.getMidX();

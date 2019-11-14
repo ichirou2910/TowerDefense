@@ -54,6 +54,4 @@ public abstract class EnemyClass extends EntityClass {
             this.setDestroyed(true);
         }
     }
-
-    public boolean isAlive() { return Double.compare(this.health, 0) > 0; }
 }

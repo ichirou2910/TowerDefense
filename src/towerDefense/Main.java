@@ -41,6 +41,8 @@ public class Main extends Application {
         load();
         gf.loadQueue(layer, 1);
 
+        Controller c = new Controller(layer);
+
         // Testing purpose
         // TODO: add controller to properly spawn tower and handle game flow
         TowerClass t = new MachineGunTower(layer, new Image(Config.MACHINE_TOWER_IMAGE), 3*46, 5*46, 136);
@@ -50,6 +52,7 @@ public class Main extends Application {
 
             @Override
             public void handle(long now) {
+                c.control();
                 gf.spawnEnemies(layer);
                 t.checkTarget();
                 t.findTarget(e);

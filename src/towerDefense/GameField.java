@@ -149,8 +149,8 @@ public class GameField {
                 //Bullet trace
                 entities.add(b);
                 Path p = new Path();
-                MoveTo start = new MoveTo(posX, posY);
-                LineTo ln = new LineTo(e.getMidX(), e.getMidY());
+                MoveTo start = new MoveTo(posX + 46, posY + 46);
+                LineTo ln = new LineTo(e.getMidX() + 46, e.getMidY() + 46);
                 p.getElements().add(start);
                 p.getElements().add(ln);
 
@@ -175,7 +175,7 @@ public class GameField {
                     bTimer = b.getRateOfFire();
 
                     //Explosion when enemy dies
-                    if(!e.isAlive()) {
+                    if(e.getHealth() <= 0) {
                         ex = new EffectClass(layer, new Image(Config.EXPLOSION3), e.getPosX() - 5, e.getPosY() - 5, 0);
                         ft = new FadeTransition(Duration.millis(500), ex.getImageView());
                         ft.setFromValue(1.0);
