@@ -10,8 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import towerDefense.entity.enemies.EnemyClass;
-import towerDefense.entity.towers.*;
 
 public class Main extends Application {
 
@@ -36,16 +34,13 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        List<EnemyClass> e = gf.getEnemies();
-
         load();
         gf.loadQueue(layer, 1);
 
-        Controller c = new Controller(layer);
+        Controller c = new Controller(layer, gf);
 
         // Testing purpose
         // TODO: add controller to properly spawn tower and handle game flow
-        TowerClass t = new MachineGunTower(layer, new Image(Config.MACHINE_TOWER_IMAGE), 3*46, 5*46, 136);
 
         // handle game loop
         AnimationTimer loop = new AnimationTimer(){
@@ -54,12 +49,6 @@ public class Main extends Application {
             public void handle(long now) {
                 c.control();
                 gf.spawnEnemies(layer);
-                t.checkTarget();
-                t.findTarget(e);
-                t.move();
-                t.update();
-                //Right now the arguments for shoot are used to bypass this pasta code
-                gf.shoot(layer, t.getMidX(), t.getMidY(), t.getRotation(), t.getTarget(), t.getType());
                 gf.update(layer);
             }
         };

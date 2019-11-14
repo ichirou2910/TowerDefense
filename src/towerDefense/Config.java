@@ -32,8 +32,11 @@ public class Config {
     public final static String SNIPER_SHADOW_IMAGE = "file:res/images/towers/SniperFaded.png";
     public final static String MACHINE_SHADOW_IMAGE = "file:res/images/towers/MachineGunFaded.png";
     public final static int NORMAL_TOWER_DAMAGE = 10;
-    public final static int SNIPER_TOWER_DAMAGE = 35;
-    public final static int MACHINE_TOWER_DAMAGE = 4;
+    public final static int SNIPER_TOWER_DAMAGE = 5;
+    public final static int MACHINE_TOWER_DAMAGE = 1;
+    public final static double NORMAL_TOWER_RANGE = 92;
+    public final static double SNIPER_TOWER_RANGE = 136;
+    public final static double MACHINE_TOWER_RANGE = 92;
 
     //Bullets
     public final static String NORMAL_BULLET_IMAGE = "file:res/images/bullets/Normal.png";

@@ -2,6 +2,7 @@ package towerDefense.entity.bullets;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+
 import towerDefense.Config;
 
 public class SpawnBullet {

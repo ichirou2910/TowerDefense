@@ -8,19 +8,12 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.PathTransition;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.util.Duration;
 import javafx.util.Pair;
-import towerDefense.entity.EffectClass;
-import towerDefense.entity.bullets.BulletClass;
-import towerDefense.entity.bullets.SpawnBullet;
+
 import towerDefense.entity.enemies.*;
+import towerDefense.entity.towers.*;
 
 public class GameField {
     private final double width;
@@ -28,8 +21,8 @@ public class GameField {
     private final List<EntityClass> entities = new ArrayList<>();
     private Queue<Pair<String, Double>> enemiesQueue = new LinkedList<>();
     private List<EnemyClass> enemies = new ArrayList<>();
+    private List<TowerClass> towers = new ArrayList<>();
     private double timer = 0;
-    private double bTimer = 0;
 
     public GameField(GameStage gameStage) {
         this.width = gameStage.getWidth();
@@ -86,6 +79,7 @@ public class GameField {
     {
         enemies.forEach(e -> e.move());
         entities.forEach(e -> e.update());
+        towers.forEach(e -> e.update(enemies));
 
         // a list of to be destroyed entities so we can remove all of them at once
         final List<EntityClass> destroyedEntities = new ArrayList<>();
@@ -100,6 +94,11 @@ public class GameField {
 
         entities.removeAll(destroyedEntities);
         destroyedEntities.clear();
+    }
+
+    public void addEntity(EntityClass e)
+    {
+        entities.add(e);
     }
 
     // actually spawn enemies
@@ -137,56 +136,26 @@ public class GameField {
         }
     }
 
-    //Spawn and shoot
-    public void shoot(Pane layer, double posX, double posY, double rotation, EnemyClass e, String type) {
-        if(e != null) {
-            if (bTimer == 0) {
-
-                //spawn bullet here
-                SpawnBullet s = new SpawnBullet();
-                BulletClass b = s.createBullet(layer, rotation, type);
-
-                //Bullet trace
-                entities.add(b);
-                Path p = new Path();
-                MoveTo start = new MoveTo(posX + 46, posY + 46);
-                LineTo ln = new LineTo(e.getMidX() + 46, e.getMidY() + 46);
-                p.getElements().add(start);
-                p.getElements().add(ln);
-
-                PathTransition pT = new PathTransition();
-                pT.setDuration(Duration.millis(b.getSpeed()));
-                pT.setNode(b.getImageView());
-                pT.setPath(p);
-                pT.setAutoReverse(false);
-                pT.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-                pT.setOnFinished(ev -> {
-                    //Bullet impact
-                    EntityClass ex = new EffectClass(layer, new Image(Config.IMPACT_BULLET_IMAGE), e.getPosX(), e.getPosY(), rotation + 180);
-                    FadeTransition ft = new FadeTransition(Duration.millis(200), ex.getImageView());
-                    ft.setFromValue(1.0);
-                    ft.setToValue(0.0);
-                    ft.setAutoReverse(false);
-                    ft.play();
-
-                    //Bullet set to destroyed, also reduce enemy's HP
-                    b.setDestroyed(true);
-                    e.setHealth(e.getHealth() - b.getDamage());
-                    bTimer = b.getRateOfFire();
-
-                    //Explosion when enemy dies
-                    if(e.getHealth() <= 0) {
-                        ex = new EffectClass(layer, new Image(Config.EXPLOSION3), e.getPosX() - 5, e.getPosY() - 5, 0);
-                        ft = new FadeTransition(Duration.millis(500), ex.getImageView());
-                        ft.setFromValue(1.0);
-                        ft.setToValue(0.0);
-                        ft.setAutoReverse(false);
-                        ft.play();
-                    }
-                });
-                pT.play();
-            }
-            bTimer--;
+    // spawn towers
+    public void spawnTower(Pane layer, String type, double posX, double posY)
+    {
+        if (type.equals("Normal"))
+        {
+            TowerClass t = new NormalTower(layer, this, new Image(Config.NORMAL_TOWER_IMAGE), posX, posY, Config.NORMAL_TOWER_RANGE);
+            towers.add(t);
+            System.out.println("Normal Tower spawned at " + posX + " " + ", " + posY);
+        }
+        else if (type.equals("Sniper"))
+        {
+            TowerClass t = new SniperTower(layer, this, new Image(Config.SNIPER_TOWER_IMAGE), posX, posY, Config.SNIPER_TOWER_RANGE);
+            towers.add(t);
+            System.out.println("Sniper Tower spawned at " + posX + " " + ", " + posY);
+        }
+        else if (type.equals("Sniper"))
+        {
+            TowerClass t = new MachineGunTower(layer, this, new Image(Config.MACHINE_TOWER_IMAGE), posX, posY, Config.MACHINE_TOWER_RANGE);
+            towers.add(t);
+            System.out.println("Machine Gun Tower spawned at " + posX + " " + ", " + posY);
         }
     }
 }
