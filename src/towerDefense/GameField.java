@@ -151,7 +151,7 @@ public class GameField {
             towers.add(t);
             System.out.println("Sniper Tower spawned at " + posX + " " + ", " + posY);
         }
-        else if (type.equals("Sniper"))
+        else if (type.equals("Machine"))
         {
             TowerClass t = new MachineGunTower(layer, this, new Image(Config.MACHINE_TOWER_IMAGE), posX, posY, Config.MACHINE_TOWER_RANGE);
             towers.add(t);
