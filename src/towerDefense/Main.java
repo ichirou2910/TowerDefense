@@ -38,6 +38,7 @@ public class Main extends Application {
         gf.loadQueue(layer, 1);
 
         Controller c = new Controller(layer, gf);
+        c.control();
 
         // Testing purpose
         // TODO: add controller to properly spawn tower and handle game flow
@@ -47,7 +48,6 @@ public class Main extends Application {
 
             @Override
             public void handle(long now) {
-                c.control();
                 gf.spawnEnemies(layer);
                 gf.update(layer);
             }
