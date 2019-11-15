@@ -61,9 +61,9 @@ public class Controller {
                 public void handle(long now) {
 
                     if(flag) {
-                        normalShadow = new Sprite("Normal", new Image(Config.NORMAL_SHADOW_IMAGE), x + 3, yNorm + 9);
-                        sniperShadow = new Sprite("Sniper", new Image(Config.SNIPER_SHADOW_IMAGE), x + 4, ySnipe + 5);
-                        machineShadow = new Sprite("Machine", new Image(Config.MACHINE_SHADOW_IMAGE), x + 3, yMachine + 5);
+                        normalShadow = new Sprite("Normal", new Image(Config.NORMAL_SHADOW_IMAGE), x, yNorm);
+                        sniperShadow = new Sprite("Sniper", new Image(Config.SNIPER_SHADOW_IMAGE), x, ySnipe);
+                        machineShadow = new Sprite("Machine", new Image(Config.MACHINE_SHADOW_IMAGE), x, yMachine);
 
                         layer.getChildren().addAll(normalShadow.getImageView(), sniperShadow.getImageView(), machineShadow.getImageView());
                         flag = false;
@@ -98,7 +98,7 @@ public class Controller {
                         s.getImageView().setOnMouseDragged(new EventHandler<MouseEvent>() {
                             @Override
                             public void handle(MouseEvent event) {
-                                s.setPosition(event.getX() - 10, event.getY() - 10);
+                                s.setPosition(event.getX() - 20, event.getY() - 20);
                             }
                         });
 
