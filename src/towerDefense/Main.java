@@ -37,7 +37,7 @@ public class Main extends Application {
         load();
         gf.loadQueue(layer, 1);
 
-        Controller c = new Controller(layer, gf);
+        Controller c = new Controller(layer, gf, gs);
         c.control();
 
         // Testing purpose

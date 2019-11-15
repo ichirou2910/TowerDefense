@@ -143,19 +143,16 @@ public class GameField {
         {
             TowerClass t = new NormalTower(layer, this, new Image(Config.NORMAL_TOWER_IMAGE), posX, posY, Config.NORMAL_TOWER_RANGE);
             towers.add(t);
-            System.out.println("Normal Tower spawned at " + posX + " " + ", " + posY);
         }
         else if (type.equals("Sniper"))
         {
             TowerClass t = new SniperTower(layer, this, new Image(Config.SNIPER_TOWER_IMAGE), posX, posY, Config.SNIPER_TOWER_RANGE);
             towers.add(t);
-            System.out.println("Sniper Tower spawned at " + posX + " " + ", " + posY);
         }
         else if (type.equals("Machine"))
         {
             TowerClass t = new MachineGunTower(layer, this, new Image(Config.MACHINE_TOWER_IMAGE), posX, posY, Config.MACHINE_TOWER_RANGE);
             towers.add(t);
-            System.out.println("Machine Gun Tower spawned at " + posX + " " + ", " + posY);
         }
     }
 }

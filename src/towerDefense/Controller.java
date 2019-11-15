@@ -19,9 +19,13 @@ public class Controller {
     private Sprite sniperShadow;
     private Sprite machineShadow;
 
+    //Use for drag & drop operation
     private Sprite s;
     private boolean flag;
     private boolean spawn;
+
+    //array for mapIndex
+    private final int[][] mapIndex;
 
     //Default position for towers in shop
     private final double x = 21*46 - 8;  //use for all
@@ -32,7 +36,7 @@ public class Controller {
     private GameField gameField;
 
     //Constructor
-    public Controller(Pane layer, GameField gf) {
+    public Controller(Pane layer, GameField gf, GameStage gs) {
         this.layer = layer;
         flag = true;
         spawn = false;
@@ -48,6 +52,7 @@ public class Controller {
         layer.getChildren().addAll(normalImage.getImageView(), sniperImage.getImageView(), machineImage.getImageView());
 
         this.gameField = gf;
+        this.mapIndex = gs.getMapIndex();
     }
 
     //Control method, used directly in the gameloop
@@ -108,7 +113,9 @@ public class Controller {
                                 layer.getChildren().remove(s.getImageView());
                                 int inX = (int) e.getX();
                                 int inY = (int) e.getY();
-                                gameField.spawnTower(layer, s.getName(), 46.0 * (inX / 46), 46.0 * (inY / 46));
+                                if(mapIndex[inY/46][inX/46] == 1) {
+                                    gameField.spawnTower(layer, s.getName(), 46.0 * (inX / 46), 46.0 * (inY / 46));
+                                }
                                 flag = true;
                                 spawn = false;
                             }
