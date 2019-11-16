@@ -1,11 +1,9 @@
 package towerDefense;
 
  import java.io.FileInputStream;
- import java.io.FileNotFoundException;
- import java.io.IOException;
- import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
 
 public class GameStage {
     private final int width;
@@ -44,7 +42,7 @@ public class GameStage {
     public final int[][] getMapIndex() {return mapIndex;}
     //#endregion
 
-    public void loadMap() {
+    private void loadMap() {
         try (FileInputStream str = new FileInputStream("res/stages/map.txt")) {
             final Scanner sc = new Scanner(str);
             int row = Config.VERTICAL_TILES;

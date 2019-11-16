@@ -20,6 +20,14 @@ public class Sprite {
         imageView.setX(posX);
         imageView.setY(posY);
     }
+    // Not all needs a name so this constructor is made
+    public Sprite(Image image, double posX, double posY)
+    {
+        this.name = "";
+        imageView = new ImageView(image);
+        imageView.setX(posX);
+        imageView.setY(posY);
+    }
 
     // Just why can't the original ImageView class have this handy function? （╯‵□′）╯︵┴─┴
     public void setPosition(double posX, double posY)

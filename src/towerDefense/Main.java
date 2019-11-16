@@ -19,10 +19,13 @@ public class Main extends Application {
     List<EntityClass> entities = new ArrayList<>();     // manages game entities
     GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities, 1, 1);
     GameField gf = new GameField(gs);
+    
     Image map, n_tower;
 
     @Override
     public void start(Stage primaryStage) {
+
+        
         // configure the game window
         Group root = new Group();
         layer = new Pane();
@@ -36,12 +39,12 @@ public class Main extends Application {
 
         load();
         gf.loadQueue(layer, 1);
-
         Controller c = new Controller(layer, gf, gs);
-        c.control();
+        c.init();
 
         // Testing purpose
-        // TODO: add controller to properly spawn tower and handle game flow
+        // TODO: add player related things: money, lives
+        
 
         // handle game loop
         AnimationTimer loop = new AnimationTimer(){
