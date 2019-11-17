@@ -1,0 +1,172 @@
+/** This class is the base class of every objects in the game
+ *  It contains the sprite image, basic geometric info
+ */
+
+package towerDefense;
+
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+
+public abstract class EntityClass extends Node implements towerDefense.entity.GameEntity {
+    
+    private Image image;
+    private ImageView imageView;
+    private Pane layer;
+
+    private double posX;
+    private double posY;
+    private double midX;
+    private double midY;
+    private double rotation;
+    private int moveSet = 1;
+    private boolean destroyed = false;
+
+    protected EntityClass(Pane layer, Image image, double posX, double posY, double rotation) {
+        
+        this.layer = layer;
+        this.image = image;
+        this.posX = posX;
+        this.midX = posX + image.getWidth() / 2;
+        this.posY = posY;
+        this.midY = posY + image.getHeight() / 2;
+        this.rotation = rotation;
+
+        this.imageView = new ImageView(image);
+        this.imageView.relocate(posX, posY);
+        this.imageView.setRotate(rotation);
+
+        addToLayer();
+    }
+    // Getters & Setters
+    //#region
+    @Override
+    public final double getPosX() {
+        return posX;
+    }
+
+    protected final void setPosX(double posX) {
+        this.posX = posX;
+    }
+
+    @Override
+    public final double getPosY() {
+        return posY;
+    }
+
+    public double getMidX() {
+        return this.midX;
+    }
+    
+    public double getMidY() { 
+        return this.midY; 
+    }
+
+    protected final void setPosY(double posY) {
+        this.posY = posY;
+    }
+
+    public double getRotation() {
+        return this.rotation;
+    }
+
+    public void setRotation(double rotation) {
+        this.rotation = rotation;
+    }
+
+    public boolean getDestroyed() {
+        return this.destroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
+    }
+
+    public Image getImage()
+    {
+        return this.image;
+    }
+
+    public ImageView getImageView()
+    {
+        return this.imageView;
+    }
+
+    public Pane getLayer()
+    {
+        return this.layer;
+    }
+
+    public abstract double getSpeed();
+    //#endregion
+
+    public void addToLayer() {
+
+        this.layer.getChildren().add(this.imageView);
+    }
+
+    public void removeFromLayer() {
+
+        this.layer.getChildren().remove(this.imageView);
+    }
+
+    public void update()
+    {
+        imageView.relocate(posX, posY);
+        imageView.setRotate(rotation);
+    }
+
+    public void move()
+    {
+        //Change rotation
+        if(posX == 5*46 - 23 && posY == 5*46 - 23) {
+            rotation = 0;
+            moveSet = 2;
+        }
+        if(posX == 16*46 - 23 && posY == 5*46 - 23) {
+            rotation = 90;
+            moveSet = 1;
+        }
+        if(posX == 16*46 - 23 && posY == 11*46 - 23) {
+            rotation = 180;
+            moveSet = 3;
+        }
+        if(posX == 2*46 - 23 && posY == 11*46 - 23) {
+            rotation = 90;
+            moveSet = 1;
+        }
+        if(posX == 2*46 - 23 && posY == 15*46 - 23) {
+            rotation = 0;
+            moveSet = 2;
+        }
+        if(posX == 18*46 - 23 && posY == 15*46 - 23) {
+            rotation = 90;
+            moveSet = 1;
+        }
+        if(moveSet == 1) {
+            posY += getSpeed();
+        }
+        if(moveSet == 2) {
+            posX += getSpeed();
+        }
+        if(moveSet == 3) {
+            posX -= getSpeed();
+        }
+        midX = posX + image.getWidth() / 2;
+        midY = posY + image.getHeight() / 2;
+    }
+
+    @Override
+    public final boolean overlapped(double posX, double posY, double width, double height) {
+        return posX < this.posX + this.image.getWidth()
+                && posY < this.posY + this.image.getHeight()
+                && posX + width > this.posX
+                && posY + height > this.posY;
+    }
+
+    @Override
+    public Node getStyleableNode() {
+        return null;
+    }
+}
