@@ -4,10 +4,13 @@ import java.util.*;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -17,12 +20,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     Pane layer;
-    Scene scene;
+    Scene scene, menuScene;
     List<EntityClass> entities = new ArrayList<>();     // manages game entities
     GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities, 1, 1);
     GameField gf = new GameField(gs);
     
-    Image map, n_tower;
+    Image map, screen, title, playNotPressed, playPressed;
 
     @Override
     public void start(Stage primaryStage) {
@@ -35,8 +38,51 @@ public class Main extends Application {
         root.getChildren().add(layer);
         scene = new Scene(root, (double)Config.SCREEN_WIDTH, (double)Config.SCREEN_HEIGHT);
 
+        //Game menu
+        Group menu = new Group();
+        menuScene = new Scene(menu, (double)Config.SCREEN_WIDTH, (double)Config.SCREEN_HEIGHT);
+
+        screen = new Image("file:res/images/Menu.png");
+        title = new Image("file:res/images/Logo.png");
+        playNotPressed = new Image("file:res/images/NotPressed.png");
+        playPressed = new Image("file:res/images/Pressed.png");
+
+        ImageView splashScreen = new ImageView(screen);
+        splashScreen.relocate(-200, -200);
+        ImageView logo = new ImageView(title);
+        logo.relocate(100, 105);
+        ImageView notPressed = new ImageView(playNotPressed);
+        notPressed.relocate(425, 550);
+        ImageView pressed = new ImageView(playPressed);
+        pressed.relocate(390, 513);
+        pressed.setVisible(false);
+        menu.getChildren().addAll(splashScreen, logo, notPressed, pressed);
+
+        //Play game
+        notPressed.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                notPressed.setVisible(false);
+                pressed.setVisible(true);
+            }
+        });
+        pressed.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                pressed.setVisible(false);
+                notPressed.setVisible(true);
+            }
+        });
+
+        pressed.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                primaryStage.setScene(scene);
+            }
+        });
+
         primaryStage.setTitle(Config.GAME_NAME);
-        primaryStage.setScene(scene);
+        primaryStage.setScene(menuScene);
         primaryStage.show();
 
         load();
