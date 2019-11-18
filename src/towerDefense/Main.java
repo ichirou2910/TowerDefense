@@ -13,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -48,7 +50,7 @@ public class Main extends Application {
         playPressed = new Image("file:res/images/Pressed.png");
 
         ImageView splashScreen = new ImageView(screen);
-        splashScreen.relocate(-200, -200);
+        splashScreen.relocate(0, 0);
         ImageView logo = new ImageView(title);
         logo.relocate(100, 105);
         ImageView notPressed = new ImageView(playNotPressed);
@@ -57,6 +59,10 @@ public class Main extends Application {
         pressed.relocate(390, 513);
         pressed.setVisible(false);
         menu.getChildren().addAll(splashScreen, logo, notPressed, pressed);
+
+        //Moving background
+        Path path = new Path();
+        MoveTo start = new MoveTo(-200, -200);
 
         //Play game
         notPressed.setOnMouseEntered(new EventHandler<MouseEvent>() {

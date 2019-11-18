@@ -72,6 +72,8 @@ public class Player {
 
         moneyUI.setTextAlignment(TextAlignment.JUSTIFY);
         moneyUI.setTextOrigin(VPos.TOP);
+        moneyUI.setX(953);
+        moneyUI.setY(285);
         moneyUI.setStroke(Color.WHITE);
         moneyUI.setFill(Color.WHITE);
         moneyUI.setFont(Config.UI_FONT);
@@ -82,7 +84,7 @@ public class Player {
 
     public void update()
     {
-        moneyUI.setText("Cash: " + money);
+        moneyUI.setText("$" + money);
 //        System.out.println("it's updated");
     }
 
