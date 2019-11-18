@@ -41,6 +41,7 @@ public class GameField {
     }
 
     public List<EnemyClass> getEnemies() {return enemies;}
+    public List<TowerClass> getTowers() {return towers;}
     //#endregion
 
     // load enemies info from file to queue
@@ -75,7 +76,7 @@ public class GameField {
     }
 
     // update state of entities list
-    public void update(Pane layer)
+    public void update(Player p)
     {
         enemies.forEach(e -> e.move());
         entities.forEach(e -> e.update());
@@ -83,17 +84,26 @@ public class GameField {
 
         // a list of to be destroyed entities so we can remove all of them at once
         final List<EntityClass> destroyedEntities = new ArrayList<>();
+        final List<EnemyClass> destroyedEnemies = new ArrayList<>();
         for (EntityClass e : entities)
         {
             if (e.getDestroyed())
             {
-                destroyedEntities.add(e);
+                if (e instanceof EnemyClass) {
+                    p.setMoney(p.getMoney() + ((EnemyClass) e).getReward());
+                    ((EnemyClass) e).setReward(0);
+                    destroyedEnemies.add((EnemyClass) e);
+                }
+                else
+                    destroyedEntities.add(e);
                 e.removeFromLayer();
             }
         }
 
         entities.removeAll(destroyedEntities);
         destroyedEntities.clear();
+        enemies.removeAll(destroyedEnemies);
+        destroyedEnemies.clear();
     }
 
     public void addEntity(EntityClass e)
@@ -133,26 +143,6 @@ public class GameField {
             } else
                 timer--;
 
-        }
-    }
-
-    // spawn towers
-    public void spawnTower(Pane layer, String type, double posX, double posY)
-    {
-        if (type.equals("Normal"))
-        {
-            TowerClass t = new NormalTower(layer, this, new Image(Config.NORMAL_TOWER_IMAGE), posX, posY, Config.NORMAL_TOWER_RANGE);
-            towers.add(t);
-        }
-        else if (type.equals("Sniper"))
-        {
-            TowerClass t = new SniperTower(layer, this, new Image(Config.SNIPER_TOWER_IMAGE), posX, posY, Config.SNIPER_TOWER_RANGE);
-            towers.add(t);
-        }
-        else if (type.equals("Machine"))
-        {
-            TowerClass t = new MachineGunTower(layer, this, new Image(Config.MACHINE_TOWER_IMAGE), posX, posY, Config.MACHINE_TOWER_RANGE);
-            towers.add(t);
         }
     }
 }

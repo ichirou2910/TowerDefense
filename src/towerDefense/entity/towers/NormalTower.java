@@ -8,7 +8,7 @@ import towerDefense.GameField;
 public class NormalTower extends TowerClass {
     private final String type = "Normal";
     public NormalTower(Pane layer, GameField gf, Image image, double posX, double posY, double range) {
-        super(layer, gf, image, posX, posY, range, Config.NORMAL_TOWER_DAMAGE);
+        super(layer, gf, image, posX, posY, range, Config.NORMAL_TOWER_DAMAGE, Config.NORMAL_TOWER_PRICE);
     }
 
     public String getType() {return this.type;}

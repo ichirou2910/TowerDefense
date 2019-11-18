@@ -1,5 +1,7 @@
 package towerDefense;
 
+import javafx.scene.text.Font;
+
 public class Config {
     public static final String GAME_NAME = "Tower Defense in space";
 
@@ -14,6 +16,8 @@ public class Config {
     public static final int SCREEN_WIDTH = 1050;
 
     public static final int SCREEN_HEIGHT = VERTICAL_TILES * TILE_SIZE;
+
+    public final static Font UI_FONT = Font.loadFont("file:res/fonts/VT323-Regular.ttf", 30);
 
     //Spawner
     public final static double SPAWN_POS_X = 207; //5 * 46 - 23
@@ -37,7 +41,9 @@ public class Config {
     public final static double NORMAL_TOWER_RANGE = 92;
     public final static double SNIPER_TOWER_RANGE = 136;
     public final static double MACHINE_TOWER_RANGE = 92;
-
+    public final static int NORMAL_TOWER_PRICE = 10;
+    public final static int SNIPER_TOWER_PRICE = 10;
+    public final static int MACHINE_TOWER_PRICE = 10;
     //Bullets
     public final static String NORMAL_BULLET_IMAGE = "file:res/images/bullets/Normal.png";
     public final static String SNIPER_BULLET_IMAGE = "file:res/images/bullets/Sniper.png";

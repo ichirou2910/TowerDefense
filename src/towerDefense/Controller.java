@@ -10,6 +10,7 @@ public class Controller {
 
     private Pane layer;                 // reference to master Layer
     private GameField gameField;        // reference to GameField
+    private Player player;              // reference to Player
 
     // Use for default towers in shops
     private Sprite normalImage;
@@ -38,9 +39,10 @@ public class Controller {
     private double initX = 0;
     private double initY = 0;
 
-    public Controller(Pane layer, GameField gf, GameStage gs) {
+    public Controller(Pane layer, GameField gf, GameStage gs, Player player) {
         
         this.layer = layer;
+        this.player = player;
 
         onDragged = false;
         s = null;
@@ -98,7 +100,7 @@ public class Controller {
             }
         });
 
-        // Drag Listener Filter
+        // Add a Drag Listener Filter
         layer.addEventFilter(MouseEvent.MOUSE_DRAGGED, e -> {
 
             if(onDragged) {
@@ -119,8 +121,9 @@ public class Controller {
 
                         // check if it's possible to spawn tower there
                         if(mapIndex[y/46][x/46] == 1) {
-                            gameField.spawnTower(layer, s.getName(), 46.0 * (x / 46), 46.0 * (y / 46));
-                            mapIndex[y/46][x/46] = 0;   // set that location as "used"
+//                            gameField.spawnTower(layer, s.getName(), 46.0 * (x / 46), 46.0 * (y / 46));
+                            player.buyTower(layer, s.getName(), 46.0 * (x / 46), 46.0 * (y / 46), gameField.getTowers());
+                            mapIndex[y/46][x/46] = 2;   // set that location as "used"
                         }                                
                         onDragged = false;
                         s = null;

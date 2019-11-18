@@ -9,10 +9,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
 
     Pane layer;
     Scene scene;
@@ -39,7 +41,8 @@ public class Main extends Application {
 
         load();
         gf.loadQueue(layer, 1);
-        Controller c = new Controller(layer, gf, gs);
+        Player p = new Player(layer, gf, 100, 100, 1);
+        Controller c = new Controller(layer, gf, gs, p);
         c.init();
 
         // Testing purpose
@@ -52,7 +55,8 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 gf.spawnEnemies(layer);
-                gf.update(layer);
+                gf.update(p);
+                p.update();
             }
         };
         loop.start();

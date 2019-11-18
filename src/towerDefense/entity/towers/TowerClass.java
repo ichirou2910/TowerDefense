@@ -22,20 +22,23 @@ public abstract class TowerClass extends EntityClass {
 
     private final double range;
     private final int damage;
+    private final int price;
 
     private double bTimer = 0;
 
-    protected TowerClass(Pane layer, GameField gf, Image image, double posX, double posY, double range, int damage) {
+    protected TowerClass(Pane layer, GameField gf, Image image, double posX, double posY, double range, int damage, int price) {
         super(layer, image, posX, posY, 0);
         this.range = range;
         this.damage = damage;
         this.gf = gf;
+        this.price = price;
     }
 
     //Getter
     public double getRange() {return this.range;}
     public double getSpeed() {return 0.0;}
     public int getDamage() {return this.damage;}
+    public int getPrice() {return this.price;}
 
     public void update(List<EnemyClass> e)
     {
