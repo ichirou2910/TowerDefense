@@ -78,34 +78,34 @@ public class Main extends Application {
             @Override
             public void handle(MouseEvent event) {
                 primaryStage.setScene(scene);
+
+                load();
+                gf.loadQueue(layer, 1);
+                Player p = new Player(layer, gf, 100, 100, 1);
+                Controller c = new Controller(layer, gf, gs, p);
+                c.init();
+
+                // handle game loop
+                AnimationTimer loop = new AnimationTimer(){
+
+                    @Override
+                    public void handle(long now) {
+                        gf.spawnEnemies(layer);
+                        gf.update(p);
+                        p.update();
+                    }
+                };
+                loop.start();
             }
+
         });
 
         primaryStage.setTitle(Config.GAME_NAME);
         primaryStage.setScene(menuScene);
         primaryStage.show();
 
-        load();
-        gf.loadQueue(layer, 1);
-        Player p = new Player(layer, gf, 100, 100, 1);
-        Controller c = new Controller(layer, gf, gs, p);
-        c.init();
-
         // Testing purpose
         // TODO: add player related things: money, lives
-        
-
-        // handle game loop
-        AnimationTimer loop = new AnimationTimer(){
-
-            @Override
-            public void handle(long now) {
-                gf.spawnEnemies(layer);
-                gf.update(p);
-                p.update();
-            }
-        };
-        loop.start();
     }
 
     // Load resources

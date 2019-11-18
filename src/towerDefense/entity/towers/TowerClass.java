@@ -164,7 +164,7 @@ public abstract class TowerClass extends EntityClass {
 
                     //Bullet set to destroyed, also reduce enemy's HP
                     b.setDestroyed(true);
-                    e.setHealth(e.getHealth() - b.getDamage());
+                    e.setHealth(e.getHealth() - b.getDamage() * e.getArmor());
                     bTimer = b.getRateOfFire();
 
                     //Explosion when enemy dies
