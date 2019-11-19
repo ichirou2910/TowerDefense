@@ -3,6 +3,7 @@ package towerDefense;
 import java.util.*;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.PathTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -13,11 +14,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
+import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Main extends Application {
 
@@ -62,7 +63,18 @@ public class Main extends Application {
 
         //Moving background
         Path path = new Path();
-        MoveTo start = new MoveTo(-200, -200);
+        MoveTo start = new MoveTo(400, 400);
+        LineTo line1 = new LineTo(600, 500);
+        LineTo line2 = new LineTo(200, 300);
+        path.getElements().addAll(start, line1, line1);
+
+        PathTransition pT = new PathTransition();
+        pT.setNode(splashScreen);
+        pT.setPath(path);
+        pT.setDuration(Duration.millis(22000));
+        pT.setAutoReverse(true);
+        pT.setCycleCount(100);
+        pT.play();
 
         //Play game
         notPressed.setOnMouseEntered(new EventHandler<MouseEvent>() {
