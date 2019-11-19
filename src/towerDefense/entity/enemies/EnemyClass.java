@@ -86,10 +86,6 @@ public abstract class EnemyClass extends EntityClass {
             setRotation(0);
             moveSet = 2;
         }
-        if(getMidX() == 18*TILE_SIZE && getMidY() == 15*TILE_SIZE) {
-            setRotation(90);
-            moveSet = 1;
-        }
         if(moveSet == 1) {
             setMidY(getMidY() + getSpeed());
         }
