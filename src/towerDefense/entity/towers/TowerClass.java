@@ -18,6 +18,7 @@ import towerDefense.entity.bullets.BulletClass;
 import towerDefense.entity.bullets.SpawnBullet;
 import towerDefense.entity.enemies.EnemyClass;
 import towerDefense.ui.GameLog;
+import towerDefense.utilities.Sprite;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public abstract class TowerClass extends EntityClass {
     private GameLog log;
     private Player player;
 
-    private ImageView menuView;
+    private Sprite menuView;
 
     private String type;
     private double range;
@@ -55,16 +56,17 @@ public abstract class TowerClass extends EntityClass {
         this.level = 1;
         this.player = p;
 
-        menuView = new ImageView(new Image("file:res/images/enemies/Boss.png"));
-        menuView.relocate(this.getPosX(), this.getPosY());
-        menuWidth = menuView.getImage().getWidth();
-        menuHeight = menuView.getImage().getHeight();
+//        menuView = new ImageView(new Image("file:res/images/enemies/Boss.png"));
+        menuView = new Sprite(new Image("file:res/images/enemies/Boss.png"), getMidX(), getMidY(), true);
+        menuView.setPosition(this.getPosX(), this.getPosY());
+        menuWidth = menuView.getWidth();
+        menuHeight = menuView.getHeight();
 
 
-        this.getLayer().getChildren().add(menuView);
+        this.getLayer().getChildren().add(menuView.getImageView());
 
         addListener();
-        menuView.setVisible(false);
+        menuView.getImageView().setVisible(false);
         count++;
         System.out.println("Tower #" + count);
     }
@@ -176,8 +178,8 @@ public abstract class TowerClass extends EntityClass {
                 //Bullet trace
                 gf.addEntity(b);
                 Path p = new Path();
-                MoveTo start = new MoveTo(posX + TILE_SIZE, posY + TILE_SIZE);
-                LineTo ln = new LineTo(e.getMidX() + TILE_SIZE, e.getMidY() + TILE_SIZE);
+                MoveTo start = new MoveTo(posX, posY);
+                LineTo ln = new LineTo(e.getMidX(), e.getMidY());
                 p.getElements().add(start);
                 p.getElements().add(ln);
 
@@ -189,7 +191,7 @@ public abstract class TowerClass extends EntityClass {
                 pT.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
                 pT.setOnFinished(ev -> {
                     //Bullet impact
-                    EntityClass ex = new EffectClass(layer, new Image(Config.IMPACT_BULLET_IMAGE), e.getPosX(), e.getPosY(), rotation + 180);
+                    EntityClass ex = new EffectClass(layer, new Image(Config.IMPACT_BULLET_IMAGE), e.getMidX(), e.getMidY(), rotation + 180);
                     FadeTransition ft = new FadeTransition(Duration.millis(200), ex.getImageView());
                     ft.setFromValue(1.0);
                     ft.setToValue(0.0);
@@ -203,7 +205,7 @@ public abstract class TowerClass extends EntityClass {
 
                     //Explosion when enemy dies
                     if(e.getHealth() <= 0) {
-                        ex = new EffectClass(layer, new Image(Config.EXPLOSION3), e.getPosX() - 5, e.getPosY() - 5, 0);
+                        ex = new EffectClass(layer, new Image(Config.EXPLOSION3), e.getMidX(), e.getMidY(), 0);
                         ft = new FadeTransition(Duration.millis(500), ex.getImageView());
                         ft.setFromValue(1.0);
                         ft.setToValue(0.0);
@@ -229,7 +231,7 @@ public abstract class TowerClass extends EntityClass {
             }
         });
 
-        menuView.setOnMousePressed(event -> {
+        menuView.getImageView().setOnMousePressed(event -> {
             if (onSelected && menuView.isVisible()) {
                 double x = event.getX();
                 double y = event.getY();
@@ -273,7 +275,7 @@ public abstract class TowerClass extends EntityClass {
 
     private void updateMenu() {
 
-        menuView.relocate(this.getPosX(), this.getPosY());
+        menuView.setPosition(this.getMidX(), this.getMidY());
         if (onSelected)
             menuView.setVisible(true);
         else menuView.setVisible(false);

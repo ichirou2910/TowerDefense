@@ -9,12 +9,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-import static towerDefense.Config.TILE_SIZE;
+import towerDefense.entity.GameEntity;
+import towerDefense.utilities.Sprite;
 
-public abstract class EntityClass extends Node implements towerDefense.entity.GameEntity {
+public abstract class EntityClass implements GameEntity {
     
     private Image image;
-    private ImageView imageView;
+//    private ImageView imageView;
+    private Sprite sprite;
     private Pane layer;
 
     private double posX;
@@ -22,22 +24,21 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     private double midX;
     private double midY;
     private double rotation;
-    private int moveSet = 1;
+
     private boolean destroyed = false;
 
-    protected EntityClass(Pane layer, Image image, double posX, double posY, double rotation) {
+    protected EntityClass(Pane layer, Image image, double midX, double midY, double rotation) {
         
         this.layer = layer;
         this.image = image;
-        this.posX = posX;
-        this.midX = posX + image.getWidth() / 2;
-        this.posY = posY;
-        this.midY = posY + image.getHeight() / 2;
+        this.midX = midX;
+        this.posX = midX - image.getWidth() / 2;
+        this.midY = midY;
+        this.posY = midY - image.getHeight() / 2;
         this.rotation = rotation;
 
-        this.imageView = new ImageView(image);
-        this.imageView.relocate(posX, posY);
-        this.imageView.setRotate(rotation);
+        this.sprite = new Sprite(image, midX, midY, true);
+        this.sprite.getImageView().setRotate(rotation);
 
         addToLayer();
     }
@@ -57,12 +58,16 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
         return posY;
     }
 
+    public void setMidX(double midX) { this.midX = midX; }
+
+    public void setMidY(double midY) { this.midY = midY; }
+
     public double getMidX() {
-        return this.midX;
+        return midX;
     }
     
     public double getMidY() { 
-        return this.midY; 
+        return midY;
     }
 
     protected final void setPosY(double posY) {
@@ -92,7 +97,7 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
 
     public ImageView getImageView()
     {
-        return this.imageView;
+        return sprite.getImageView();
     }
 
     public Pane getLayer()
@@ -105,58 +110,18 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
 
     public void addToLayer() {
 
-        this.layer.getChildren().add(this.imageView);
+        this.layer.getChildren().add(sprite.getImageView());
     }
 
     public void removeFromLayer() {
 
-        this.layer.getChildren().remove(this.imageView);
+        this.layer.getChildren().remove(sprite.getImageView());
     }
 
     public void update()
     {
-        imageView.relocate(posX, posY);
-        imageView.setRotate(rotation);
-    }
-
-    public void move()
-    {
-        //Change rotation
-        if(posX == 5*TILE_SIZE - TILE_SIZE/2 && posY == 5*TILE_SIZE - TILE_SIZE/2) {
-            rotation = 0;
-            moveSet = 2;
-        }
-        if(posX == 16*TILE_SIZE - TILE_SIZE/2 && posY == 5*TILE_SIZE - TILE_SIZE/2) {
-            rotation = 90;
-            moveSet = 1;
-        }
-        if(posX == 16*TILE_SIZE - TILE_SIZE/2 && posY == 11*TILE_SIZE - TILE_SIZE/2) {
-            rotation = 180;
-            moveSet = 3;
-        }
-        if(posX == 2*TILE_SIZE - TILE_SIZE/2 && posY == 11*TILE_SIZE - TILE_SIZE/2) {
-            rotation = 90;
-            moveSet = 1;
-        }
-        if(posX == 2*TILE_SIZE - TILE_SIZE/2 && posY == 15*TILE_SIZE - TILE_SIZE/2) {
-            rotation = 0;
-            moveSet = 2;
-        }
-        if(posX == 18*TILE_SIZE - TILE_SIZE/2 && posY == 15*TILE_SIZE - TILE_SIZE/2) {
-            rotation = 90;
-            moveSet = 1;
-        }
-        if(moveSet == 1) {
-            posY += getSpeed();
-        }
-        if(moveSet == 2) {
-            posX += getSpeed();
-        }
-        if(moveSet == 3) {
-            posX -= getSpeed();
-        }
-        midX = posX + image.getWidth() / 2;
-        midY = posY + image.getHeight() / 2;
+        sprite.setPosition(midX, midY);
+        sprite.setRotation(rotation);
     }
 
     @Override
@@ -167,8 +132,4 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
                 && posY + height > this.posY;
     }
 
-    @Override
-    public Node getStyleableNode() {
-        return null;
-    }
 }

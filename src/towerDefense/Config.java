@@ -24,7 +24,7 @@ public class Config {
     public final static int LOG_SIZE = 6;
 
     //Spawner
-    public final static double SPAWN_POS_X = 5 * TILE_SIZE - TILE_SIZE / 2; //5 * 46 - 23
+    public final static double SPAWN_POS_X = 5 * TILE_SIZE; //5 * 46 - 23
     public final static double SPAWN_POS_Y = TILE_SIZE;
     public final static double SPAWN_ROTATION = 90;
     public final static String NORMAL_IMAGE = "file:res/images/enemies/Normal.png";

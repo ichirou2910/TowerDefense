@@ -53,17 +53,17 @@ public class MenuController {
         onDragged = false;
         s = null;
 
-        normalImage = new Sprite(new Image(Config.NORMAL_TOWER_IMAGE), x, yNorm);
-        sniperImage = new Sprite(new Image(Config.SNIPER_TOWER_IMAGE), x, ySnipe);
-        machineImage = new Sprite(new Image(Config.MACHINE_TOWER_IMAGE), x, yMachine);
+        normalImage = new Sprite(new Image(Config.NORMAL_TOWER_IMAGE), x, yNorm, false);
+        sniperImage = new Sprite(new Image(Config.SNIPER_TOWER_IMAGE), x, ySnipe, false);
+        machineImage = new Sprite(new Image(Config.MACHINE_TOWER_IMAGE), x, yMachine, false);
 
         normalImage.getImageView().setMouseTransparent(true);
         sniperImage.getImageView().setMouseTransparent(true);
         machineImage.getImageView().setMouseTransparent(true);
 
-        normalShadow = new Sprite("Normal", new Image(Config.NORMAL_SHADOW_IMAGE), x, yNorm);
-        sniperShadow = new Sprite("Sniper", new Image(Config.SNIPER_SHADOW_IMAGE), x, ySnipe);
-        machineShadow = new Sprite("Machine", new Image(Config.MACHINE_SHADOW_IMAGE), x, yMachine);
+        normalShadow = new Sprite("Normal", new Image(Config.NORMAL_SHADOW_IMAGE), x, yNorm, false);
+        sniperShadow = new Sprite("Sniper", new Image(Config.SNIPER_SHADOW_IMAGE), x, ySnipe, false);
+        machineShadow = new Sprite("Machine", new Image(Config.MACHINE_SHADOW_IMAGE), x, yMachine, false);
 
         layer.getChildren().addAll(normalImage.getImageView(), sniperImage.getImageView(), machineImage.getImageView(), 
                                     normalShadow.getImageView(), sniperShadow.getImageView(), machineShadow.getImageView());
@@ -124,7 +124,7 @@ public class MenuController {
                     // check if it's possible to spawn tower there
                     if (x <= 920 && x >= 0 && y >= 0 && y <= 920)
                         if(mapIndex[y/TILE_SIZE][x/TILE_SIZE] == 1) {
-                            player.buyTower(layer, s.getName(), TILE_SIZE * (x / TILE_SIZE), TILE_SIZE * (y / TILE_SIZE), gameField.getTowers());
+                            player.buyTower(layer, s.getName(), TILE_SIZE * (x / TILE_SIZE) + TILE_SIZE / 2, TILE_SIZE * (y / TILE_SIZE) + TILE_SIZE / 2, gameField.getTowers());
                             mapIndex[y/TILE_SIZE][x/TILE_SIZE] = 2;   // set that location as "used"
                         }
                     onDragged = false;

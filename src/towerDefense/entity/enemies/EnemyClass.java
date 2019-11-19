@@ -9,6 +9,8 @@ import towerDefense.Config;
 import towerDefense.EntityClass;
 import towerDefense.ui.HealthBar;
 
+import static towerDefense.Config.TILE_SIZE;
+
 public abstract class EnemyClass extends EntityClass {
 
     private String type;
@@ -19,6 +21,8 @@ public abstract class EnemyClass extends EntityClass {
     private double speed;
     
     private int reward;
+
+    private int moveSet = 1;
 
     private HealthBar healthBar = new HealthBar(this.getLayer(), this.getPosX(), this.getPosY() - 5);
 
@@ -51,12 +55,54 @@ public abstract class EnemyClass extends EntityClass {
     public void update()
     {
         super.update();
-        healthBar.update(this.health, this.maxHealth, this.getMidX(), this.getPosY());
+        healthBar.update(this.health, this.maxHealth, this.getMidX(), this.getMidY() - getImage().getHeight() / 2);
         if (this.getHealth() <= 0)
         {
             healthBar.destroy(this.getLayer());
             this.setDestroyed(true);
         }
+    }
+
+    public void move()
+    {
+        //Change rotation
+        if(getMidX() == 5*TILE_SIZE && getMidY() == 5*TILE_SIZE) {
+            setRotation(0);
+            moveSet = 2;
+        }
+        if(getMidX() == 16*TILE_SIZE && getMidY() == 5*TILE_SIZE) {
+            setRotation(90);
+            moveSet = 1;
+        }
+        if(getMidX() == 16*TILE_SIZE && getMidY() == 11*TILE_SIZE) {
+            setRotation(180);
+            moveSet = 3;
+        }
+        if(getMidX() == 2*TILE_SIZE && getMidY() == 11*TILE_SIZE) {
+            setRotation(90);
+            moveSet = 1;
+        }
+        if(getMidX() == 2*TILE_SIZE && getMidY() == 15*TILE_SIZE) {
+            setRotation(0);
+            moveSet = 2;
+        }
+        if(getMidX() == 18*TILE_SIZE && getMidY() == 15*TILE_SIZE) {
+            setRotation(90);
+            moveSet = 1;
+        }
+        if(moveSet == 1) {
+            setMidY(getMidY() + getSpeed());
+        }
+        if(moveSet == 2) {
+            setMidX(getMidX() + getSpeed());
+        }
+        if(moveSet == 3) {
+            setMidX(getMidX() - getSpeed());
+        }
+//        setPosX(getMidX() - getImage().getWidth() / 2);
+//        setPosY(getPosY() - getImage().getHeight() / 2);
+//        setMidX(getPosX() + getImage().getWidth() / 2);
+//        setMidY(getPosY() + getImage().getHeight() / 2);
     }
 
     // TODO: destroy on reaching base + decrease player's health

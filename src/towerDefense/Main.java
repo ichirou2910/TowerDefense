@@ -51,10 +51,10 @@ public class Main extends Application {
 
         loadMenu();
 
-        Sprite splashScreen = new Sprite(screen, 0, 0);
-        Sprite logo = new Sprite(title, 100, 105);
-        Sprite notPressed = new Sprite(playNotPressed, 425, 550);
-        Sprite pressed = new Sprite(playPressed, 390, 513);
+        Sprite splashScreen = new Sprite(screen, 0, 0, false);
+        Sprite logo = new Sprite(title, 100, 105, false);
+        Sprite notPressed = new Sprite(playNotPressed, 425, 550, false);
+        Sprite pressed = new Sprite(playPressed, 390, 513, false);
         pressed.getImageView().setVisible(false);
         menu.getChildren().addAll(splashScreen.getImageView(), logo.getImageView(), notPressed.getImageView(), pressed.getImageView());
         
@@ -62,13 +62,13 @@ public class Main extends Application {
         Path path = new Path();
         MoveTo start = new MoveTo(400, 400);
         LineTo line1 = new LineTo(600, 500);
-        LineTo line2 = new LineTo(200, 300);
+        LineTo line2 = new LineTo(350, 300);
         path.getElements().addAll(start, line1, line2);
 
         PathTransition pT = new PathTransition();
         pT.setNode(splashScreen.getImageView());
         pT.setPath(path);
-        pT.setDuration(Duration.millis(22000));
+        pT.setDuration(Duration.millis(5000));
         pT.setAutoReverse(true);
         pT.setCycleCount(100);
         pT.play();
