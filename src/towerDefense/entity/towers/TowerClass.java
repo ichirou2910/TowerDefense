@@ -30,7 +30,9 @@ public abstract class TowerClass extends EntityClass {
     private GameLog log;
     private Player player;
 
-    private Sprite menuView;
+    private Sprite menu;
+    private Sprite upgrade;
+    private Sprite sell;
 
     private String type;
     private double range;
@@ -56,17 +58,17 @@ public abstract class TowerClass extends EntityClass {
         this.level = 1;
         this.player = p;
 
-//        menuView = new ImageView(new Image("file:res/images/enemies/Boss.png"));
-        menuView = new Sprite(new Image("file:res/images/enemies/Boss.png"), getMidX(), getMidY(), true);
-        menuView.setPosition(this.getPosX(), this.getPosY());
-        menuWidth = menuView.getWidth();
-        menuHeight = menuView.getHeight();
+        menu = new Sprite(new Image(Config.MENU_BLANK), this.getPosX() - 26, this.getPosY() - 21, false);
+        upgrade = new Sprite(new Image(Config.UPGRADE_IMAGE), menu.getPosX() + 5, menu.getPosY() + 5, false);
+        sell = new Sprite(new Image(Config.SELL_IMAGE), menu.getPosX() + 57, menu.getPosY() + 5, false);
+        this.getLayer().getChildren().addAll(menu.getImageView(), upgrade.getImageView(), sell.getImageView());
 
-
-        this.getLayer().getChildren().add(menuView.getImageView());
+        menu.getImageView().setOpacity(0.01);
+        menu.getImageView().setVisible(false);
+        upgrade.getImageView().setVisible(false);
+        sell.getImageView().setVisible(false);
 
         addListener();
-        menuView.getImageView().setVisible(false);
         count++;
         System.out.println("Tower #" + count);
     }
@@ -200,7 +202,7 @@ public abstract class TowerClass extends EntityClass {
 
                     //Bullet set to destroyed, also reduce enemy's HP
                     b.setDestroyed(true);
-                    e.setHealth(e.getHealth() - b.getDamage());
+                    e.setHealth(e.getHealth() - b.getDamage() * (1 - e.getArmor()));
                     bTimer = b.getRateOfFire();
 
                     //Explosion when enemy dies
@@ -231,32 +233,26 @@ public abstract class TowerClass extends EntityClass {
             }
         });
 
-        menuView.getImageView().setOnMousePressed(event -> {
-            if (onSelected && menuView.isVisible()) {
-                double x = event.getX();
-                double y = event.getY();
-
-                if (x < menuWidth / 2 && y < menuHeight / 2) {
-                    System.out.println("Top left corner");
-                    this.towerUpgrade();
-                }
-                else if (x < menuWidth / 2 && y > menuHeight / 2) {
-                    System.out.println("Bottom left corner");
-                }
-                else if (x > menuWidth / 2 && y < menuHeight / 2) {
-                    System.out.println("Top right corner");
-                }
-                else if (x > menuWidth / 2 && y > menuHeight / 2) {
-                    System.out.println("Bottom right corner");
-                }
-
+        upgrade.getImageView().setOnMousePressed(event -> {
+            if (onSelected && upgrade.getImageView().isVisible()) {
+                this.towerUpgrade();
                 onSelected = false;
             }
         });
+
+        sell.getImageView().setOnMousePressed(event -> {
+            if (onSelected && sell.getImageView().isVisible()) {
+                this.towerSell();
+                onSelected = false;
+            }
+        });
+
+        menu.getImageView().setOnMouseEntered(event -> {
+            onSelected = false;
+        });
     }
 
-    private void towerUpgrade()
-    {
+    private void towerUpgrade() {
         if (level < Config.TOWER_MAX_LEVEL) {
             final int upgradePrice = price * 2 / 3;
             if (player.getMoney() >= upgradePrice) {
@@ -273,11 +269,24 @@ public abstract class TowerClass extends EntityClass {
             log.addMessage("Tower reached max level!");
     }
 
+    private void towerSell() {
+        this.getLayer().getChildren().remove(this.getImageView());
+        int sellPrice = price * 2 / 3;
+        player.setMoney(sellPrice + player.getMoney());
+        log.addMessage("> " + type + " sold. Get $" + sellPrice);
+    }
+
     private void updateMenu() {
 
-        menuView.setPosition(this.getMidX(), this.getMidY());
-        if (onSelected)
-            menuView.setVisible(true);
-        else menuView.setVisible(false);
+        if (onSelected) {
+            menu.setVisible(true);
+            upgrade.getImageView().setVisible(true);
+            sell.getImageView().setVisible(true);
+        }
+        else {
+            menu.setVisible(false);
+            upgrade.getImageView().setVisible(false);
+            sell.getImageView().setVisible(false);
+        }
     }
 }

@@ -41,17 +41,21 @@ public class Config {
     public final static String SNIPER_SHADOW_IMAGE = "file:res/images/towers/SniperFaded.png";
     public final static String MACHINE_SHADOW_IMAGE = "file:res/images/towers/MachineGunFaded.png";
 
+    public final static String MENU_BLANK = "file:res/images/TowerUI/MenuBlank.png";
+    public final static String UPGRADE_IMAGE = "file:res/images/TowerUI/Upgrade.png";
+    public final static String SELL_IMAGE = "file:res/images/TowerUI/Sell.png";
+
     public final static int NORMAL_TOWER_DAMAGE = 10;
-    public final static int SNIPER_TOWER_DAMAGE = 5;
-    public final static int MACHINE_TOWER_DAMAGE = 1;
+    public final static int SNIPER_TOWER_DAMAGE = 40;
+    public final static int MACHINE_TOWER_DAMAGE = 5;
 
     public final static double NORMAL_TOWER_RANGE = TILE_SIZE * 2;
     public final static double SNIPER_TOWER_RANGE = TILE_SIZE * 3;
     public final static double MACHINE_TOWER_RANGE = TILE_SIZE * 2;
 
-    public final static int NORMAL_TOWER_PRICE = 15;
-    public final static int SNIPER_TOWER_PRICE = 24;
-    public final static int MACHINE_TOWER_PRICE = 30;
+    public final static int NORMAL_TOWER_PRICE = 30;
+    public final static int SNIPER_TOWER_PRICE = 65;
+    public final static int MACHINE_TOWER_PRICE = 55;
 
     public final static int TOWER_MAX_LEVEL = 2;
 
@@ -69,23 +73,23 @@ public class Config {
     //Enemies
     public final static int WAVE = 3;
 
-    public final static int NORMAL_HEALTH = 100;
-    public final static int NORMAL_ARMOR = 75;
+    public final static double NORMAL_HEALTH = 100;
+    public final static double NORMAL_ARMOR = 0.4;
     public final static double NORMAL_SPEED = 0.5 * TILE_SIZE / 46;
-    public final static int NORMAL_REWARD = 25;
+    public final static int NORMAL_REWARD = 15;
 
-    public final static int SMALLER_HEALTH = 75;
-    public final static int SMALLER_ARMOR = 50;
+    public final static double SMALLER_HEALTH = 75;
+    public final static double SMALLER_ARMOR = 0.2;
     public final static double SMALLER_SPEED = 1 * TILE_SIZE / 46;
-    public final static int SMALLER_REWARD = 15;
+    public final static int SMALLER_REWARD = 20;
 
-    public final static int TANKER_HEALTH = 150;
-    public final static int TANKER_ARMOR = 100;
+    public final static double TANKER_HEALTH = 175;
+    public final static double TANKER_ARMOR = 0.6;
     public final static double TANKER_SPEED = 0.5 * TILE_SIZE / 46;
     public final static int TANKER_REWARD = 40;
 
-    public final static int BOSS_HEALTH = 200;
-    public final static int BOSS_ARMOR = 200;
+    public final static double BOSS_HEALTH = 500;
+    public final static double BOSS_ARMOR = 0.7;
     public final static double BOSS_SPEED = 0.25 * TILE_SIZE / 46;
     public final static int BOSS_REWARD = 100;
 

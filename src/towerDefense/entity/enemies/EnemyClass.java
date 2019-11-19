@@ -15,9 +15,9 @@ public abstract class EnemyClass extends EntityClass {
 
     private String type;
 
-    private int health;
-    private int maxHealth;
-    private int armor;
+    private double health;
+    private double maxHealth;
+    private double armor;
     private double speed;
     
     private int reward;
@@ -26,7 +26,7 @@ public abstract class EnemyClass extends EntityClass {
 
     private HealthBar healthBar = new HealthBar(this.getLayer(), this.getPosX(), this.getPosY() - 5);
 
-    protected EnemyClass(Pane layer, Image image, String type, int health, int armor, double speed, int reward){
+    protected EnemyClass(Pane layer, Image image, String type, double health, double armor, double speed, int reward){
         super(layer, image, Config.SPAWN_POS_X, Config.SPAWN_POS_Y, Config.SPAWN_ROTATION);
         this.type = type;
         this.health = health;
@@ -38,13 +38,13 @@ public abstract class EnemyClass extends EntityClass {
     
     // Getters & Setters
     //#region
-    public void setHealth(int health) {this.health = health;}
-    public void setArmor(int armor) {this.armor = armor;}
+    public void setHealth(double health) {this.health = health;}
+    public void setArmor(double armor) {this.armor = armor;}
     public void setSpeed(double speed) {this.speed = speed;}
     public void setReward (int reward) {this.reward = reward;}
     
-    public int getHealth() {return this.health;}
-    public int getArmor() {return this.armor;}
+    public double getHealth() {return this.health;}
+    public double getArmor() {return this.armor;}
     public double getSpeed() {return this.speed;}
     public int getReward() {return this.reward;}
     public String getType() {return this.type;}

@@ -68,7 +68,7 @@ public class Main extends Application {
         PathTransition pT = new PathTransition();
         pT.setNode(splashScreen.getImageView());
         pT.setPath(path);
-        pT.setDuration(Duration.millis(5000));
+        pT.setDuration(Duration.millis(22000));
         pT.setAutoReverse(true);
         pT.setCycleCount(100);
         pT.play();
