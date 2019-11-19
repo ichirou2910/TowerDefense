@@ -33,9 +33,17 @@ public class Config {
     public final static String BOSS_IMAGE = "file:res/images/enemies/Boss.png";
 
     //Towers
-    public final static String NORMAL_TOWER_IMAGE = "file:res/images/towers/Normal.png";
-    public final static String SNIPER_TOWER_IMAGE = "file:res/images/towers/Sniper.png";
-    public final static String MACHINE_TOWER_IMAGE = "file:res/images/towers/MachineGun.png";
+    public final static String NORMAL_TOWER_IMAGE = "file:res/images/towers/Normal1.png";
+    public final static String NORMAL_TOWER2_IMAGE = "file:res/images/towers/Normal2.png";
+    public final static String NORMAL_TOWER3_IMAGE = "file:res/images/towers/Normal3.png";
+
+    public final static String SNIPER_TOWER_IMAGE = "file:res/images/towers/Sniper1.png";
+    public final static String SNIPER_TOWER2_IMAGE = "file:res/images/towers/Sniper2.png";
+    public final static String SNIPER_TOWER3_IMAGE = "file:res/images/towers/Sniper3.png";
+
+    public final static String MACHINE_TOWER_IMAGE = "file:res/images/towers/MachineGun1.png";
+    public final static String MACHINE_TOWER2_IMAGE = "file:res/images/towers/MachineGun2.png";
+    public final static String MACHINE_TOWER3_IMAGE = "file:res/images/towers/MachineGun3.png";
 
     public final static String NORMAL_SHADOW_IMAGE = "file:res/images/towers/NormalFaded.png";
     public final static String SNIPER_SHADOW_IMAGE = "file:res/images/towers/SniperFaded.png";
@@ -57,7 +65,7 @@ public class Config {
     public final static int SNIPER_TOWER_PRICE = 65;
     public final static int MACHINE_TOWER_PRICE = 55;
 
-    public final static int TOWER_MAX_LEVEL = 2;
+    public final static int TOWER_MAX_LEVEL = 3;
 
     //Bullets
     public final static String NORMAL_BULLET_IMAGE = "file:res/images/bullets/Normal.png";
@@ -88,7 +96,7 @@ public class Config {
     public final static double TANKER_SPEED = 0.5 * TILE_SIZE / 46;
     public final static int TANKER_REWARD = 40;
 
-    public final static double BOSS_HEALTH = 500;
+    public final static double BOSS_HEALTH = 400;
     public final static double BOSS_ARMOR = 0.7;
     public final static double BOSS_SPEED = 0.25 * TILE_SIZE / 46;
     public final static int BOSS_REWARD = 100;

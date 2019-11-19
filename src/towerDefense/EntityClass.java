@@ -100,6 +100,12 @@ public abstract class EntityClass implements GameEntity {
         return sprite.getImageView();
     }
 
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+        this.sprite.getImageView().setRotate(rotation);
+        addToLayer();
+    }
+
     public Pane getLayer()
     {
         return this.layer;

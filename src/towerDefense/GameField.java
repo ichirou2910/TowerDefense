@@ -79,7 +79,6 @@ public class GameField {
 
         // a list of to be destroyed entities so we can remove all of them at once
         final List<EntityClass> destroyedEntities = new ArrayList<>();
-        final List<EnemyClass> destroyedEnemies = new ArrayList<>();
         for (EntityClass e : entities)
         {
             if (e.getDestroyed())
@@ -87,18 +86,25 @@ public class GameField {
                 if (e instanceof EnemyClass) {
                     p.takeReward(((EnemyClass) e).getReward(), ((EnemyClass) e).getType());
                     ((EnemyClass) e).setReward(0);
-                    destroyedEnemies.add((EnemyClass) e);
-                }
-                else
                     destroyedEntities.add(e);
+                }
                 e.removeFromLayer();
             }
         }
 
-        entities.removeAll(destroyedEntities);
+        for (EntityClass e : towers)
+        {
+            if (e.getDestroyed())
+            {
+                destroyedEntities.add(e);
+                e.removeFromLayer();
+            }
+        }
+
+        towers.removeAll(destroyedEntities);
         destroyedEntities.clear();
-        enemies.removeAll(destroyedEnemies);
-        destroyedEnemies.clear();
+        enemies.removeAll(destroyedEntities);
+        destroyedEntities.clear();
     }
 
     public void addEntity(EntityClass e)
