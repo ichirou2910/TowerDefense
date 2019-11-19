@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+import static towerDefense.Config.TILE_SIZE;
+
 public abstract class EntityClass extends Node implements towerDefense.entity.GameEntity {
     
     private Image image;
@@ -120,27 +122,27 @@ public abstract class EntityClass extends Node implements towerDefense.entity.Ga
     public void move()
     {
         //Change rotation
-        if(posX == 5*46 - 23 && posY == 5*46 - 23) {
+        if(posX == 5*TILE_SIZE - TILE_SIZE/2 && posY == 5*TILE_SIZE - TILE_SIZE/2) {
             rotation = 0;
             moveSet = 2;
         }
-        if(posX == 16*46 - 23 && posY == 5*46 - 23) {
+        if(posX == 16*TILE_SIZE - TILE_SIZE/2 && posY == 5*TILE_SIZE - TILE_SIZE/2) {
             rotation = 90;
             moveSet = 1;
         }
-        if(posX == 16*46 - 23 && posY == 11*46 - 23) {
+        if(posX == 16*TILE_SIZE - TILE_SIZE/2 && posY == 11*TILE_SIZE - TILE_SIZE/2) {
             rotation = 180;
             moveSet = 3;
         }
-        if(posX == 2*46 - 23 && posY == 11*46 - 23) {
+        if(posX == 2*TILE_SIZE - TILE_SIZE/2 && posY == 11*TILE_SIZE - TILE_SIZE/2) {
             rotation = 90;
             moveSet = 1;
         }
-        if(posX == 2*46 - 23 && posY == 15*46 - 23) {
+        if(posX == 2*TILE_SIZE - TILE_SIZE/2 && posY == 15*TILE_SIZE - TILE_SIZE/2) {
             rotation = 0;
             moveSet = 2;
         }
-        if(posX == 18*46 - 23 && posY == 15*46 - 23) {
+        if(posX == 18*TILE_SIZE - TILE_SIZE/2 && posY == 15*TILE_SIZE - TILE_SIZE/2) {
             rotation = 90;
             moveSet = 1;
         }

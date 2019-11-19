@@ -1,6 +1,3 @@
-/.settings
-/.vscode
-/.idea
-src/module-info.java
-.classpath
-bin/
+.idea
+TowerDefense.iml
+/bin

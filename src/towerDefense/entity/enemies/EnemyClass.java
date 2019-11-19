@@ -55,5 +55,5 @@ public abstract class EnemyClass extends EntityClass {
         }
     }
 
-    public boolean isAlive() { return Double.compare(this.health, 0) > 0; }
+    // TODO: destroy on reaching base + decrease player's health
 }

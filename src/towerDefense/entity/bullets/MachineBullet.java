@@ -8,9 +8,9 @@ public class MachineBullet extends BulletClass {
     private final double speed = 100;
     private final int rateOfFire = 1;
 
-    public MachineBullet(Pane layer, Image image, double posX, double posY, double rotation)
+    public MachineBullet(Pane layer, Image image, double posX, double posY, double rotation, int damage)
     {
-        super(layer, image, posX, posY, rotation, Config.MACHINE_TOWER_DAMAGE);
+        super(layer, image, posX, posY, rotation, damage);
     }
 
     public double getSpeed() {return this.speed;}

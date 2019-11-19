@@ -8,9 +8,9 @@ public class NormalBullet extends BulletClass {
     private final double speed = 90;
     private final int rateOfFire = 30;
 
-    public NormalBullet(Pane layer, Image image, double posX, double posY, double rotation)
+    public NormalBullet(Pane layer, Image image, double posX, double posY, double rotation, int damage)
     {
-        super(layer, image, posX, posY, rotation, Config.NORMAL_TOWER_DAMAGE);
+        super(layer, image, posX, posY, rotation, damage);
     }
 
     public double getSpeed() {return this.speed;}
