@@ -12,10 +12,12 @@ import javafx.util.Duration;
 import towerDefense.Config;
 import towerDefense.EntityClass;
 import towerDefense.GameField;
+import towerDefense.Player;
 import towerDefense.entity.EffectClass;
 import towerDefense.entity.bullets.BulletClass;
 import towerDefense.entity.bullets.SpawnBullet;
 import towerDefense.entity.enemies.EnemyClass;
+import towerDefense.ui.GameLog;
 
 import java.util.List;
 
@@ -24,12 +26,15 @@ import static towerDefense.Config.TILE_SIZE;
 public abstract class TowerClass extends EntityClass {
     private GameField gf;
     private EnemyClass target;
+    private GameLog log;
+    private Player player;
 
     private ImageView menuView;
 
+    private String type;
     private double range;
     private int damage;
-    private int price;
+    private final int price;
     private int level;
 
     private boolean onSelected = false;
@@ -37,14 +42,18 @@ public abstract class TowerClass extends EntityClass {
     private double menuHeight;
 
     private double bTimer = 0;
+    public static int count = 0;
 
-    protected TowerClass(Pane layer, GameField gf, Image image, double posX, double posY, double range, int damage, int price) {
+    protected TowerClass(Pane layer, GameField gf, GameLog log, Image image, String type, double posX, double posY, double range, int damage, int price, Player p) {
         super(layer, image, posX, posY, 0);
+        this.type = type;
+        this.log = log;
         this.range = range;
         this.damage = damage;
         this.gf = gf;
         this.price = price;
         this.level = 1;
+        this.player = p;
 
         menuView = new ImageView(new Image("file:res/images/enemies/Boss.png"));
         menuView.relocate(this.getPosX(), this.getPosY());
@@ -56,6 +65,8 @@ public abstract class TowerClass extends EntityClass {
 
         addListener();
         menuView.setVisible(false);
+        count++;
+        System.out.println("Tower #" + count);
     }
 
     //Getter
@@ -187,7 +198,6 @@ public abstract class TowerClass extends EntityClass {
 
                     //Bullet set to destroyed, also reduce enemy's HP
                     b.setDestroyed(true);
-                    System.out.println(b.getDamage());
                     e.setHealth(e.getHealth() - b.getDamage());
                     bTimer = b.getRateOfFire();
 
@@ -207,7 +217,9 @@ public abstract class TowerClass extends EntityClass {
         }
     }
 
-    // TODO: tower upgrade
+    // TODO: move tower upgrade listener to Controller
+    // TODO: design menu image, currently using a random one for testing
+    // TODO: restrict to 1 menu to trigger only, when a tower is triggering menu, other cannot trigger
     public void addListener()
     {
         this.getImageView().setOnMousePressed(event -> {
@@ -244,13 +256,19 @@ public abstract class TowerClass extends EntityClass {
     private void towerUpgrade()
     {
         if (level < Config.TOWER_MAX_LEVEL) {
-            System.out.println("upgraded");
-            damage *= 2;
-            range *= 1.2;
-            System.out.println("Damage changed to " + damage);
-            System.out.println("Range changed to " + range);
-            level++;
+            final int upgradePrice = price * 2 / 3;
+            if (player.getMoney() >= upgradePrice) {
+                damage *= 2;
+                range *= 1.2;
+                log.addMessage("> " + type + " upgraded. Damage x2, Range x1.2. Spent $" + upgradePrice);
+                level++;
+                player.setMoney(player.getMoney() - upgradePrice);
+            } else {
+                log.addMessage("> Not enough money to upgrade. Need $" + upgradePrice);
+            }
         }
+        else
+            log.addMessage("Tower reached max level!");
     }
 
     private void updateMenu() {

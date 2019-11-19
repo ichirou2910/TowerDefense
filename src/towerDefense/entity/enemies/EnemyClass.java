@@ -11,6 +11,8 @@ import towerDefense.ui.HealthBar;
 
 public abstract class EnemyClass extends EntityClass {
 
+    private String type;
+
     private int health;
     private int maxHealth;
     private int armor;
@@ -20,8 +22,9 @@ public abstract class EnemyClass extends EntityClass {
 
     private HealthBar healthBar = new HealthBar(this.getLayer(), this.getPosX(), this.getPosY() - 5);
 
-    protected EnemyClass(Pane layer, Image image, int health, int armor, double speed, int reward){
+    protected EnemyClass(Pane layer, Image image, String type, int health, int armor, double speed, int reward){
         super(layer, image, Config.SPAWN_POS_X, Config.SPAWN_POS_Y, Config.SPAWN_ROTATION);
+        this.type = type;
         this.health = health;
         this.maxHealth = health;
         this.armor = armor;
@@ -40,6 +43,7 @@ public abstract class EnemyClass extends EntityClass {
     public int getArmor() {return this.armor;}
     public double getSpeed() {return this.speed;}
     public int getReward() {return this.reward;}
+    public String getType() {return this.type;}
     
     public HealthBar getHealthBar() {return this.healthBar;}
     //#endregion

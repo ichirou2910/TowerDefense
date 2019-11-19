@@ -1,5 +1,6 @@
 package towerDefense;
 
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.util.Timer;
@@ -18,7 +19,9 @@ public class Config {
     public static final int SCREEN_HEIGHT = VERTICAL_TILES * TILE_SIZE;
 
     public final static Font UI_FONT = Font.loadFont("file:res/fonts/VT323-Regular.ttf", 30);
-    public final static int LOG_SIZE = 5;
+    public final static Font LOG_FONT = Font.loadFont("file:res/fonts/VT323-Regular.ttf", 25);
+    public final static Color LOG_COLOR = Color.BLACK;
+    public final static int LOG_SIZE = 6;
 
     //Spawner
     public final static double SPAWN_POS_X = 5 * TILE_SIZE - TILE_SIZE / 2; //5 * 46 - 23
@@ -46,9 +49,9 @@ public class Config {
     public final static double SNIPER_TOWER_RANGE = TILE_SIZE * 3;
     public final static double MACHINE_TOWER_RANGE = TILE_SIZE * 2;
 
-    public final static int NORMAL_TOWER_PRICE = 10;
-    public final static int SNIPER_TOWER_PRICE = 10;
-    public final static int MACHINE_TOWER_PRICE = 10;
+    public final static int NORMAL_TOWER_PRICE = 15;
+    public final static int SNIPER_TOWER_PRICE = 24;
+    public final static int MACHINE_TOWER_PRICE = 30;
 
     public final static int TOWER_MAX_LEVEL = 2;
 

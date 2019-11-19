@@ -85,7 +85,8 @@ public class GameField {
             if (e.getDestroyed())
             {
                 if (e instanceof EnemyClass) {
-                    p.setMoney(p.getMoney() + ((EnemyClass) e).getReward());
+//                    p.setMoney(p.getMoney() + ((EnemyClass) e).getReward());
+                    p.takeReward(((EnemyClass) e).getReward(), ((EnemyClass) e).getType());
                     ((EnemyClass) e).setReward(0);
                     destroyedEnemies.add((EnemyClass) e);
                 }

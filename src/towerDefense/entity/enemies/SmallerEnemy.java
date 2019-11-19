@@ -6,7 +6,7 @@ import towerDefense.Config;
 
 public class SmallerEnemy extends EnemyClass{
     public SmallerEnemy(Pane layer, Image image) {
-        super(layer, image, Config.SMALLER_HEALTH, Config.SMALLER_ARMOR, Config.SMALLER_SPEED, Config.SMALLER_REWARD);
+        super(layer, image, "Small Enemy", Config.SMALLER_HEALTH, Config.SMALLER_ARMOR, Config.SMALLER_SPEED, Config.SMALLER_REWARD);
 
     }
 }

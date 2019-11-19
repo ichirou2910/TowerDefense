@@ -8,9 +8,9 @@ public class SniperBullet extends BulletClass {
     private final double speed = 80;
     private final int rateOfFire = 70;
 
-    public SniperBullet(Pane layer, Image image, double posX, double posY, double rotation)
+    public SniperBullet(Pane layer, Image image, double posX, double posY, double rotation, int damage)
     {
-        super(layer, image, posX, posY, rotation, Config.SNIPER_TOWER_DAMAGE);
+        super(layer, image, posX, posY, rotation, damage);
     }
 
     public double getSpeed() {return this.speed;}

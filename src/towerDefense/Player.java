@@ -21,23 +21,20 @@ public class Player {
     private GameField gameField;                   // reference to GameField
     private GameLog log;
 
-    // TODO: use configurable position
-    private Text moneyUI = new Text(920, 920, "0");
-    private Text livesUI = new Text(920, 880, "");
+    private Text moneyUI = new Text(953, 285, "0");
+    private Text livesUI = new Text(43, 0, "");
 
     private int money;
     private int health;
     private int level;
+
 
     // Getters & Setters
     //#region
     public int getMoney() {
         return money;
     }
-
-    public void setMoney(int money) {
-        this.money = money;
-    }
+    public void setMoney(int money) {this.money = money;}
 
     public int getHealth() {
         return health;
@@ -64,7 +61,7 @@ public class Player {
         this.health = health;
         this.level = level;
 
-        moneyUI.setTextOrigin(VPos.BOTTOM);
+        moneyUI.setTextOrigin(VPos.TOP);
         moneyUI.setStroke(Color.WHITE);
         moneyUI.setFill(Color.WHITE);
         moneyUI.setFont(Config.UI_FONT);
@@ -80,7 +77,7 @@ public class Player {
 
     public void update()
     {
-        moneyUI.setText("Cash:  " + money);
+        moneyUI.setText("$" + money);
         livesUI.setText("Lives: " + health);
 //        System.out.println("it's updated");
     }
@@ -88,42 +85,54 @@ public class Player {
     // Buy Tower function
     public void buyTower(Pane layer, String name, double posX, double posY, List<TowerClass> towers)
     {
-        double price = 0;
         if (name.equals("Normal"))
         {
             if (money >= Config.NORMAL_TOWER_PRICE) {
-                TowerClass t = new NormalTower(layer, gameField, new Image(Config.NORMAL_TOWER_IMAGE), posX, posY, Config.NORMAL_TOWER_RANGE);
+                TowerClass t = new NormalTower(layer, gameField, log, new Image(Config.NORMAL_TOWER_IMAGE), posX, posY, Config.NORMAL_TOWER_RANGE, this);
                 towers.add(t);
-                price = t.getPrice();
+                money -= t.getPrice();
+                log.addMessage("> Bought " + t.getType() + ". Spent $" + t.getPrice());
+            } else {
+                log.addMessage("> Not enough money to buy. Need $" + Config.NORMAL_TOWER_PRICE);
             }
         }
         else if (name.equals("Sniper"))
         {
             if (money >= Config.SNIPER_TOWER_PRICE) {
-                TowerClass t = new SniperTower(layer, gameField, new Image(Config.SNIPER_TOWER_IMAGE), posX, posY, Config.SNIPER_TOWER_RANGE);
+                TowerClass t = new SniperTower(layer, gameField, log, new Image(Config.SNIPER_TOWER_IMAGE), posX, posY, Config.SNIPER_TOWER_RANGE, this);
                 towers.add(t);
-                price = t.getPrice();
+                money -= t.getPrice();
+                log.addMessage("> Bought " + t.getType() + ". Spent $" + t.getPrice());
+            } else {
+                log.addMessage("> Not enough money to buy. Need $" + Config.SNIPER_TOWER_PRICE);
             }
         }
         else if (name.equals("Machine"))
         {
             if (money >= Config.MACHINE_TOWER_PRICE) {
-                TowerClass t = new MachineGunTower(layer, gameField, new Image(Config.MACHINE_TOWER_IMAGE), posX, posY, Config.MACHINE_TOWER_RANGE);
+                TowerClass t = new MachineGunTower(layer, gameField, log, new Image(Config.MACHINE_TOWER_IMAGE), posX, posY, Config.MACHINE_TOWER_RANGE, this);
                 towers.add(t);
-                price = t.getPrice();
+                money -= t.getPrice();
+                log.addMessage("> Bought " + t.getType() + ". Spent $" + t.getPrice());
+            } else {
+                log.addMessage("> Not enough money to buy. Need $" + Config.MACHINE_TOWER_PRICE);
             }
         }
-        money -= price;
-        log.addMessage("> " + name + " Tower bought. Spent $" + price);
+
     }
 
-    // TODO: fix home
+    public void takeReward(int reward, String type)
+    {
+        if (reward != 0) {
+            money += reward;
+            log.addMessage("> Defeated " + type + ". Received $" + reward);
+        }
+    }
+
+    // TODO: fix base function
     public void fix()
     {
 
     }
 
-    // TODO: tower upgrade
-    // TODO: 1. click on tower -> upgrade interface
-    // TODO: 2. max upgradable level
 }

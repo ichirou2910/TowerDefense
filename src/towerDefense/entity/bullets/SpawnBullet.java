@@ -12,7 +12,7 @@ public class SpawnBullet {
             b = new NormalBullet(layer, new Image(Config.NORMAL_BULLET_IMAGE), -46, -46, rotation, damage);
         }
         if(type.equals("Sniper")) {
-            b = new SniperBullet(layer, new Image(Config.SNIPER_BULLET_IMAGE), -46, -46, rotation);
+            b = new SniperBullet(layer, new Image(Config.SNIPER_BULLET_IMAGE), -46, -46, rotation, damage);
         }
         if(type.equals("MachineGun")) {
             b = new MachineBullet(layer, new Image(Config.MACHINE_BULLET_IMAGE), -46, -46, rotation, damage);

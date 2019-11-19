@@ -10,7 +10,7 @@ import towerDefense.utilities.Sprite;
 
 import static towerDefense.Config.TILE_SIZE;
 
-public class Controller {
+public class MenuController {
 
     private Pane layer;                 // reference to master Layer
     private GameField gameField;        // reference to GameField
@@ -44,7 +44,7 @@ public class Controller {
     private double initX = 0;
     private double initY = 0;
 
-    public Controller(Pane layer, GameField gf, GameStage gs /*, GameLog log */, Player player) {
+    public MenuController(Pane layer, GameField gf, GameStage gs /*, GameLog log */, Player player) {
         
         this.layer = layer;
 //        this.log = log;
