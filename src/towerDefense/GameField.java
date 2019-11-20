@@ -19,7 +19,10 @@ public class GameField {
     private List<EnemyClass> enemies = new ArrayList<>();
     private List<TowerClass> towers = new ArrayList<>();
     private double timer = 0;
+    private int counter = 0;
     private boolean baseBuilt = false;
+    private boolean menuChosen = false;
+    private TowerClass tow;
     ImageView base = new ImageView(new Image("file:res/images/Base.png"));
 
     public GameField(GameStage gameStage) {
@@ -64,6 +67,29 @@ public class GameField {
     // update state of entities list
     public void update(Player p)
     {
+        for(TowerClass t : towers)
+            counter += t.getFlagTrig();
+
+        for(TowerClass t : towers)
+        {
+            if(counter == 1) {
+                if (t.getFlagTrig() == 1) {
+                    tow = t;
+                }
+            }
+        }
+
+        for(TowerClass t : towers)
+        {
+            if(counter == 2) {
+                if (t.equals(tow)) {
+                    t.deleteMenu();
+                }
+            }
+        }
+
+        counter = 0;
+
         enemies.forEach(e -> e.move());
         entities.forEach(e -> e.update());
         towers.forEach(e -> e.update(enemies));

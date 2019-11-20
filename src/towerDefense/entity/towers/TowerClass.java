@@ -44,6 +44,7 @@ public abstract class TowerClass extends EntityClass {
     private int level;
 
     private boolean onSelected = false;
+    private int flagTrig = 0;
 
     private double bTimer = 0;
     public static int count = 0;
@@ -87,6 +88,7 @@ public abstract class TowerClass extends EntityClass {
     public int getDamage() {return this.damage;}
     public void setDamage(int damage) {this.damage = damage;}
     public int getPrice() {return this.price;}
+    public int getFlagTrig() {return this.flagTrig;}
 
     public void update(List<EnemyClass> e)
     {
@@ -238,6 +240,7 @@ public abstract class TowerClass extends EntityClass {
             if (!onSelected) {
                 System.out.println("Selected");
                 onSelected = true;
+                flagTrig = 1;
             }
         });
 
@@ -245,6 +248,7 @@ public abstract class TowerClass extends EntityClass {
             if (onSelected && upgrade.getImageView().isVisible()) {
                 this.towerUpgrade();
                 onSelected = false;
+                flagTrig = 0;
             }
         });
 
@@ -252,12 +256,13 @@ public abstract class TowerClass extends EntityClass {
             if (onSelected && sell.getImageView().isVisible()) {
                 this.towerSell();
                 onSelected = false;
+                flagTrig = 0;
             }
         });
 
-        menu.getImageView().setOnMouseEntered(event -> {
-            onSelected = false;
-        });
+//        menu.getImageView().setOnMouseEntered(event -> {
+//            onSelected = false;
+//        });
     }
 
     private void towerUpgrade() {
@@ -265,9 +270,6 @@ public abstract class TowerClass extends EntityClass {
             final int upgradePrice = price * 3 / 5;
 
             if (player.getMoney() >= upgradePrice) {
-
-                //remove current image from layer
-//                this.getLayer().getChildren().remove(this.getImageView());
 
                 //replace with upgraded image and change stats
                 if(this.type.equals("Normal Tower")) {
@@ -334,5 +336,10 @@ public abstract class TowerClass extends EntityClass {
             upgrade.getImageView().setVisible(false);
             sell.getImageView().setVisible(false);
         }
+    }
+
+    public void deleteMenu() {
+        onSelected = false;
+        flagTrig = 0;
     }
 }
