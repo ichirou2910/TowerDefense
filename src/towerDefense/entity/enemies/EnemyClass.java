@@ -99,10 +99,6 @@ public abstract class EnemyClass extends EntityClass {
         if(moveSet == 3) {
             setMidX(getMidX() - getSpeed());
         }
-//        setPosX(getMidX() - getImage().getWidth() / 2);
-//        setPosY(getPosY() - getImage().getHeight() / 2);
-//        setMidX(getPosX() + getImage().getWidth() / 2);
-//        setMidY(getPosY() + getImage().getHeight() / 2);
     }
 
     // TODO: destroy on reaching base + decrease player's health

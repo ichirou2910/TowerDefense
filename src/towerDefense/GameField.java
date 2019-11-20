@@ -11,33 +11,21 @@ import java.io.IOException;
 import java.util.*;
 
 public class GameField {
-    private final double width;
-    private final double height;
+
     private final List<EntityClass> entities = new ArrayList<>();
     private Queue<Pair<String, Double>> enemiesQueue = new LinkedList<>();
+
     private List<EnemyClass> enemies = new ArrayList<>();
     private List<TowerClass> towers = new ArrayList<>();
     private double timer = 0;
 
     public GameField(GameStage gameStage) {
-        this.width = gameStage.getWidth();
-        this.height = gameStage.getWidth();
         entities.addAll(gameStage.getEntities());
     }
 
     // Getters
-    //#region
-    public final double getWidth() {
-        return width;
-    }
-
-    public final double getHeight() {
-        return height;
-    }
-
     public List<EnemyClass> getEnemies() {return enemies;}
     public List<TowerClass> getTowers() {return towers;}
-    //#endregion
 
     // load enemies info from file to queue
     public void loadQueue(Pane layer, int levelIndex)
@@ -88,6 +76,8 @@ public class GameField {
                     ((EnemyClass) e).setReward(0);
                     destroyedEntities.add(e);
                 }
+                else
+                    destroyedEntities.add(e);
                 e.removeFromLayer();
             }
         }

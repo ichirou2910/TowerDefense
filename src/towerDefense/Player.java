@@ -79,7 +79,6 @@ public class Player {
     {
         moneyUI.setText("$" + money);
         livesUI.setText("Lives: " + health);
-//        System.out.println("it's updated");
     }
 
     // Buy Tower function

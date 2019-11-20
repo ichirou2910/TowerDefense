@@ -5,9 +5,11 @@ import javafx.animation.PathTransition;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -18,8 +20,6 @@ import towerDefense.utilities.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static towerDefense.Config.TILE_SIZE;
 
 public class Main extends Application {
 
@@ -34,8 +34,14 @@ public class Main extends Application {
     private Image playNotPressed;
     private Image playPressed;
 
+    // testing purposes
+    private final long[] frameTimes = new long[100];
+    private int frameTimeIndex = 0;
+    private boolean arrayFilled = false;
+
     @Override
     public void start(Stage primaryStage) {
+
 
 
         // configure the game window
@@ -84,12 +90,17 @@ public class Main extends Application {
         });
 
         pressed.getImageView().setOnMouseClicked(event -> {
+
+            // Show FPS
+            Label fpsLabel = new Label();
+            root.getChildren().add(fpsLabel);
+
             primaryStage.setScene(scene);
 
             loadGame();
             gf.loadQueue(layer, 1);
             GameLog log = new GameLog(layer);
-            Player p = new Player(layer, gf, log, 100, 100, 1);
+            Player p = new Player(layer, gf, log, 1000, 100, 1);
             MenuController c = new MenuController(layer, gf, gs, p);
 
             c.init();
@@ -99,6 +110,22 @@ public class Main extends Application {
 
                 @Override
                 public void handle(long now) {
+                    // FPS
+                    long oldFrameTime = frameTimes[frameTimeIndex];
+                    frameTimes[frameTimeIndex] = now;
+                    frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length;
+                    if (frameTimeIndex == 0)
+                        arrayFilled = true;
+                    if (arrayFilled)
+                    {
+                        long elapsedNanos = now - oldFrameTime;
+                        long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
+                        double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
+                        fpsLabel.setTextFill(Color.WHITE);
+                        fpsLabel.setText(String.format("Current FPS: %.0f", frameRate));
+
+                    }
+
                     gf.spawnEnemies(layer);
                     gf.update(p);
                     p.update();

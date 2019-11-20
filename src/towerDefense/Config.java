@@ -83,22 +83,22 @@ public class Config {
 
     public final static double NORMAL_HEALTH = 100;
     public final static double NORMAL_ARMOR = 0.4;
-    public final static double NORMAL_SPEED = 0.5 * TILE_SIZE / 46;
+    public final static double NORMAL_SPEED = 0.5;
     public final static int NORMAL_REWARD = 15;
 
     public final static double SMALLER_HEALTH = 75;
     public final static double SMALLER_ARMOR = 0.2;
-    public final static double SMALLER_SPEED = 1 * TILE_SIZE / 46;
+    public final static double SMALLER_SPEED = 1;
     public final static int SMALLER_REWARD = 20;
 
     public final static double TANKER_HEALTH = 175;
     public final static double TANKER_ARMOR = 0.6;
-    public final static double TANKER_SPEED = 0.5 * TILE_SIZE / 46;
+    public final static double TANKER_SPEED = 0.5;
     public final static int TANKER_REWARD = 40;
 
     public final static double BOSS_HEALTH = 400;
     public final static double BOSS_ARMOR = 0.7;
-    public final static double BOSS_SPEED = 0.25 * TILE_SIZE / 46;
+    public final static double BOSS_SPEED = 0.25;
     public final static int BOSS_REWARD = 100;
 
 }

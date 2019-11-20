@@ -38,12 +38,14 @@ public abstract class EntityClass implements GameEntity {
         this.rotation = rotation;
 
         this.sprite = new Sprite(image, midX, midY, true);
-        this.sprite.getImageView().setRotate(rotation);
+        this.sprite.setRotation(rotation);
 
         addToLayer();
     }
     // Getters & Setters
     //#region
+
+    public Sprite getSprite() {return this.sprite;}
     @Override
     public final double getPosX() {
         return posX;
@@ -100,11 +102,11 @@ public abstract class EntityClass implements GameEntity {
         return sprite.getImageView();
     }
 
-    public void setSprite(Sprite sprite) {
-        this.sprite = sprite;
-        this.sprite.getImageView().setRotate(rotation);
-        addToLayer();
-    }
+//    public void setSprite(Sprite sprite) {
+//        this.sprite = sprite;
+//        this.sprite.setRotation(rotation);
+//        addToLayer();
+//    }
 
     public Pane getLayer()
     {

@@ -65,6 +65,11 @@ public class Sprite {
         imageView.setRotate(rotation);
     }
 
+    public void setImageView(Image image)
+    {
+        imageView.setImage(image);
+    }
+
     public double getPosX() {return this.imageView.getX();}
     public double getPosY() {return this.imageView.getY();}
     public double getWidth() {return image.getWidth();}

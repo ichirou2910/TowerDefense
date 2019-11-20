@@ -33,9 +33,9 @@ public abstract class TowerClass extends EntityClass {
     private Sprite menu;
     private Sprite upgrade;
     private Sprite sell;
-    private Sprite normal2, normal3;
-    private Sprite sniper2, sniper3;
-    private Sprite machine2, machine3;
+    private Image normal2, normal3;
+    private Image sniper2, sniper3;
+    private Image machine2, machine3;
 
     private String type;
     private double range;
@@ -59,12 +59,12 @@ public abstract class TowerClass extends EntityClass {
         this.level = 1;
         this.player = p;
 
-        normal2 = new Sprite(new Image(Config.NORMAL_TOWER2_IMAGE), this.getPosX(), this.getPosY(), true);
-        normal3 = new Sprite(new Image(Config.NORMAL_TOWER3_IMAGE), this.getPosX(), this.getPosY(), true);
-        sniper2 = new Sprite(new Image(Config.SNIPER_TOWER2_IMAGE), this.getPosX(), this.getPosY(), true);
-        sniper3 = new Sprite(new Image(Config.SNIPER_TOWER3_IMAGE), this.getPosX(), this.getPosY(), true);
-        machine2 = new Sprite(new Image(Config.MACHINE_TOWER2_IMAGE), this.getPosX(), this.getPosY(), true);
-        machine3 = new Sprite(new Image(Config.MACHINE_TOWER3_IMAGE), this.getPosX(), this.getPosY(), true);
+        normal2 = new Image(Config.NORMAL_TOWER2_IMAGE);
+        normal3 = new Image(Config.NORMAL_TOWER3_IMAGE);
+        sniper2 = new Image(Config.SNIPER_TOWER2_IMAGE);
+        sniper3 = new Image(Config.SNIPER_TOWER3_IMAGE);
+        machine2 = new Image(Config.MACHINE_TOWER2_IMAGE);
+        machine3 = new Image(Config.MACHINE_TOWER3_IMAGE);
 
         menu = new Sprite(new Image(Config.MENU_BLANK), this.getPosX() - 26, this.getPosY() - 21, false);
         upgrade = new Sprite(new Image(Config.UPGRADE_IMAGE), menu.getPosX() + 5, menu.getPosY() + 5, false);
@@ -263,13 +263,18 @@ public abstract class TowerClass extends EntityClass {
     private void towerUpgrade() {
         if (level < Config.TOWER_MAX_LEVEL) {
             final int upgradePrice = price * 3 / 5;
+
             if (player.getMoney() >= upgradePrice) {
+
                 //remove current image from layer
-                this.getLayer().getChildren().remove(this.getImageView());
+//                this.getLayer().getChildren().remove(this.getImageView());
+
                 //replace with upgraded image and change stats
                 if(this.type.equals("Normal Tower")) {
-                    if(level == 1) this.setSprite(normal2);
-                    else this.setSprite(normal3);
+                    if(level == 1)
+                        this.getSprite().setImageView(normal2);
+                    else
+                        this.getSprite().setImageView(normal3);
 
                     damage += 2;
                     range *= 1.1;
@@ -277,8 +282,10 @@ public abstract class TowerClass extends EntityClass {
                 }
 
                 if(this.type.equals("Sniper Tower")) {
-                    if(level == 1) this.setSprite(sniper2);
-                    else this.setSprite(sniper3);
+                    if(level == 1)
+                        this.getSprite().setImageView(sniper2);
+                    else
+                        this.getSprite().setImageView(sniper3);
 
                     damage += 5;
                     range *= 1.2;
@@ -286,8 +293,10 @@ public abstract class TowerClass extends EntityClass {
                 }
 
                 if(this.type.equals("Machine Gun Tower")) {
-                    if(level == 1) this.setSprite(machine2);
-                    else this.setSprite(machine3);
+                    if(level == 1)
+                        this.getSprite().setImageView(machine2);
+                    else
+                        this.getSprite().setImageView(machine3);
 
                     damage += 1;
                     range *= 1.2;
