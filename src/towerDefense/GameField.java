@@ -39,6 +39,7 @@ public class GameField {
         try (FileInputStream str = new FileInputStream("res/stages/Level" + levelIndex + ".txt")) {
 
             final Scanner in = new Scanner(str);
+
             try
             {
                 // skip few first lines, which basically contains trivial things
