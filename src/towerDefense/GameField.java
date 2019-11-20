@@ -1,6 +1,7 @@
 package towerDefense;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 import towerDefense.entity.enemies.*;
@@ -18,6 +19,8 @@ public class GameField {
     private List<EnemyClass> enemies = new ArrayList<>();
     private List<TowerClass> towers = new ArrayList<>();
     private double timer = 0;
+    private boolean baseBuilt = false;
+    ImageView base = new ImageView(new Image("file:res/images/Base.png"));
 
     public GameField(GameStage gameStage) {
         entities.addAll(gameStage.getEntities());
@@ -133,7 +136,15 @@ public class GameField {
 
             } else
                 timer--;
-
         }
+    }
+
+    public void buildBase(Pane layer) {
+        if(!baseBuilt) {
+            base.relocate(915, 595);
+            layer.getChildren().add(base);
+            baseBuilt = true;
+        }
+        base.toFront();
     }
 }

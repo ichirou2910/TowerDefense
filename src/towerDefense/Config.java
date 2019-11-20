@@ -20,7 +20,7 @@ public class Config {
 
     public final static Font UI_FONT = Font.loadFont("file:res/fonts/VT323-Regular.ttf", 30);
     public final static Font LOG_FONT = Font.loadFont("file:res/fonts/VT323-Regular.ttf", 25);
-    public final static Color LOG_COLOR = Color.BLACK;
+    public final static Color LOG_COLOR = Color.WHITE;
     public final static int LOG_SIZE = 6;
 
     //Spawner

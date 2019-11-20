@@ -130,6 +130,7 @@ public class Main extends Application {
                     gf.update(p);
                     p.update();
                     log.update();
+                    gf.buildBase(layer);
                 }
             }.start();
         });
