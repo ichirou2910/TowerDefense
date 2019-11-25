@@ -100,7 +100,7 @@ public class Main extends Application {
             loadGame();
             gf.loadQueue(layer, 1);
             GameLog log = new GameLog(layer);
-            Player p = new Player(layer, gf, log, 1000, 100, 1);
+            Player p = new Player(layer, gf, log, 100, 100, 1);
             MenuController c = new MenuController(layer, gf, gs, p);
 
             c.init();
@@ -130,7 +130,7 @@ public class Main extends Application {
                     gf.update(p);
                     p.update();
                     log.update();
-                    gf.buildBase(layer);
+                    gf.buildBase(layer, p);
                 }
             }.start();
         });

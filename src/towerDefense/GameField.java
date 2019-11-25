@@ -1,9 +1,12 @@
 package towerDefense;
 
+import javafx.animation.FadeTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import javafx.util.Pair;
+import towerDefense.entity.EffectClass;
 import towerDefense.entity.enemies.*;
 import towerDefense.entity.towers.TowerClass;
 
@@ -20,13 +23,18 @@ public class GameField {
     private List<TowerClass> towers = new ArrayList<>();
     private double timer = 0;
     private int counter = 0;
+    private boolean healthEstablished = true;
     private boolean baseBuilt = false;
-    private boolean menuChosen = false;
     private TowerClass tow;
-    ImageView base = new ImageView(new Image("file:res/images/Base.png"));
+    private int x = 915, y = 595;
+
+    ImageView base;
+    ImageView health;
 
     public GameField(GameStage gameStage) {
         entities.addAll(gameStage.getEntities());
+        base = new ImageView(new Image(Config.BASE_IMAGE));
+        health = new ImageView(new Image(Config.HIGH));
     }
 
     // Getters
@@ -121,8 +129,8 @@ public class GameField {
             }
         }
 
+        entities.removeAll(destroyedEntities);
         towers.removeAll(destroyedEntities);
-        destroyedEntities.clear();
         enemies.removeAll(destroyedEntities);
         destroyedEntities.clear();
     }
@@ -166,11 +174,48 @@ public class GameField {
         }
     }
 
-    public void buildBase(Pane layer) {
+    public void buildBase(Pane layer, Player p) {
+        //Base built
         if(!baseBuilt) {
-            base.relocate(915, 595);
+            base.relocate(x, y);
             layer.getChildren().add(base);
             baseBuilt = true;
+        }
+
+        //Health bar
+        if(p.getHealth() == 80) {
+            healthEstablished = true;
+            health = new ImageView(new Image(Config.MED_HIGH));
+        } else if(p.getHealth() == 60) {
+            healthEstablished = true;
+            health = new ImageView(new Image(Config.MED));
+        } else if(p.getHealth() == 40) {
+            healthEstablished = true;
+            health = new ImageView(new Image(Config.LOW_MED));
+        } else if(p.getHealth() == 20){
+            healthEstablished = true;
+            health = new ImageView(new Image(Config.LOW));
+        }
+
+        if(healthEstablished) {
+            health.relocate(904, 510);
+            layer.getChildren().add(health);
+            healthEstablished = false;
+        }
+
+        for(EntityClass e : entities)
+        {
+            if(e.getMidX() - 23 >= x && e.getMidY() - 23 >= y)
+            {
+                p.setHealth(p.getHealth() - 10);
+                e.setDestroyed(true);
+                EntityClass ex = new EffectClass(layer, new Image(Config.EXPLOSION3), e.getMidX() - 25, e.getMidY(), 0);
+                FadeTransition ft = new FadeTransition(Duration.millis(500), ex.getImageView());
+                ft.setFromValue(1.0);
+                ft.setToValue(0.0);
+                ft.setAutoReverse(false);
+                ft.play();
+            }
         }
         base.toFront();
     }

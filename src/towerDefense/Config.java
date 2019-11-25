@@ -101,4 +101,11 @@ public class Config {
     public final static double BOSS_SPEED = 0.25;
     public final static int BOSS_REWARD = 100;
 
+    //Base
+    public final static String BASE_IMAGE = "file:res/images/Base/Base.png";
+    public final static String HIGH = "file:res/images/Base/High.png";
+    public final static String MED_HIGH = "file:res/images/Base/MedHigh.png";
+    public final static String MED = "file:res/images/Base/Med.png";
+    public final static String LOW_MED = "file:res/images/Base/LowMed.png";
+    public final static String LOW = "file:res/images/Base/Low.png";
 }
