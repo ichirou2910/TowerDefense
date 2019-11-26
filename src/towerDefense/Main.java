@@ -15,6 +15,8 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import towerDefense.ui.GameLog;
 import towerDefense.utilities.Sprite;
 
@@ -34,6 +36,8 @@ public class Main extends Application {
     private Image playNotPressed;
     private Image playPressed;
 
+    private static MediaPlayer player;
+
     // testing purposes
     private final long[] frameTimes = new long[100];
     private int frameTimeIndex = 0;
@@ -41,8 +45,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
-
+        //Music
+        Media media = new Media("file:///D:/Later_use/TowerDefense/res/Sound/bgm.mp3"); //Depends on your computer address of the file
+        player = new MediaPlayer(media);
+        player.setVolume(0.4);
+        player.setAutoPlay(true);
+        player.play();
 
         // configure the game window
         Group root = new Group();
@@ -127,10 +135,11 @@ public class Main extends Application {
                     }
 
                     gf.spawnEnemies(layer);
-                    gf.update(p);
+                    gf.update(layer, p);
                     p.update();
                     log.update();
                     gf.buildBase(layer, p);
+                    gf.gameOver(layer, p);
                 }
             }.start();
         });

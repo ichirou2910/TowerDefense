@@ -67,13 +67,12 @@ public abstract class TowerClass extends EntityClass {
         machine2 = new Image(Config.MACHINE_TOWER2_IMAGE);
         machine3 = new Image(Config.MACHINE_TOWER3_IMAGE);
 
-        menu = new Sprite(new Image(Config.MENU_BLANK), this.getPosX() - 26, this.getPosY() - 21, false);
-        upgrade = new Sprite(new Image(Config.UPGRADE_IMAGE), menu.getPosX() + 5, menu.getPosY() + 5, false);
-        sell = new Sprite(new Image(Config.SELL_IMAGE), menu.getPosX() + 57, menu.getPosY() + 5, false);
+        menu = new Sprite(new Image(Config.MENU_BLANK), this.getMidX(), this.getMidY(), true);
+        upgrade = new Sprite(new Image(Config.UPGRADE_IMAGE), this.getMidX() - 45, this.getMidY() - 30, false);
+        sell = new Sprite(new Image(Config.SELL_IMAGE), this.getMidX() + 15, this.getMidY() - 30, false);
         this.getLayer().getChildren().addAll(menu.getImageView(), upgrade.getImageView(), sell.getImageView());
 
         menu.getImageView().setOpacity(0.01);
-        menu.getImageView().setVisible(false);
         upgrade.getImageView().setVisible(false);
         sell.getImageView().setVisible(false);
 
@@ -214,16 +213,6 @@ public abstract class TowerClass extends EntityClass {
                     b.setDestroyed(true);
                     e.setHealth(e.getHealth() - b.getDamage() * (1 - e.getArmor()));
                     bTimer = b.getRateOfFire();
-
-                    //Explosion when enemy dies
-                    if(e.getHealth() <= 0) {
-                        ex = new EffectClass(layer, new Image(Config.EXPLOSION3), e.getMidX(), e.getMidY(), 0);
-                        ft = new FadeTransition(Duration.millis(500), ex.getImageView());
-                        ft.setFromValue(1.0);
-                        ft.setToValue(0.0);
-                        ft.setAutoReverse(false);
-                        ft.play();
-                    }
                 });
                 pT.play();
             }
@@ -260,9 +249,9 @@ public abstract class TowerClass extends EntityClass {
             }
         });
 
-//        menu.getImageView().setOnMouseEntered(event -> {
-//            onSelected = false;
-//        });
+        menu.getImageView().setOnMouseEntered(event -> {
+            onSelected = false;
+        });
     }
 
     private void towerUpgrade() {

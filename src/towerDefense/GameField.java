@@ -25,8 +25,11 @@ public class GameField {
     private int counter = 0;
     private boolean healthEstablished = true;
     private boolean baseBuilt = false;
+    private boolean confirmed = true;
     private TowerClass tow;
     private int x = 915, y = 595;
+
+    private ImageView end = new ImageView(new Image("file:res/images/GameOver.png"));
 
     ImageView base;
     ImageView health;
@@ -74,7 +77,7 @@ public class GameField {
     }
 
     // update state of entities list
-    public void update(Player p)
+    public void update(Pane layer, Player p)
     {
         for(TowerClass t : towers)
             counter += t.getFlagTrig();
@@ -113,6 +116,12 @@ public class GameField {
                     p.takeReward(((EnemyClass) e).getReward(), ((EnemyClass) e).getType());
                     ((EnemyClass) e).setReward(0);
                     destroyedEntities.add(e);
+                    EntityClass ex = new EffectClass(layer, new Image(Config.EXPLOSION3), e.getMidX(), e.getMidY(), 0);
+                    FadeTransition ft = new FadeTransition(Duration.millis(500), ex.getImageView());
+                    ft.setFromValue(1.0);
+                    ft.setToValue(0.0);
+                    ft.setAutoReverse(false);
+                    ft.play();
                 }
                 else
                     destroyedEntities.add(e);
@@ -143,7 +152,7 @@ public class GameField {
     // actually spawn enemies
     public void spawnEnemies(Pane layer) {
 
-        if (!enemiesQueue.isEmpty()) {
+        if (!enemiesQueue.isEmpty() && confirmed) {
 
             if (timer == 0) {
                 final Pair<String, Double> p = enemiesQueue.poll();
@@ -218,5 +227,17 @@ public class GameField {
             }
         }
         base.toFront();
+    }
+
+    public void gameOver(Pane layer, Player p) {
+        if(confirmed) {
+            if(p.getHealth() == 0) {
+                layer.getChildren().add(end);
+                for(EntityClass e : entities) {
+                    e.setDestroyed(true);
+                }
+                confirmed = false;
+            }
+        }
     }
 }
