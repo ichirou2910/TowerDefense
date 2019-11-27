@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 import javafx.util.Pair;
 import towerDefense.entity.EffectClass;
@@ -116,12 +117,18 @@ public class GameField {
                     p.takeReward(((EnemyClass) e).getReward(), ((EnemyClass) e).getType());
                     ((EnemyClass) e).setReward(0);
                     destroyedEntities.add(e);
+
+                    //Explosion effect
                     EntityClass ex = new EffectClass(layer, new Image(Config.EXPLOSION3), e.getMidX(), e.getMidY(), 0);
                     FadeTransition ft = new FadeTransition(Duration.millis(500), ex.getImageView());
                     ft.setFromValue(1.0);
                     ft.setToValue(0.0);
                     ft.setAutoReverse(false);
                     ft.play();
+
+                    //Explosion audio
+                    AudioClip explosion = new AudioClip("file:res/Sound/Explosion.mp3");
+                    explosion.play();
                 }
                 else
                     destroyedEntities.add(e);

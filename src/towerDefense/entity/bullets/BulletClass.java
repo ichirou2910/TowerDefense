@@ -2,6 +2,7 @@ package towerDefense.entity.bullets;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import towerDefense.EntityClass;
 
 public abstract class BulletClass extends EntityClass {
@@ -16,4 +17,5 @@ public abstract class BulletClass extends EntityClass {
     public int getDamage() { return this.damage; }
     public abstract double getSpeed();
     public abstract int getRateOfFire();
+    public abstract AudioClip getAudio();
 }

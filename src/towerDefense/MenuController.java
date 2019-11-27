@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.stage.WindowEvent;
 import towerDefense.ui.GameLog;
 import towerDefense.utilities.Sprite;
@@ -126,6 +127,8 @@ public class MenuController {
                         if(mapIndex[y/TILE_SIZE][x/TILE_SIZE] == 1) {
                             player.buyTower(layer, s.getName(), TILE_SIZE * (x / TILE_SIZE) + TILE_SIZE / 2, TILE_SIZE * (y / TILE_SIZE) + TILE_SIZE / 2, gameField.getTowers());
                             mapIndex[y/TILE_SIZE][x/TILE_SIZE] = 2;   // set that location as "used"
+                            AudioClip sound = new AudioClip("file:res/Sound/Build.mp3");
+                            sound.play();
                         }
                     onDragged = false;
                     s = null;

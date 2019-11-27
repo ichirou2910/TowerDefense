@@ -5,6 +5,7 @@ import javafx.animation.PathTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -186,6 +187,10 @@ public abstract class TowerClass extends EntityClass {
                 SpawnBullet s = new SpawnBullet();
                 BulletClass b = s.createBullet(layer, rotation, type, damage);
 
+                //Shooting audio
+                AudioClip sound = b.getAudio();
+                sound.play();
+
                 //Bullet trace
                 gf.addEntity(b);
                 Path p = new Path();
@@ -236,6 +241,8 @@ public abstract class TowerClass extends EntityClass {
         upgrade.getImageView().setOnMousePressed(event -> {
             if (onSelected && upgrade.getImageView().isVisible()) {
                 this.towerUpgrade();
+                AudioClip up = new AudioClip("file:res/Sound/Upgrade.mp3");
+                up.play();
                 onSelected = false;
                 flagTrig = 0;
             }
@@ -244,6 +251,8 @@ public abstract class TowerClass extends EntityClass {
         sell.getImageView().setOnMousePressed(event -> {
             if (onSelected && sell.getImageView().isVisible()) {
                 this.towerSell();
+                AudioClip sell = new AudioClip("file:res/Sound/Sell.mp3");
+                sell.play();
                 onSelected = false;
                 flagTrig = 0;
             }
