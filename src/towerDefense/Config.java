@@ -65,6 +65,9 @@ public class Config {
     public final static int SNIPER_TOWER_PRICE = 65;
     public final static int MACHINE_TOWER_PRICE = 55;
 
+    public final static String RANGE1 = "file:res/images/TowerUI/Range1.png";
+    public final static String RANGE2 = "file:res/images/TowerUI/Range2.png";
+
     public final static int TOWER_MAX_LEVEL = 3;
 
     //Bullets

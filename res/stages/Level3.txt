@@ -1,0 +1,60 @@
+*****************************************************
+* [Format]                                          *
+* Number of enemies                                 *
+* Initial spawn time                                *
+* --------------------------------------------------*
+* Type - Next enemy's spawn time (seconds * 100)    *
+*****************************************************
+100
+50
+100
+Normal 120
+Normal 120
+Normal 120
+Normal 120
+Normal 120
+Normal 120
+Smaller 120
+Smaller 120
+Smaller 120
+Smaller 120
+Smaller 120
+Smaller 120
+Smaller 120
+Smaller 120
+Smaller 120
+Smaller 120
+Tanker 150
+Tanker 150
+Tanker 150
+Tanker 150
+Tanker 150
+Tanker 150
+Tanker 150
+Tanker 150
+Normal 200
+Normal 200
+Normal 200
+Normal 200
+Normal 200
+Smaller 120
+Smaller 120
+Smaller 120
+Smaller 120
+Smaller 120
+Smaller 120
+Smaller 120
+Tanker 150
+Tanker 150
+Tanker 150
+Tanker 150
+Tanker 150
+Normal 120
+Normal 120
+Normal 120
+Normal 120
+Normal 120
+Normal 120
+Boss 150
+Boss 200
+Boss 250

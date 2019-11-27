@@ -2,6 +2,7 @@ package towerDefense;
 
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
@@ -27,10 +28,13 @@ public class MenuController {
     private Sprite normalShadow;
     private Sprite sniperShadow;
     private Sprite machineShadow;
+    private Sprite range1;
+    private Sprite range2;
 
     // Use for drag & drop operation
     private Sprite s;       // pointer to the to be dragged sprite
     private boolean onDragged;
+    private boolean range2Init = false;
 
     // Array for mapIndex
     private final int[][] mapIndex;
@@ -66,8 +70,13 @@ public class MenuController {
         sniperShadow = new Sprite("Sniper", new Image(Config.SNIPER_SHADOW_IMAGE), x, ySnipe, false);
         machineShadow = new Sprite("Machine", new Image(Config.MACHINE_SHADOW_IMAGE), x, yMachine, false);
 
-        layer.getChildren().addAll(normalImage.getImageView(), sniperImage.getImageView(), machineImage.getImageView(), 
-                                    normalShadow.getImageView(), sniperShadow.getImageView(), machineShadow.getImageView());
+        range1 = new Sprite("Range1", new Image(Config.RANGE1), x, yNorm, true);
+        range2 = new Sprite("Range2", new Image(Config.RANGE2), x, ySnipe, true);
+        range1.getImageView().setVisible(false);
+        range2.getImageView().setVisible(false);
+
+        layer.getChildren().addAll(normalImage.getImageView(), sniperImage.getImageView(), machineImage.getImageView(), normalShadow.getImageView(),
+                                    sniperShadow.getImageView(), machineShadow.getImageView(), range1.getImageView(), range2.getImageView());
 
         this.gameField = gf;
         this.mapIndex = gs.getMapIndex();
@@ -75,7 +84,6 @@ public class MenuController {
 
     // Initialize the mouse listener
     public void init() {
-
         // Summon Tower
         // Initialize a listener to the 3 sprites
         normalShadow.getImageView().setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -95,6 +103,7 @@ public class MenuController {
                 onDragged = true;
                 initX = x;
                 initY = ySnipe;
+                range2Init = true;
             }
         });
 
@@ -114,6 +123,13 @@ public class MenuController {
             if(onDragged) {
                 s.getImageView().setOnMouseDragged(event -> {
                     s.setPosition(event.getX() - 20, event.getY() - 20);
+                    if(range2Init) {
+                        range2.getImageView().setVisible(true);
+                        range2.setPosition(event.getX(), event.getY());
+                    } else {
+                        range1.getImageView().setVisible(true);
+                        range1.setPosition(event.getX(), event.getY());
+                    }
                 });
 
                 s.getImageView().setOnMouseReleased(event -> {
@@ -122,13 +138,16 @@ public class MenuController {
                     int y = (int) event.getY();
                     s.setPosition(initX, initY);
 
+                    //Erase range image
+                    if(range2Init) range2.getImageView().setVisible(false);
+                    else range1.getImageView().setVisible(false);
+
                     // check if it's possible to spawn tower there
                     if (x <= 920 && x >= 0 && y >= 0 && y <= 920)
                         if(mapIndex[y/TILE_SIZE][x/TILE_SIZE] == 1) {
                             player.buyTower(layer, s.getName(), TILE_SIZE * (x / TILE_SIZE) + TILE_SIZE / 2, TILE_SIZE * (y / TILE_SIZE) + TILE_SIZE / 2, gameField.getTowers());
-                            mapIndex[y/TILE_SIZE][x/TILE_SIZE] = 2;   // set that location as "used"
-                            AudioClip sound = new AudioClip("file:res/Sound/Build.mp3");
-                            sound.play();
+                            if(player.checkBought())
+                                mapIndex[y/TILE_SIZE][x/TILE_SIZE] = 2;   // set that location as "used"
                         }
                     onDragged = false;
                     s = null;

@@ -10,6 +10,7 @@ import javafx.util.Pair;
 import towerDefense.entity.EffectClass;
 import towerDefense.entity.enemies.*;
 import towerDefense.entity.towers.TowerClass;
+import towerDefense.ui.GameLog;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,6 +25,11 @@ public class GameField {
     private List<TowerClass> towers = new ArrayList<>();
     private double timer = 0;
     private int counter = 0;
+    private int wave;
+    private int waveNum;
+    private int levelIndex;
+    private int enemiesDestroyed = 0;
+    private boolean stageSetted = false;
     private boolean healthEstablished = true;
     private boolean baseBuilt = false;
     private boolean confirmed = true;
@@ -39,6 +45,8 @@ public class GameField {
         entities.addAll(gameStage.getEntities());
         base = new ImageView(new Image(Config.BASE_IMAGE));
         health = new ImageView(new Image(Config.HIGH));
+        wave = gameStage.getWave();
+        levelIndex = 1;
     }
 
     // Getters
@@ -46,34 +54,38 @@ public class GameField {
     public List<TowerClass> getTowers() {return towers;}
 
     // load enemies info from file to queue
-    public void loadQueue(Pane layer, int levelIndex)
+    public void loadQueue(Pane layer, Player player, GameLog gameLog)
     {
-        try (FileInputStream str = new FileInputStream("res/stages/Level" + levelIndex + ".txt")) {
+        if(!stageSetted && levelIndex <= wave) {
+            System.out.println("Stage " + levelIndex);
+            gameLog.addMessage("> Stage " + levelIndex + " begin!");
+            try (FileInputStream str = new FileInputStream("res/stages/Level" + levelIndex + ".txt")) {
 
-            final Scanner in = new Scanner(str);
+                final Scanner in = new Scanner(str);
 
-            try
-            {
-                // skip few first lines, which basically contains trivial things
-                for (int i = 0; i < 7; i++)
-                    in.nextLine();
-                    
-                final int count = in.nextInt();
-                timer = in.nextDouble();    // initial spawn time
-                for (int i = 0; i < count; i++)
-                {
-                    final String name = in.next();
-                    final double time = in.nextDouble();
-                    Pair<String, Double> p = new Pair<String,Double>(name, time);
-                    enemiesQueue.add(p);
+                try {
+                    // skip few first lines, which basically contains trivial things
+                    for (int i = 0; i < 7; i++)
+                        in.nextLine();
+
+                    final int balance = in.nextInt();
+                    player.setMoney(player.getMoney() + balance);
+
+                    waveNum = in.nextInt();
+                    timer = in.nextDouble();    // initial spawn time
+                    for (int i = 0; i < waveNum; i++) {
+                        final String name = in.next();
+                        final double time = in.nextDouble();
+                        Pair<String, Double> p = new Pair<String, Double>(name, time);
+                        enemiesQueue.add(p);
+                    }
+                } finally {
+                    in.close();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            finally
-            {
-                in.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            stageSetted = true;
         }
     }
 
@@ -117,6 +129,8 @@ public class GameField {
                     p.takeReward(((EnemyClass) e).getReward(), ((EnemyClass) e).getType());
                     ((EnemyClass) e).setReward(0);
                     destroyedEntities.add(e);
+                    enemiesDestroyed++;
+                    System.out.println(enemiesDestroyed);
 
                     //Explosion effect
                     EntityClass ex = new EffectClass(layer, new Image(Config.EXPLOSION3), e.getMidX(), e.getMidY(), 0);
@@ -219,7 +233,7 @@ public class GameField {
             healthEstablished = false;
         }
 
-        for(EntityClass e : entities)
+        for(EnemyClass e : enemies)
         {
             if(e.getMidX() - 23 >= x && e.getMidY() - 23 >= y)
             {
@@ -233,7 +247,8 @@ public class GameField {
                 ft.play();
             }
         }
-        base.toFront();
+        if(confirmed)
+            base.toFront();
     }
 
     public void gameOver(Pane layer, Player p) {
@@ -245,6 +260,15 @@ public class GameField {
                 }
                 confirmed = false;
             }
+        }
+    }
+    public void waveOver(GameLog gameLog) {
+        if(enemiesDestroyed == waveNum) {
+            enemiesDestroyed = 0;
+            stageSetted = false;
+            gameLog.addMessage("> Stage " + levelIndex + " cleared!");
+            levelIndex++;
+            System.out.println(levelIndex);
         }
     }
 }

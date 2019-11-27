@@ -15,8 +15,6 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import towerDefense.ui.GameLog;
 import towerDefense.utilities.Sprite;
 
@@ -28,15 +26,13 @@ public class Main extends Application {
     private Pane layer;
     private Scene scene;
     private List<EntityClass> entities = new ArrayList<>();     // manages game entities
-    private GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities, 1, 1);
+    private GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities, 3, 1);
     private GameField gf = new GameField(gs);
 
     private Image screen;
     private Image title;
     private Image playNotPressed;
     private Image playPressed;
-
-    private static MediaPlayer player;
 
     // testing purposes
     private final long[] frameTimes = new long[100];
@@ -45,13 +41,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        //Music
-        Media media = new Media("file:///D:/Later_use/TowerDefense/res/Sound/bgm.mp3"); //Depends on your computer address of the file
-        player = new MediaPlayer(media);
-        player.setVolume(0.4);
-        player.setAutoPlay(true);
-        player.play();
-
         // configure the game window
         Group root = new Group();
         layer = new Pane();
@@ -106,9 +95,8 @@ public class Main extends Application {
             primaryStage.setScene(scene);
 
             loadGame();
-            gf.loadQueue(layer, 1);
             GameLog log = new GameLog(layer);
-            Player p = new Player(layer, gf, log, 100, 100, 1);
+            Player p = new Player(layer, gf, log, 0, 100, 1);
             MenuController c = new MenuController(layer, gf, gs, p);
 
             c.init();
@@ -134,12 +122,14 @@ public class Main extends Application {
 
                     }
 
+                    gf.loadQueue(layer, p, log);
                     gf.spawnEnemies(layer);
                     gf.update(layer, p);
                     p.update();
                     log.update();
                     gf.buildBase(layer, p);
                     gf.gameOver(layer, p);
+                    gf.waveOver(log);
                 }
             }.start();
         });

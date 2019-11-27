@@ -3,11 +3,18 @@
 
 package towerDefense.entity.enemies;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import towerDefense.Config;
 import towerDefense.EntityClass;
 import towerDefense.ui.HealthBar;
+
+import java.time.Duration;
 
 import static towerDefense.Config.TILE_SIZE;
 

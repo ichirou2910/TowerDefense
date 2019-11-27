@@ -6,7 +6,7 @@
 * Type - Next enemy's spawn time (seconds * 100)    *
 *****************************************************
 100
-15
+25
 100
 Normal 200
 Normal 200
@@ -14,12 +14,22 @@ Normal 200
 Normal 200
 Normal 200
 Normal 200
-Smaller 200
-Smaller 200
-Smaller 200
-Smaller 200
-Smaller 200
-Smaller 200
-Tanker 350
-Tanker 350
-Tanker 350
+Smaller 150
+Smaller 150
+Smaller 150
+Smaller 150
+Smaller 150
+Normal 200
+Normal 200
+Normal 200
+Normal 200
+Normal 200
+Tanker 170
+Tanker 170
+Tanker 170
+Tanker 170
+Tanker 170
+Normal 200
+Normal 200
+Boss 200
+Boss 400
