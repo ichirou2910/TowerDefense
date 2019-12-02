@@ -13,34 +13,22 @@ public class GameStage {
     private final int height;
     private final List<towerDefense.EntityClass> entities;
     private final int wave;
-    private final int waveNum;
     private int mapIndex[][] = new int[Config.VERTICAL_TILES][Config.HORIZONTAL_TILES];
 
-    public GameStage(int width, int height, List<towerDefense.EntityClass> entities, int wave, int waveNum) {
+    public GameStage(int width, int height, List<towerDefense.EntityClass> entities, int wave) {
         this.width = width;
         this.height = height;
         this.entities = List.copyOf(entities);
         this.wave = wave;
-        this.waveNum = waveNum;
         loadMap();
     }
     //Getters
     //#region
-    public final int getWidth() {
-        return width;
-    }
-
-    public final int getHeight() {
-        return height;
-    }
-
     public final List<towerDefense.EntityClass> getEntities() {
         return entities;
     }
 
     public final int getWave() { return this.wave; }
-
-    public final int getWaveNum() { return this.waveNum; }
 
     public final int[][] getMapIndex() {return mapIndex;}
     //#endregion

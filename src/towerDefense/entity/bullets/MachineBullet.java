@@ -7,7 +7,7 @@ import towerDefense.Config;
 
 public class MachineBullet extends BulletClass {
     private final double speed = 100;
-    private final int rateOfFire = 1;
+    private final int rateOfFire = 2;
     AudioClip sound;
 
     public MachineBullet(Pane layer, Image image, double posX, double posY, double rotation, int damage)

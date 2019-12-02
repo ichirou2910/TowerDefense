@@ -54,7 +54,7 @@ public class Config {
     public final static String SELL_IMAGE = "file:res/images/TowerUI/Sell.png";
 
     public final static int NORMAL_TOWER_DAMAGE = 9;
-    public final static int SNIPER_TOWER_DAMAGE = 40;
+    public final static int SNIPER_TOWER_DAMAGE = 42;
     public final static int MACHINE_TOWER_DAMAGE = 4;
 
     public final static double NORMAL_TOWER_RANGE = TILE_SIZE * 2;
@@ -62,7 +62,7 @@ public class Config {
     public final static double MACHINE_TOWER_RANGE = TILE_SIZE * 2;
 
     public final static int NORMAL_TOWER_PRICE = 30;
-    public final static int SNIPER_TOWER_PRICE = 65;
+    public final static int SNIPER_TOWER_PRICE = 75;
     public final static int MACHINE_TOWER_PRICE = 55;
 
     public final static String RANGE1 = "file:res/images/TowerUI/Range1.png";

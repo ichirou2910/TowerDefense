@@ -26,7 +26,7 @@ public class Main extends Application {
     private Pane layer;
     private Scene scene;
     private List<EntityClass> entities = new ArrayList<>();     // manages game entities
-    private GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities, 3, 1);
+    private GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities, Config.WAVE);
     private GameField gf = new GameField(gs);
 
     private Image screen;
@@ -130,6 +130,7 @@ public class Main extends Application {
                     gf.buildBase(layer, p);
                     gf.gameOver(layer, p);
                     gf.waveOver(log);
+                    gf.victory(layer);
                 }
             }.start();
         });

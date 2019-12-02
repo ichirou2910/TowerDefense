@@ -16,6 +16,7 @@ import towerDefense.GameField;
 import towerDefense.Player;
 import towerDefense.entity.EffectClass;
 import towerDefense.entity.bullets.BulletClass;
+import towerDefense.entity.bullets.MachineBullet;
 import towerDefense.entity.bullets.SpawnBullet;
 import towerDefense.entity.enemies.EnemyClass;
 import towerDefense.ui.GameLog;
@@ -189,6 +190,7 @@ public abstract class TowerClass extends EntityClass {
 
                 //Shooting audio
                 AudioClip sound = b.getAudio();
+                if(b instanceof MachineBullet) sound.setVolume(0.5);
                 sound.play();
 
                 //Bullet trace

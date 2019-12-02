@@ -1,10 +1,14 @@
 package towerDefense;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.PathTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import javafx.util.Pair;
 import towerDefense.entity.EffectClass;
@@ -37,6 +41,7 @@ public class GameField {
     private int x = 915, y = 595;
 
     private ImageView end = new ImageView(new Image("file:res/images/GameOver.png"));
+    private ImageView vic = new ImageView(new Image("file:res/images/Victory.png"));
 
     ImageView base;
     ImageView health;
@@ -142,6 +147,7 @@ public class GameField {
 
                     //Explosion audio
                     AudioClip explosion = new AudioClip("file:res/Sound/Explosion.mp3");
+                    explosion.setVolume(0.5);
                     explosion.play();
                 }
                 else
@@ -262,6 +268,7 @@ public class GameField {
             }
         }
     }
+
     public void waveOver(GameLog gameLog) {
         if(enemiesDestroyed == waveNum) {
             enemiesDestroyed = 0;
@@ -269,6 +276,25 @@ public class GameField {
             gameLog.addMessage("> Stage " + levelIndex + " cleared!");
             levelIndex++;
             System.out.println(levelIndex);
+        }
+    }
+
+    public void victory(Pane layer) {
+        if((levelIndex > wave) && confirmed) {
+            layer.getChildren().add(vic);
+            vic.relocate(0, -920);
+            Path p = new Path();
+            MoveTo start = new MoveTo(500, 0);
+            LineTo ln = new LineTo(500, 1100);
+            p.getElements().addAll(start, ln);
+
+            PathTransition pt = new PathTransition();
+            pt.setDuration(Duration.millis(3000));
+            pt.setPath(p);
+            pt.setNode(vic);
+            pt.play();
+
+            confirmed = false;
         }
     }
 }
