@@ -26,13 +26,14 @@ public class Main extends Application {
     private Pane layer;
     private Scene scene;
     private List<EntityClass> entities = new ArrayList<>();     // manages game entities
-    private GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities, Config.WAVE);
+    private GameStage gs = new GameStage(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, entities, 1, 1);
     private GameField gf = new GameField(gs);
 
     private Image screen;
     private Image title;
     private Image playNotPressed;
     private Image playPressed;
+
 
     // testing purposes
     private final long[] frameTimes = new long[100];
@@ -41,6 +42,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
         // configure the game window
         Group root = new Group();
         layer = new Pane();

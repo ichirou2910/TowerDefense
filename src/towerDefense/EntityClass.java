@@ -4,7 +4,6 @@
 
 package towerDefense;
 
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -49,10 +48,6 @@ public abstract class EntityClass implements GameEntity {
     @Override
     public final double getPosX() {
         return posX;
-    }
-
-    protected final void setPosX(double posX) {
-        this.posX = posX;
     }
 
     @Override
@@ -102,12 +97,6 @@ public abstract class EntityClass implements GameEntity {
         return sprite.getImageView();
     }
 
-//    public void setSprite(Sprite sprite) {
-//        this.sprite = sprite;
-//        this.sprite.setRotation(rotation);
-//        addToLayer();
-//    }
-
     public Pane getLayer()
     {
         return this.layer;
@@ -130,14 +119,6 @@ public abstract class EntityClass implements GameEntity {
     {
         sprite.setPosition(midX, midY);
         sprite.setRotation(rotation);
-    }
-
-    @Override
-    public final boolean overlapped(double posX, double posY, double width, double height) {
-        return posX < this.posX + this.image.getWidth()
-                && posY < this.posY + this.image.getHeight()
-                && posX + width > this.posX
-                && posY + height > this.posY;
     }
 
 }

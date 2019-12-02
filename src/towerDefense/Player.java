@@ -3,7 +3,6 @@ package towerDefense;
 import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import towerDefense.entity.towers.MachineGunTower;
@@ -94,8 +93,6 @@ public class Player {
                 money -= t.getPrice();
                 log.addMessage("> Bought " + t.getType() + ". Spent $" + t.getPrice());
                 bought = true;
-                AudioClip sound = new AudioClip("file:res/Sound/Build.mp3");
-                sound.play();
             } else {
                 log.addMessage("> Not enough money to buy. Need $" + Config.NORMAL_TOWER_PRICE);
             }
@@ -108,8 +105,6 @@ public class Player {
                 money -= t.getPrice();
                 log.addMessage("> Bought " + t.getType() + ". Spent $" + t.getPrice());
                 bought = true;
-                AudioClip sound = new AudioClip("file:res/Sound/Build.mp3");
-                sound.play();
             } else {
                 log.addMessage("> Not enough money to buy. Need $" + Config.SNIPER_TOWER_PRICE);
             }
@@ -122,8 +117,6 @@ public class Player {
                 money -= t.getPrice();
                 log.addMessage("> Bought " + t.getType() + ". Spent $" + t.getPrice());
                 bought = true;
-                AudioClip sound = new AudioClip("file:res/Sound/Build.mp3");
-                sound.play();
             } else {
                 log.addMessage("> Not enough money to buy. Need $" + Config.MACHINE_TOWER_PRICE);
             }

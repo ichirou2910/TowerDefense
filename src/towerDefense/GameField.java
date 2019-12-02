@@ -33,7 +33,7 @@ public class GameField {
     private int waveNum;
     private int levelIndex;
     private int enemiesDestroyed = 0;
-    private boolean stageSetted = false;
+    private boolean stageSet = false;
     private boolean healthEstablished = true;
     private boolean baseBuilt = false;
     private boolean confirmed = true;
@@ -61,7 +61,7 @@ public class GameField {
     // load enemies info from file to queue
     public void loadQueue(Pane layer, Player player, GameLog gameLog)
     {
-        if(!stageSetted && levelIndex <= wave) {
+        if(!stageSet && levelIndex <= wave) {
             System.out.println("Stage " + levelIndex);
             gameLog.addMessage("> Stage " + levelIndex + " begin!");
             try (FileInputStream str = new FileInputStream("res/stages/Level" + levelIndex + ".txt")) {
@@ -90,7 +90,7 @@ public class GameField {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            stageSetted = true;
+            stageSet = true;
         }
     }
 
@@ -244,6 +244,7 @@ public class GameField {
             if(e.getMidX() - 23 >= x && e.getMidY() - 23 >= y)
             {
                 p.setHealth(p.getHealth() - 10);
+                e.setReward(0);
                 e.setDestroyed(true);
                 EntityClass ex = new EffectClass(layer, new Image(Config.EXPLOSION3), e.getMidX() - 25, e.getMidY(), 0);
                 FadeTransition ft = new FadeTransition(Duration.millis(500), ex.getImageView());
@@ -272,7 +273,7 @@ public class GameField {
     public void waveOver(GameLog gameLog) {
         if(enemiesDestroyed == waveNum) {
             enemiesDestroyed = 0;
-            stageSetted = false;
+            stageSet = false;
             gameLog.addMessage("> Stage " + levelIndex + " cleared!");
             levelIndex++;
             System.out.println(levelIndex);

@@ -3,18 +3,11 @@
 
 package towerDefense.entity.enemies;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import towerDefense.Config;
 import towerDefense.EntityClass;
 import towerDefense.ui.HealthBar;
-
-import java.time.Duration;
 
 import static towerDefense.Config.TILE_SIZE;
 
@@ -46,8 +39,6 @@ public abstract class EnemyClass extends EntityClass {
     // Getters & Setters
     //#region
     public void setHealth(double health) {this.health = health;}
-    public void setArmor(double armor) {this.armor = armor;}
-    public void setSpeed(double speed) {this.speed = speed;}
     public void setReward (int reward) {this.reward = reward;}
     
     public double getHealth() {return this.health;}
@@ -55,8 +46,7 @@ public abstract class EnemyClass extends EntityClass {
     public double getSpeed() {return this.speed;}
     public int getReward() {return this.reward;}
     public String getType() {return this.type;}
-    
-    public HealthBar getHealthBar() {return this.healthBar;}
+
     //#endregion
 
     public void update()
@@ -104,5 +94,4 @@ public abstract class EnemyClass extends EntityClass {
         }
     }
 
-    // TODO: destroy on reaching base + decrease player's health
 }

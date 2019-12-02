@@ -3,9 +3,7 @@ package towerDefense.entity.towers;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.AudioClip;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -16,15 +14,12 @@ import towerDefense.GameField;
 import towerDefense.Player;
 import towerDefense.entity.EffectClass;
 import towerDefense.entity.bullets.BulletClass;
-import towerDefense.entity.bullets.MachineBullet;
 import towerDefense.entity.bullets.SpawnBullet;
 import towerDefense.entity.enemies.EnemyClass;
 import towerDefense.ui.GameLog;
 import towerDefense.utilities.Sprite;
 
 import java.util.List;
-
-import static towerDefense.Config.TILE_SIZE;
 
 public abstract class TowerClass extends EntityClass {
     private GameField gf;
@@ -84,10 +79,7 @@ public abstract class TowerClass extends EntityClass {
     }
 
     //Getter
-    public double getRange() {return this.range;}
     public double getSpeed() {return 0.0;}
-    public int getDamage() {return this.damage;}
-    public void setDamage(int damage) {this.damage = damage;}
     public int getPrice() {return this.price;}
     public int getFlagTrig() {return this.flagTrig;}
 
@@ -188,11 +180,6 @@ public abstract class TowerClass extends EntityClass {
                 SpawnBullet s = new SpawnBullet();
                 BulletClass b = s.createBullet(layer, rotation, type, damage);
 
-                //Shooting audio
-                AudioClip sound = b.getAudio();
-                if(b instanceof MachineBullet) sound.setVolume(0.5);
-                sound.play();
-
                 //Bullet trace
                 gf.addEntity(b);
                 Path p = new Path();
@@ -227,9 +214,6 @@ public abstract class TowerClass extends EntityClass {
         }
     }
 
-    // TODO: move tower upgrade listener to Controller
-    // TODO: design menu image, currently using a random one for testing
-    // TODO: restrict to 1 menu to trigger only, when a tower is triggering menu, other cannot trigger
     public void addListener()
     {
         this.getImageView().setOnMousePressed(event -> {
@@ -243,8 +227,6 @@ public abstract class TowerClass extends EntityClass {
         upgrade.getImageView().setOnMousePressed(event -> {
             if (onSelected && upgrade.getImageView().isVisible()) {
                 this.towerUpgrade();
-                AudioClip up = new AudioClip("file:res/Sound/Upgrade.mp3");
-                up.play();
                 onSelected = false;
                 flagTrig = 0;
             }
@@ -253,8 +235,6 @@ public abstract class TowerClass extends EntityClass {
         sell.getImageView().setOnMousePressed(event -> {
             if (onSelected && sell.getImageView().isVisible()) {
                 this.towerSell();
-                AudioClip sell = new AudioClip("file:res/Sound/Sell.mp3");
-                sell.play();
                 onSelected = false;
                 flagTrig = 0;
             }

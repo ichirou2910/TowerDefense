@@ -13,17 +13,20 @@ public class GameStage {
     private final int height;
     private final List<towerDefense.EntityClass> entities;
     private final int wave;
+    private final int waveNum;
     private int mapIndex[][] = new int[Config.VERTICAL_TILES][Config.HORIZONTAL_TILES];
 
-    public GameStage(int width, int height, List<towerDefense.EntityClass> entities, int wave) {
+    public GameStage(int width, int height, List<towerDefense.EntityClass> entities, int wave, int waveNum) {
         this.width = width;
         this.height = height;
         this.entities = List.copyOf(entities);
         this.wave = wave;
+        this.waveNum = waveNum;
         loadMap();
     }
     //Getters
     //#region
+
     public final List<towerDefense.EntityClass> getEntities() {
         return entities;
     }

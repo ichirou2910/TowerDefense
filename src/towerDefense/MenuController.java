@@ -16,7 +16,6 @@ public class MenuController {
 
     private Pane layer;                 // reference to master Layer
     private GameField gameField;        // reference to GameField
-//    private GameLog log;                // reference to GameLog
     private Player player;              // reference to Player
 
     // Use for default towers in shops
@@ -49,7 +48,7 @@ public class MenuController {
     private double initX = 0;
     private double initY = 0;
 
-    public MenuController(Pane layer, GameField gf, GameStage gs /*, GameLog log */, Player player) {
+    public MenuController(Pane layer, GameField gf, GameStage gs, Player player) {
         
         this.layer = layer;
 //        this.log = log;

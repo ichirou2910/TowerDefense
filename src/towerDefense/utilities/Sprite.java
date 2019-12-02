@@ -72,9 +72,6 @@ public class Sprite {
 
     public double getPosX() {return this.imageView.getX();}
     public double getPosY() {return this.imageView.getY();}
-    public double getWidth() {return image.getWidth();}
-    public double getHeight() {return image.getHeight();}
-    public boolean isVisible() {return imageView.isVisible();}
     public void setVisible(boolean isVisible) {imageView.setVisible(isVisible);}
     public ImageView getImageView() {return this.imageView;}
     public String getName() {return this.name;}
